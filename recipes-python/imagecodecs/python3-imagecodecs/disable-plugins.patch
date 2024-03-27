@@ -1,0 +1,44 @@
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+--- imagecodecs-2023.9.18/setup.py.old	2023-03-01 11:14:46.755997702 +0100
++++ imagecodecs-2023.9.18/setup.py	2023-03-01 11:47:04.207962609 +0100
+@@ -230,10 +230,12 @@
+     """Customize build for common platforms: recent Debian, arch..."""
+     import platform
+ 
++    INCLIB = os.environ.get('INCLIB', '.')
++
+     del EXTENSIONS['apng']  # apng patch not commonly available
+     del EXTENSIONS['avif']  # libavif library not commonly available
+     del EXTENSIONS['blosc2']  # c-blosc2 library not commonly available
+-    # del EXTENSIONS['heif']  # LGPL/GPL
++    del EXTENSIONS['heif']  # LGPL/GPL
+     del EXTENSIONS['jetraw']  # commercial
+     del EXTENSIONS['lerc']  # LERC library not commonly available
+     del EXTENSIONS['lz4f']  # requires static linking
+@@ -241,6 +243,8 @@
+     del EXTENSIONS['lzham']  # lzham not commonly available
+     del EXTENSIONS['mozjpeg']  # Win32 only
+     del EXTENSIONS['zlibng']  # zlib-ng library not commonly available
++    del EXTENSIONS['jpegxr']  # jpegxr is not available in Yocto
++    del EXTENSIONS['zopfli']  # zopfli is not available in Yocto
+ 
+     if 'arch' not in platform.platform():
+         del EXTENSIONS['jpegls']  # CharLS 2.1 library not commonly available
+@@ -253,13 +257,11 @@
+     else:
+         EXTENSIONS['jpeg2k']['include_dirs'].extend(
+             (
+-                '/usr/include/openjpeg-2.3',
+-                '/usr/include/openjpeg-2.4',
+-                '/usr/include/openjpeg-2.5',
++                os.path.join(INCLIB, 'include', 'openjpeg-2.3'),
++                os.path.join(INCLIB, 'include', 'openjpeg-2.4'),
++                os.path.join(INCLIB, 'include', 'openjpeg-2.5'),
+             )
+         )
+-        EXTENSIONS['jpegxr']['include_dirs'].append('/usr/include/jxrlib')
+-        EXTENSIONS['zopfli']['include_dirs'].append('/usr/include/zopfli')
+ 
+ 
+ def customize_build_cgohlke(EXTENSIONS, OPTIONS):
