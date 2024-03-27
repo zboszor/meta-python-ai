@@ -1,0 +1,12 @@
+diff -Naur cfitsio-4.2.0/configure.in cfitsio-4.2.0.ldflags/configure.in
+--- cfitsio-4.2.0/configure.in	2022-10-31 19:40:23.000000000 +0100
++++ cfitsio-4.2.0.ldflags/configure.in	2022-11-25 10:05:55.387220762 +0100
+@@ -4670,7 +4670,7 @@
+ 
+ #-------------------------------------------------------------------------------
+ 
+-LDFLAGS="$CFLAGS"
++LDFLAGS="$LDFLAGS"
+ LDFLAGS_BIN="$LDFLAGS"
+ 
+ if test "x$FC" = "xnone" ; then
