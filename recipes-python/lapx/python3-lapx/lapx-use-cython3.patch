@@ -1,0 +1,14 @@
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+diff -durpN lapx-0.5.7.old/setup.py lapx-0.5.7/setup.py
+--- lapx-0.5.7.old/setup.py	2024-03-21 02:36:30.000000000 +0100
++++ lapx-0.5.7/setup.py	2024-03-28 08:32:30.110334949 +0100
+@@ -50,7 +50,7 @@ def compile_cpp(cython_file):
+     import subprocess
+     cpp_file = os.path.splitext(cython_file)[0] + ".cpp"
+     flags = ['--fast-fail', '--cplus']
+-    rc = subprocess.call(['cython'] + flags + ["-o", cpp_file, cython_file])
++    rc = subprocess.call(['cython3'] + flags + ["-o", cpp_file, cython_file])
+     if rc != 0: raise Exception('Cythonizing %s failed' % cython_file)
+     else: return cpp_file
+ 
