@@ -1,0 +1,19 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+--- imread-0.7.5/setup.py~	2020-03-31 12:21:51.000000000 +0200
++++ imread-0.7.5/setup.py	2023-03-06 15:54:12.081696154 +0100
+@@ -58,14 +58,6 @@
+ include_dirs = []
+ library_dirs = []
+ 
+-for pth in ('/usr/local/include', '/usr/X11/include'):
+-    if os.path.isdir(pth):
+-        include_dirs.append(pth)
+-
+-for pth in ('/usr/local/lib', '/usr/X11/lib'):
+-    if os.path.isdir(pth):
+-        library_dirs.append(pth)
+-
+ extensions = {
+     'imread._imread': [
+         'imread/_imread.cpp',
