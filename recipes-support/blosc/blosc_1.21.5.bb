@@ -1,6 +1,6 @@
 DESCRIPTION = "High performance compressor optimized for binary data"
 HOMEPAGE = "https://github.com/Blosc/c-blosc"
-LICENSE = "MIT"
+LICENSE = "BSD-3-Clause"
 
 DEPENDS = "lz4 zlib zstd"
 
@@ -8,7 +8,7 @@ inherit cmake
 
 #PR = "r1"
 
-LIC_FILES_CHKSUM = "file://LICENSES/BLOSC.txt;md5=b4f98009927ff5a93d8a137caae35b97"
+LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=06e852077699178e4248d905b3846a4b"
 
 SRC_URI = "git://github.com/Blosc/c-blosc.git;protocol=https;branch=main"
 
