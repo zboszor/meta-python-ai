@@ -1,0 +1,13 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+--- patchelf-0.17.2.1/setup.py.old	2023-03-13 10:12:55.951514413 +0100
++++ patchelf-0.17.2.1/setup.py	2023-03-13 10:13:18.877751074 +0100
+@@ -95,8 +95,6 @@
+     version=get_version(),
+     cmdclass=cmdclass,
+ 
+-    scripts=["bin/patchelf"],
+-
+     url="https://github.com/NixOS/patchelf",
+     project_urls={
+         "Source Code": "https://github.com/mayeut/patchelf-pypi",
