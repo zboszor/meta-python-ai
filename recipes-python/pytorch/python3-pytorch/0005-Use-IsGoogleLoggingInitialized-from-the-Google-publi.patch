@@ -1,0 +1,34 @@
+From cd87a61140a1bdd285c0455a0c608361abfbb8ca Mon Sep 17 00:00:00 2001
+From: Zoltán Böszörményi <zboszor@gmail.com>
+Date: Thu, 25 Aug 2022 15:15:01 +0000
+Subject: [PATCH 5/5] Use IsGoogleLoggingInitialized() from the Google public
+ namespace
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This function symbol was hidden in glog 0.5.0 which was a regression
+from 0.4.0. Now it's exposed as public API since glog 0.6.0.
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+---
+ c10/util/Logging.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/c10/util/Logging.cpp b/c10/util/Logging.cpp
+index fe74e495486..1fe8983a258 100644
+--- a/c10/util/Logging.cpp
++++ b/c10/util/Logging.cpp
+@@ -208,7 +208,7 @@ namespace {
+ void initGoogleLogging(char const* name) {
+ #if !defined(_MSC_VER)
+   // This trick can only be used on UNIX platforms
+-  if (!::google::glog_internal_namespace_::IsGoogleLoggingInitialized())
++  if (!::google::IsGoogleLoggingInitialized())
+ #endif
+   {
+     ::google::InitGoogleLogging(name);
+-- 
+2.31.1
+
