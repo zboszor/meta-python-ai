@@ -1,0 +1,68 @@
+From 767ef7bfff268dc3fcf8a6c62cf1a5597aa6484c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Tue, 30 Aug 2022 09:08:21 +0200
+Subject: [PATCH] Fix compiler detection in torch/utils/cpp_extension.py
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ torch/utils/cpp_extension.py | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/torch/utils/cpp_extension.py b/torch/utils/cpp_extension.py
+index aed4fd5004..603be45c4a 100644
+--- a/torch/utils/cpp_extension.py
++++ b/torch/utils/cpp_extension.py
+@@ -256,7 +256,7 @@ def _is_binary_build() -> bool:
+ 
+ def _accepted_compilers_for_platform() -> List[str]:
+     # gnu-c++ and gnu-cc are the conda gcc compilers
+-    return ['clang++', 'clang'] if IS_MACOS else ['g++', 'gcc', 'gnu-c++', 'gnu-cc']
++    return ['clang++', 'clang'] if IS_MACOS else ['g++', 'gcc', 'gnu-c++', 'gnu-cc', 'clang++', 'clang']
+ 
+ 
+ def get_default_build_root() -> str:
+@@ -287,7 +287,8 @@ def check_compiler_ok_for_platform(compiler: str) -> bool:
+     '''
+     if IS_WINDOWS:
+         return True
+-    which = subprocess.check_output(['which', compiler], stderr=subprocess.STDOUT)
++    compilercmd = compiler.split()
++    which = subprocess.check_output(['which', compilercmd[0]], stderr=subprocess.STDOUT)
+     # Use os.path.realpath to resolve any symlinks, in particular from 'c++' to e.g. 'g++'.
+     compiler_path = os.path.realpath(which.decode(*SUBPROCESS_DECODE_ARGS).strip())
+     # Check the compiler name
+@@ -296,7 +297,8 @@ def check_compiler_ok_for_platform(compiler: str) -> bool:
+     # If compiler wrapper is used try to infer the actual compiler by invoking it with -v flag
+     env = os.environ.copy()
+     env['LC_ALL'] = 'C'  # Don't localize output
+-    version_string = subprocess.check_output([compiler, '-v'], stderr=subprocess.STDOUT, env=env).decode(*SUBPROCESS_DECODE_ARGS)
++    compilercmd.append('-v')
++    version_string = subprocess.check_output(compilercmd, stderr=subprocess.STDOUT, env=env).decode(*SUBPROCESS_DECODE_ARGS)
+     if IS_LINUX:
+         # Check for 'gcc' or 'g++' for sccache wrapper
+         pattern = re.compile("^COLLECT_GCC=(.*)$", re.MULTILINE)
+@@ -344,13 +346,15 @@ def get_compiler_abi_compatibility_and_version(compiler) -> Tuple[bool, TorchVer
+         # There is no particular minimum version we need for clang, so we're good here.
+         return (True, TorchVersion('0.0.0'))
+     try:
++        compilercmd = compiler.split()
++        which = subprocess.check_output(['which', compilercmd[0]], stderr=subprocess.STDOUT)
+         if IS_LINUX:
+             minimum_required_version = MINIMUM_GCC_VERSION
+-            versionstr = subprocess.check_output([compiler, '-dumpfullversion', '-dumpversion'])
++            versionstr = subprocess.check_output([which, '-dumpfullversion', '-dumpversion'])
+             version = versionstr.decode(*SUBPROCESS_DECODE_ARGS).strip().split('.')
+         else:
+             minimum_required_version = MINIMUM_MSVC_VERSION
+-            compiler_info = subprocess.check_output(compiler, stderr=subprocess.STDOUT)
++            compiler_info = subprocess.check_output(which, stderr=subprocess.STDOUT)
+             match = re.search(r'(\d+)\.(\d+)\.(\d+)', compiler_info.decode(*SUBPROCESS_DECODE_ARGS).strip())
+             version = ['0', '0', '0'] if match is None else list(match.groups())
+     except Exception:
+-- 
+2.37.3
+
