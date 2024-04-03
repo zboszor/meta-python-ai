@@ -14,8 +14,8 @@ SRCREV = "9f740a53bcc2ed7eba2558afed8b4c17fd8a1d4c"
 S = "${WORKDIR}/git"
 
 RDEPENDS:${PN} = " \
-	${PYTHON_PN}-numpy \
-	${PYTHON_PN}-scipy \
-	${PYTHON_PN}-matplotlib \
-	${PYTHON_PN}-opencv \
+	python3-numpy \
+	python3-scipy \
+	python3-matplotlib \
+	python3-opencv \
 "
