@@ -9,7 +9,7 @@ inherit pypi setuptools3
 
 SRC_URI[sha256sum] = "2795844ef075ec8a2b8d385c4d59f5ea48b08e7180fce3cb2787be0db00b1fb4"
 
-RDEPENDS_${PN} += "${PYTHON_PN}-json"
+RDEPENDS_${PN} += "python3-json"
 
 do_install:append () {
 	# Conflicts with python3-jsonpatch in meta-openembedded
