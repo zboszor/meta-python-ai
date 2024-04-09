@@ -1,6 +1,6 @@
 # meta-python-ai
 
-This Yocto layer will contain artificial intelligence / machine learning related Python module recipes.
+This Yocto layer contains artificial intelligence / machine learning related Python module recipes.
 
 Eventually this Yocto layer will also be a continuation and extension of:
 
