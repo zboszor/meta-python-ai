@@ -1,0 +1,32 @@
+From 41060ffd7809f3fc15693a9b0584adfd2b89264e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 5 Apr 2023 09:23:02 +0200
+Subject: [PATCH 3/3] Replace np.bool with bool
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+See https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ yolox/motdt_tracker/motdt_tracker.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/yolox/motdt_tracker/motdt_tracker.py b/yolox/motdt_tracker/motdt_tracker.py
+index 21abb39..305b6c1 100644
+--- a/yolox/motdt_tracker/motdt_tracker.py
++++ b/yolox/motdt_tracker/motdt_tracker.py
+@@ -248,7 +248,7 @@ class OnlineTracker(object):
+             0.7,
+             )
+             keep = nms_out_index.numpy()
+-            mask = np.zeros(len(rois), dtype=np.bool)
++            mask = np.zeros(len(rois), dtype=bool)
+             mask[keep] = True
+             keep = np.where(mask & (scores >= self.min_cls_score))[0]
+             detections = [detections[i] for i in keep]
+-- 
+2.39.2
+
