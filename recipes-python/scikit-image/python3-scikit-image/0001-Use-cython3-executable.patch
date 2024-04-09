@@ -1,0 +1,48 @@
+From 7e900f221fd67dbc4ef32474ce822a2dca96b7e7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 7 Jun 2023 14:18:29 +0200
+Subject: [PATCH 1/2] Use cython3 executable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Regular distros install "cython", but python3-cython-native
+in Yocto has "cython3".
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [OE specific]
+---
+ meson.build                      | 2 +-
+ skimage/_build_utils/cythoner.py | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 72462c8d5..ff81e5dab 100644
+--- a/meson.build
++++ b/meson.build
+@@ -56,7 +56,7 @@ if not cc.links('', name: '-Wl,--version-script', args: ['-shared', version_link
+   version_link_args = []
+ endif
+ 
+-cython = find_program('cython')
++cython = find_program('cython3')
+ pythran = find_program('pythran')
+ tempita = files('skimage/_build_utils/tempita.py')
+ copier = find_program(['cp', 'skimage/_build_utils/copyfiles.py'])
+diff --git a/skimage/_build_utils/cythoner.py b/skimage/_build_utils/cythoner.py
+index 249c990ef..46c5c08f7 100755
+--- a/skimage/_build_utils/cythoner.py
++++ b/skimage/_build_utils/cythoner.py
+@@ -19,7 +19,7 @@ def main():
+ 
+     sbp.run(
+         [
+-            'cython',
++            'cython3',
+             '-3',
+             '--fast-fail',
+             '--output-file',
+-- 
+2.40.1
+
