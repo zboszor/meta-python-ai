@@ -1,11 +1,11 @@
 SUMMARY = "Read and write TIFF files"
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=a3db077904b1929962456dbf04420fc3"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=a234723b439c69716295c522ab084190"
 
 PYPI_PACKAGE = "tifffile"
 
 inherit pypi setuptools3
-SRC_URI[sha256sum] = "67e355e4595aab397f8405d04afe1b4ae7c6f62a44e22d933fee1a571a48c7ae"
+SRC_URI[sha256sum] = "4920a3ec8e8e003e673d3c6531863c99eedd570d1b8b7e141c072ed78ff8030d"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
