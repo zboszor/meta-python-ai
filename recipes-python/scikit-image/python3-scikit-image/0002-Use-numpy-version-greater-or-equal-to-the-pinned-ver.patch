@@ -1,0 +1,39 @@
+From bc259763b5bf5bee55d6408a68bed6467c0fd68f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 7 Jun 2023 14:32:30 +0200
+Subject: [PATCH 2/2] Use numpy version greater or equal to the pinned version
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Yocto usually uses a newer numpy version than expected by
+PyPi sources.
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [OE specific]
+---
+ pyproject.toml | 6 +++---
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index ebfb70f7b..885bb3963 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -124,10 +124,10 @@
+     'Cython>=0.29.32',
+     'pythran',
+     'lazy_loader>=0.3',
+-    "numpy==1.22.4; python_version=='3.9' and platform_python_implementation != 'PyPy'",
++    "numpy>=1.22.4; python_version=='3.9' and platform_python_implementation != 'PyPy'",
+     "numpy==1.22.4; python_version=='3.10' and platform_system=='Windows' and platform_python_implementation != 'PyPy'",
+-    "numpy==1.22.4; python_version=='3.10' and platform_system != 'Windows' and platform_python_implementation != 'PyPy'",
+-    "numpy==1.23.3; python_version=='3.11' and platform_python_implementation != 'PyPy'",
++    "numpy>=1.22.4; python_version=='3.10' and platform_system != 'Windows' and platform_python_implementation != 'PyPy'",
++    "numpy>=1.23.3; python_version=='3.11' and platform_python_implementation != 'PyPy'",
+     "numpy; python_version>='3.12'",
+     "numpy; python_version>='3.9' and platform_python_implementation=='PyPy'",
+ ]
+-- 
+2.40.1
+
