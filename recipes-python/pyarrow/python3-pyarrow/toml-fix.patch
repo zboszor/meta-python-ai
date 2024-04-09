@@ -13,3 +13,14 @@ Upstream-Status: Inappropriate [Yocto specific]
      "setuptools >= 40.1.0",
      "wheel"
  ]
+--- pyarrow-15.0.2/setup.py.old	2024-04-09 11:44:10.781077485 +0200
++++ pyarrow-15.0.2/setup.py	2024-04-09 11:44:28.617278529 +0200
+@@ -492,7 +492,7 @@
+                                  'pyarrow/_generated_version.py'),
+         'version_scheme': guess_next_dev_version
+     },
+-    setup_requires=['setuptools_scm < 8.0.0', 'cython >= 0.29.31'] + setup_requires,
++    setup_requires=['setuptools_scm', 'cython >= 0.29.31'] + setup_requires,
+     install_requires=install_requires,
+     tests_require=['pytest', 'pandas', 'hypothesis'],
+     python_requires='>=3.8',
