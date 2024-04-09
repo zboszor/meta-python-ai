@@ -115,7 +115,7 @@ SRC_URI = " \
 #PR = "r1"
 
 SRCREV_FORMAT = "pytorch"
-SRCREV_pytorch = "4c55dc50355d5e923642c59ad2a23d6ad54711e7"
+SRCREV_pytorch = "a8e7c98cb95ff97bb30a728c6b2a1ce6bff946eb"
 
 # These are the git submodule commit IDs
 SRCREV_fbjni = "7e1e1fe3858c63c251c637ae41a20de425dde96f"
