@@ -15,7 +15,7 @@ LIC_FILES_CHKSUM = "file://../LICENSE.txt;md5=8031a2c33230c952ed3f3ccff1d3fa89"
 
 SRC_URI = "git://github.com/apache/arrow.git;protocol=https;branch=maint-${PV}"
 
-SRCREV = "a61f4af724cd06c3a9b4abd20491345997e532c0"
+SRCREV = "e03105efc38edca4ca429bf967a17b4d0fbebe40"
 
 S = "${WORKDIR}/git/cpp"
 
