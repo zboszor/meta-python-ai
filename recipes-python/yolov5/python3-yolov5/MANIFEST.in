@@ -1,0 +1,14 @@
+# Include the README
+include *.md
+
+# Include the license file
+include LICENSE
+
+# Include setup.py
+include setup.py
+
+# Include the data files
+recursive-include yolov5/data *
+
+# Include the yml files in models folder
+recursive-include yolov5/models *
