@@ -1,0 +1,836 @@
+From 1b6ad22be6c413f99fd9c861bf02c5765bca78a9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 5 Apr 2023 09:18:04 +0200
+Subject: [PATCH 1/3] Replace np.float with float
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+See https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ tutorials/centertrack/byte_tracker.py         |  2 +-
+ tutorials/centertrack/mot_online/matching.py  | 36 +++++++++----------
+ tutorials/cstrack/byte_tracker.py             |  2 +-
+ tutorials/cstrack/tracker.py                  |  2 +-
+ tutorials/ctracker/byte_tracker.py            |  2 +-
+ tutorials/ctracker/mot_online/matching.py     | 36 +++++++++----------
+ tutorials/fairmot/byte_tracker.py             |  2 +-
+ tutorials/fairmot/tracker.py                  |  2 +-
+ tutorials/jde/byte_tracker.py                 |  2 +-
+ tutorials/jde/tracker.py                      |  2 +-
+ tutorials/motr/byte_tracker.py                |  2 +-
+ tutorials/motr/mot_online/matching.py         | 36 +++++++++----------
+ tutorials/qdtrack/byte_tracker.py             |  2 +-
+ tutorials/qdtrack/mot_online/matching.py      | 36 +++++++++----------
+ tutorials/qdtrack/tracker_reid_motion.py      |  2 +-
+ tutorials/trades/byte_tracker.py              |  2 +-
+ tutorials/trades/mot_online/matching.py       | 36 +++++++++----------
+ tutorials/trades/tracker.py                   |  2 +-
+ .../transtrack/mot_online/byte_tracker.py     |  2 +-
+ tutorials/transtrack/mot_online/matching.py   | 12 +++----
+ yolox/deepsort_tracker/detection.py           |  2 +-
+ yolox/motdt_tracker/matching.py               | 10 +++---
+ yolox/motdt_tracker/motdt_tracker.py          |  2 +-
+ yolox/motdt_tracker/reid_model.py             |  2 +-
+ yolox/tracker/byte_tracker.py                 |  2 +-
+ yolox/tracker/matching.py                     | 12 +++----
+ 26 files changed, 125 insertions(+), 125 deletions(-)
+
+diff --git a/tutorials/centertrack/byte_tracker.py b/tutorials/centertrack/byte_tracker.py
+index 8cb757e..ee1579c 100644
+--- a/tutorials/centertrack/byte_tracker.py
++++ b/tutorials/centertrack/byte_tracker.py
+@@ -15,7 +15,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/centertrack/mot_online/matching.py b/tutorials/centertrack/mot_online/matching.py
+index 54cb4be..b86608a 100644
+--- a/tutorials/centertrack/mot_online/matching.py
++++ b/tutorials/centertrack/mot_online/matching.py
+@@ -69,13 +69,13 @@ def ious(atlbrs, btlbrs):
+ 
+     :rtype ious np.ndarray
+     """
+-    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=np.float)
++    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=float)
+     if ious.size == 0:
+         return ious
+ 
+     ious = bbox_ious(
+-        np.ascontiguousarray(atlbrs, dtype=np.float),
+-        np.ascontiguousarray(btlbrs, dtype=np.float)
++        np.ascontiguousarray(atlbrs, dtype=float),
++        np.ascontiguousarray(btlbrs, dtype=float)
+     )
+ 
+     return ious
+@@ -109,13 +109,13 @@ def embedding_distance(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     return cost_matrix
+ 
+@@ -127,17 +127,17 @@ def embedding_distance2(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+-    track_features = np.asarray([track.features[0] for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.features[0] for track in tracks], dtype=float)
+     cost_matrix2 = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+-    track_features = np.asarray([track.features[len(track.features)-1] for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.features[len(track.features)-1] for track in tracks], dtype=float)
+     cost_matrix3 = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     for row in range(len(cost_matrix)):
+         cost_matrix[row] = (cost_matrix[row]+cost_matrix2[row]+cost_matrix3[row])/3
+@@ -149,11 +149,11 @@ def vis_id_feature_A_distance(tracks, detections, metric='cosine'):
+     det_features = []
+     leg1 = len(tracks)
+     leg2 = len(detections)
+-    cost_matrix = np.zeros((leg1, leg2), dtype=np.float)
+-    cost_matrix_det = np.zeros((leg1, leg2), dtype=np.float)
+-    cost_matrix_track = np.zeros((leg1, leg2), dtype=np.float)
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    cost_matrix = np.zeros((leg1, leg2), dtype=float)
++    cost_matrix_det = np.zeros((leg1, leg2), dtype=float)
++    cost_matrix_track = np.zeros((leg1, leg2), dtype=float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     if leg2 != 0:
+         cost_matrix_det = np.maximum(0.0, cdist(det_features, det_features, metric))
+     if leg1 != 0:
+@@ -167,8 +167,8 @@ def vis_id_feature_A_distance(tracks, detections, metric='cosine'):
+     if leg2 > 10:
+         leg2 = 10
+         detections = detections[:10]
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     return track_features, det_features, cost_matrix, cost_matrix_det, cost_matrix_track
+ 
+ def gate_cost_matrix(kf, cost_matrix, tracks, detections, only_position=False):
+diff --git a/tutorials/cstrack/byte_tracker.py b/tutorials/cstrack/byte_tracker.py
+index 5c54f07..7b83bff 100644
+--- a/tutorials/cstrack/byte_tracker.py
++++ b/tutorials/cstrack/byte_tracker.py
+@@ -23,7 +23,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/cstrack/tracker.py b/tutorials/cstrack/tracker.py
+index 9943485..abff0d9 100644
+--- a/tutorials/cstrack/tracker.py
++++ b/tutorials/cstrack/tracker.py
+@@ -23,7 +23,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score, temp_feat, buffer_size=30):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/ctracker/byte_tracker.py b/tutorials/ctracker/byte_tracker.py
+index 0a6ae80..7f73fb5 100644
+--- a/tutorials/ctracker/byte_tracker.py
++++ b/tutorials/ctracker/byte_tracker.py
+@@ -17,7 +17,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/ctracker/mot_online/matching.py b/tutorials/ctracker/mot_online/matching.py
+index 54cb4be..b86608a 100644
+--- a/tutorials/ctracker/mot_online/matching.py
++++ b/tutorials/ctracker/mot_online/matching.py
+@@ -69,13 +69,13 @@ def ious(atlbrs, btlbrs):
+ 
+     :rtype ious np.ndarray
+     """
+-    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=np.float)
++    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=float)
+     if ious.size == 0:
+         return ious
+ 
+     ious = bbox_ious(
+-        np.ascontiguousarray(atlbrs, dtype=np.float),
+-        np.ascontiguousarray(btlbrs, dtype=np.float)
++        np.ascontiguousarray(atlbrs, dtype=float),
++        np.ascontiguousarray(btlbrs, dtype=float)
+     )
+ 
+     return ious
+@@ -109,13 +109,13 @@ def embedding_distance(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     return cost_matrix
+ 
+@@ -127,17 +127,17 @@ def embedding_distance2(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+-    track_features = np.asarray([track.features[0] for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.features[0] for track in tracks], dtype=float)
+     cost_matrix2 = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+-    track_features = np.asarray([track.features[len(track.features)-1] for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.features[len(track.features)-1] for track in tracks], dtype=float)
+     cost_matrix3 = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     for row in range(len(cost_matrix)):
+         cost_matrix[row] = (cost_matrix[row]+cost_matrix2[row]+cost_matrix3[row])/3
+@@ -149,11 +149,11 @@ def vis_id_feature_A_distance(tracks, detections, metric='cosine'):
+     det_features = []
+     leg1 = len(tracks)
+     leg2 = len(detections)
+-    cost_matrix = np.zeros((leg1, leg2), dtype=np.float)
+-    cost_matrix_det = np.zeros((leg1, leg2), dtype=np.float)
+-    cost_matrix_track = np.zeros((leg1, leg2), dtype=np.float)
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    cost_matrix = np.zeros((leg1, leg2), dtype=float)
++    cost_matrix_det = np.zeros((leg1, leg2), dtype=float)
++    cost_matrix_track = np.zeros((leg1, leg2), dtype=float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     if leg2 != 0:
+         cost_matrix_det = np.maximum(0.0, cdist(det_features, det_features, metric))
+     if leg1 != 0:
+@@ -167,8 +167,8 @@ def vis_id_feature_A_distance(tracks, detections, metric='cosine'):
+     if leg2 > 10:
+         leg2 = 10
+         detections = detections[:10]
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     return track_features, det_features, cost_matrix, cost_matrix_det, cost_matrix_track
+ 
+ def gate_cost_matrix(kf, cost_matrix, tracks, detections, only_position=False):
+diff --git a/tutorials/fairmot/byte_tracker.py b/tutorials/fairmot/byte_tracker.py
+index 7bb384d..1f64bdf 100644
+--- a/tutorials/fairmot/byte_tracker.py
++++ b/tutorials/fairmot/byte_tracker.py
+@@ -25,7 +25,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/fairmot/tracker.py b/tutorials/fairmot/tracker.py
+index b3af90e..8f0535d 100644
+--- a/tutorials/fairmot/tracker.py
++++ b/tutorials/fairmot/tracker.py
+@@ -25,7 +25,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score, temp_feat, buffer_size=30):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/jde/byte_tracker.py b/tutorials/jde/byte_tracker.py
+index 185dd67..4fb9c10 100644
+--- a/tutorials/jde/byte_tracker.py
++++ b/tutorials/jde/byte_tracker.py
+@@ -13,7 +13,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/jde/tracker.py b/tutorials/jde/tracker.py
+index 2b0cab6..25b42fc 100644
+--- a/tutorials/jde/tracker.py
++++ b/tutorials/jde/tracker.py
+@@ -14,7 +14,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score, temp_feat, buffer_size=30):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/motr/byte_tracker.py b/tutorials/motr/byte_tracker.py
+index d5bc6dd..1152d61 100644
+--- a/tutorials/motr/byte_tracker.py
++++ b/tutorials/motr/byte_tracker.py
+@@ -17,7 +17,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/motr/mot_online/matching.py b/tutorials/motr/mot_online/matching.py
+index cc7abab..da24f4f 100644
+--- a/tutorials/motr/mot_online/matching.py
++++ b/tutorials/motr/mot_online/matching.py
+@@ -68,13 +68,13 @@ def ious(atlbrs, btlbrs):
+     :type atlbrs: list[tlbr] | np.ndarray
+     :rtype ious np.ndarray
+     """
+-    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=np.float)
++    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=float)
+     if ious.size == 0:
+         return ious
+ 
+     ious = bbox_ious(
+-        np.ascontiguousarray(atlbrs, dtype=np.float),
+-        np.ascontiguousarray(btlbrs, dtype=np.float)
++        np.ascontiguousarray(atlbrs, dtype=float),
++        np.ascontiguousarray(btlbrs, dtype=float)
+     )
+ 
+     return ious
+@@ -107,13 +107,13 @@ def embedding_distance(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     return cost_matrix
+ 
+@@ -125,17 +125,17 @@ def embedding_distance2(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+-    track_features = np.asarray([track.features[0] for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.features[0] for track in tracks], dtype=float)
+     cost_matrix2 = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+-    track_features = np.asarray([track.features[len(track.features)-1] for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.features[len(track.features)-1] for track in tracks], dtype=float)
+     cost_matrix3 = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     for row in range(len(cost_matrix)):
+         cost_matrix[row] = (cost_matrix[row]+cost_matrix2[row]+cost_matrix3[row])/3
+@@ -147,11 +147,11 @@ def vis_id_feature_A_distance(tracks, detections, metric='cosine'):
+     det_features = []
+     leg1 = len(tracks)
+     leg2 = len(detections)
+-    cost_matrix = np.zeros((leg1, leg2), dtype=np.float)
+-    cost_matrix_det = np.zeros((leg1, leg2), dtype=np.float)
+-    cost_matrix_track = np.zeros((leg1, leg2), dtype=np.float)
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    cost_matrix = np.zeros((leg1, leg2), dtype=float)
++    cost_matrix_det = np.zeros((leg1, leg2), dtype=float)
++    cost_matrix_track = np.zeros((leg1, leg2), dtype=float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     if leg2 != 0:
+         cost_matrix_det = np.maximum(0.0, cdist(det_features, det_features, metric))
+     if leg1 != 0:
+@@ -165,8 +165,8 @@ def vis_id_feature_A_distance(tracks, detections, metric='cosine'):
+     if leg2 > 10:
+         leg2 = 10
+         detections = detections[:10]
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     return track_features, det_features, cost_matrix, cost_matrix_det, cost_matrix_track
+ 
+ def gate_cost_matrix(kf, cost_matrix, tracks, detections, only_position=False):
+diff --git a/tutorials/qdtrack/byte_tracker.py b/tutorials/qdtrack/byte_tracker.py
+index 0a29229..5d0a638 100644
+--- a/tutorials/qdtrack/byte_tracker.py
++++ b/tutorials/qdtrack/byte_tracker.py
+@@ -17,7 +17,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/qdtrack/mot_online/matching.py b/tutorials/qdtrack/mot_online/matching.py
+index 54cb4be..b86608a 100644
+--- a/tutorials/qdtrack/mot_online/matching.py
++++ b/tutorials/qdtrack/mot_online/matching.py
+@@ -69,13 +69,13 @@ def ious(atlbrs, btlbrs):
+ 
+     :rtype ious np.ndarray
+     """
+-    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=np.float)
++    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=float)
+     if ious.size == 0:
+         return ious
+ 
+     ious = bbox_ious(
+-        np.ascontiguousarray(atlbrs, dtype=np.float),
+-        np.ascontiguousarray(btlbrs, dtype=np.float)
++        np.ascontiguousarray(atlbrs, dtype=float),
++        np.ascontiguousarray(btlbrs, dtype=float)
+     )
+ 
+     return ious
+@@ -109,13 +109,13 @@ def embedding_distance(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     return cost_matrix
+ 
+@@ -127,17 +127,17 @@ def embedding_distance2(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+-    track_features = np.asarray([track.features[0] for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.features[0] for track in tracks], dtype=float)
+     cost_matrix2 = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+-    track_features = np.asarray([track.features[len(track.features)-1] for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.features[len(track.features)-1] for track in tracks], dtype=float)
+     cost_matrix3 = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     for row in range(len(cost_matrix)):
+         cost_matrix[row] = (cost_matrix[row]+cost_matrix2[row]+cost_matrix3[row])/3
+@@ -149,11 +149,11 @@ def vis_id_feature_A_distance(tracks, detections, metric='cosine'):
+     det_features = []
+     leg1 = len(tracks)
+     leg2 = len(detections)
+-    cost_matrix = np.zeros((leg1, leg2), dtype=np.float)
+-    cost_matrix_det = np.zeros((leg1, leg2), dtype=np.float)
+-    cost_matrix_track = np.zeros((leg1, leg2), dtype=np.float)
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    cost_matrix = np.zeros((leg1, leg2), dtype=float)
++    cost_matrix_det = np.zeros((leg1, leg2), dtype=float)
++    cost_matrix_track = np.zeros((leg1, leg2), dtype=float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     if leg2 != 0:
+         cost_matrix_det = np.maximum(0.0, cdist(det_features, det_features, metric))
+     if leg1 != 0:
+@@ -167,8 +167,8 @@ def vis_id_feature_A_distance(tracks, detections, metric='cosine'):
+     if leg2 > 10:
+         leg2 = 10
+         detections = detections[:10]
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     return track_features, det_features, cost_matrix, cost_matrix_det, cost_matrix_track
+ 
+ def gate_cost_matrix(kf, cost_matrix, tracks, detections, only_position=False):
+diff --git a/tutorials/qdtrack/tracker_reid_motion.py b/tutorials/qdtrack/tracker_reid_motion.py
+index 406a0a4..f012ca5 100644
+--- a/tutorials/qdtrack/tracker_reid_motion.py
++++ b/tutorials/qdtrack/tracker_reid_motion.py
+@@ -17,7 +17,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score, temp_feat, buffer_size=30):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/trades/byte_tracker.py b/tutorials/trades/byte_tracker.py
+index d154045..7a2d952 100644
+--- a/tutorials/trades/byte_tracker.py
++++ b/tutorials/trades/byte_tracker.py
+@@ -16,7 +16,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/trades/mot_online/matching.py b/tutorials/trades/mot_online/matching.py
+index cc7abab..da24f4f 100644
+--- a/tutorials/trades/mot_online/matching.py
++++ b/tutorials/trades/mot_online/matching.py
+@@ -68,13 +68,13 @@ def ious(atlbrs, btlbrs):
+     :type atlbrs: list[tlbr] | np.ndarray
+     :rtype ious np.ndarray
+     """
+-    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=np.float)
++    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=float)
+     if ious.size == 0:
+         return ious
+ 
+     ious = bbox_ious(
+-        np.ascontiguousarray(atlbrs, dtype=np.float),
+-        np.ascontiguousarray(btlbrs, dtype=np.float)
++        np.ascontiguousarray(atlbrs, dtype=float),
++        np.ascontiguousarray(btlbrs, dtype=float)
+     )
+ 
+     return ious
+@@ -107,13 +107,13 @@ def embedding_distance(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     return cost_matrix
+ 
+@@ -125,17 +125,17 @@ def embedding_distance2(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+-    track_features = np.asarray([track.features[0] for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.features[0] for track in tracks], dtype=float)
+     cost_matrix2 = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+-    track_features = np.asarray([track.features[len(track.features)-1] for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.features[len(track.features)-1] for track in tracks], dtype=float)
+     cost_matrix3 = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     for row in range(len(cost_matrix)):
+         cost_matrix[row] = (cost_matrix[row]+cost_matrix2[row]+cost_matrix3[row])/3
+@@ -147,11 +147,11 @@ def vis_id_feature_A_distance(tracks, detections, metric='cosine'):
+     det_features = []
+     leg1 = len(tracks)
+     leg2 = len(detections)
+-    cost_matrix = np.zeros((leg1, leg2), dtype=np.float)
+-    cost_matrix_det = np.zeros((leg1, leg2), dtype=np.float)
+-    cost_matrix_track = np.zeros((leg1, leg2), dtype=np.float)
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    cost_matrix = np.zeros((leg1, leg2), dtype=float)
++    cost_matrix_det = np.zeros((leg1, leg2), dtype=float)
++    cost_matrix_track = np.zeros((leg1, leg2), dtype=float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     if leg2 != 0:
+         cost_matrix_det = np.maximum(0.0, cdist(det_features, det_features, metric))
+     if leg1 != 0:
+@@ -165,8 +165,8 @@ def vis_id_feature_A_distance(tracks, detections, metric='cosine'):
+     if leg2 > 10:
+         leg2 = 10
+         detections = detections[:10]
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     return track_features, det_features, cost_matrix, cost_matrix_det, cost_matrix_track
+ 
+ def gate_cost_matrix(kf, cost_matrix, tracks, detections, only_position=False):
+diff --git a/tutorials/trades/tracker.py b/tutorials/trades/tracker.py
+index a607935..1ea5b44 100644
+--- a/tutorials/trades/tracker.py
++++ b/tutorials/trades/tracker.py
+@@ -272,7 +272,7 @@ class Tracker(object):
+         """
+         n_ = boxes.shape[0]
+         k_ = query_boxes.shape[0]
+-        overlaps = np.zeros((n_, k_), dtype=np.float)
++        overlaps = np.zeros((n_, k_), dtype=float)
+         for k in range(k_):
+             query_box_area = (query_boxes[k, 2] - query_boxes[k, 0] + 1) * (query_boxes[k, 3] - query_boxes[k, 1] + 1)
+             for n in range(n_):
+diff --git a/tutorials/transtrack/mot_online/byte_tracker.py b/tutorials/transtrack/mot_online/byte_tracker.py
+index be6e179..d6a68a8 100644
+--- a/tutorials/transtrack/mot_online/byte_tracker.py
++++ b/tutorials/transtrack/mot_online/byte_tracker.py
+@@ -15,7 +15,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score, buffer_size=30):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/tutorials/transtrack/mot_online/matching.py b/tutorials/transtrack/mot_online/matching.py
+index d21c958..57e79ff 100644
+--- a/tutorials/transtrack/mot_online/matching.py
++++ b/tutorials/transtrack/mot_online/matching.py
+@@ -58,13 +58,13 @@ def ious(atlbrs, btlbrs):
+ 
+     :rtype ious np.ndarray
+     """
+-    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=np.float)
++    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=float)
+     if ious.size == 0:
+         return ious
+ 
+     ious = bbox_ious(
+-        np.ascontiguousarray(atlbrs, dtype=np.float),
+-        np.ascontiguousarray(btlbrs, dtype=np.float)
++        np.ascontiguousarray(atlbrs, dtype=float),
++        np.ascontiguousarray(btlbrs, dtype=float)
+     )
+ 
+     return ious
+@@ -98,11 +98,11 @@ def embedding_distance(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     return cost_matrix
+ 
+diff --git a/yolox/deepsort_tracker/detection.py b/yolox/deepsort_tracker/detection.py
+index 9bd8497..2ec5d3a 100644
+--- a/yolox/deepsort_tracker/detection.py
++++ b/yolox/deepsort_tracker/detection.py
+@@ -24,7 +24,7 @@ class Detection(object):
+     """
+ 
+     def __init__(self, tlwh, confidence, feature):
+-        self.tlwh = np.asarray(tlwh, dtype=np.float)
++        self.tlwh = np.asarray(tlwh, dtype=float)
+         self.confidence = float(confidence)
+         self.feature = np.asarray(feature, dtype=np.float32)
+ 
+diff --git a/yolox/motdt_tracker/matching.py b/yolox/motdt_tracker/matching.py
+index 01d07da..f64ba9c 100644
+--- a/yolox/motdt_tracker/matching.py
++++ b/yolox/motdt_tracker/matching.py
+@@ -39,13 +39,13 @@ def ious(atlbrs, btlbrs):
+     :type atlbrs: list[tlbr] | np.ndarray
+     :rtype ious np.ndarray
+     """
+-    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=np.float)
++    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=float)
+     if ious.size == 0:
+         return ious
+ 
+     ious = bbox_ious(
+-        np.ascontiguousarray(atlbrs, dtype=np.float),
+-        np.ascontiguousarray(btlbrs, dtype=np.float)
++        np.ascontiguousarray(atlbrs, dtype=float),
++        np.ascontiguousarray(btlbrs, dtype=float)
+     )
+ 
+     return ious
+@@ -73,7 +73,7 @@ def nearest_reid_distance(tracks, detections, metric='cosine'):
+     :type detections: list[BaseTrack]
+     :rtype cost_matrix np.ndarray
+     """
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+ 
+@@ -92,7 +92,7 @@ def mean_reid_distance(tracks, detections, metric='cosine'):
+     :type metric: str
+     :rtype cost_matrix np.ndarray
+     """
+-    cost_matrix = np.empty((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.empty((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+ 
+diff --git a/yolox/motdt_tracker/motdt_tracker.py b/yolox/motdt_tracker/motdt_tracker.py
+index b3521f2..21abb39 100644
+--- a/yolox/motdt_tracker/motdt_tracker.py
++++ b/yolox/motdt_tracker/motdt_tracker.py
+@@ -21,7 +21,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score, max_n_features=100, from_det=True):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/yolox/motdt_tracker/reid_model.py b/yolox/motdt_tracker/reid_model.py
+index 6ad49e3..7b1b54a 100644
+--- a/yolox/motdt_tracker/reid_model.py
++++ b/yolox/motdt_tracker/reid_model.py
+@@ -60,7 +60,7 @@ def load_net(fname, net, prefix='', load_state_dict=False):
+                 lr = h5f.attrs['learning_rates']
+             else:
+                 lr = h5f.attrs.get('lr', -1)
+-                lr = np.asarray([lr] if lr > 0 else [], dtype=np.float)
++                lr = np.asarray([lr] if lr > 0 else [], dtype=float)
+ 
+             return epoch, lr
+ 
+diff --git a/yolox/tracker/byte_tracker.py b/yolox/tracker/byte_tracker.py
+index 2d00459..f0d033c 100644
+--- a/yolox/tracker/byte_tracker.py
++++ b/yolox/tracker/byte_tracker.py
+@@ -15,7 +15,7 @@ class STrack(BaseTrack):
+     def __init__(self, tlwh, score):
+ 
+         # wait activate
+-        self._tlwh = np.asarray(tlwh, dtype=np.float)
++        self._tlwh = np.asarray(tlwh, dtype=float)
+         self.kalman_filter = None
+         self.mean, self.covariance = None, None
+         self.is_activated = False
+diff --git a/yolox/tracker/matching.py b/yolox/tracker/matching.py
+index d36a6cf..d8c4372 100644
+--- a/yolox/tracker/matching.py
++++ b/yolox/tracker/matching.py
+@@ -58,13 +58,13 @@ def ious(atlbrs, btlbrs):
+ 
+     :rtype ious np.ndarray
+     """
+-    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=np.float)
++    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=float)
+     if ious.size == 0:
+         return ious
+ 
+     ious = bbox_ious(
+-        np.ascontiguousarray(atlbrs, dtype=np.float),
+-        np.ascontiguousarray(btlbrs, dtype=np.float)
++        np.ascontiguousarray(atlbrs, dtype=float),
++        np.ascontiguousarray(btlbrs, dtype=float)
+     )
+ 
+     return ious
+@@ -118,13 +118,13 @@ def embedding_distance(tracks, detections, metric='cosine'):
+     :return: cost_matrix np.ndarray
+     """
+ 
+-    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=np.float)
++    cost_matrix = np.zeros((len(tracks), len(detections)), dtype=float)
+     if cost_matrix.size == 0:
+         return cost_matrix
+-    det_features = np.asarray([track.curr_feat for track in detections], dtype=np.float)
++    det_features = np.asarray([track.curr_feat for track in detections], dtype=float)
+     #for i, track in enumerate(tracks):
+         #cost_matrix[i, :] = np.maximum(0.0, cdist(track.smooth_feat.reshape(1,-1), det_features, metric))
+-    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=np.float)
++    track_features = np.asarray([track.smooth_feat for track in tracks], dtype=float)
+     cost_matrix = np.maximum(0.0, cdist(track_features, det_features, metric))  # Nomalized features
+     return cost_matrix
+ 
+-- 
+2.39.2
+

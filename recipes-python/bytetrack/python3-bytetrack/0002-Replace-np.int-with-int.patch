@@ -1,0 +1,65 @@
+From 99585469d5722d18905cc0da9b392ee5b63a27b4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 5 Apr 2023 09:21:34 +0200
+Subject: [PATCH 2/3] Replace np.int with int
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+See https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ tutorials/trades/tracker.py        | 8 ++++----
+ yolox/deepsort_tracker/deepsort.py | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/tutorials/trades/tracker.py b/tutorials/trades/tracker.py
+index 1ea5b44..3e4c224 100644
+--- a/tutorials/trades/tracker.py
++++ b/tutorials/trades/tracker.py
+@@ -25,15 +25,15 @@ class Tracker(object):
+                 self.tracks.append(item)
+                 self.nID = 10000
+                 self.embedding_bank = np.zeros((self.nID, 128))
+-                self.cat_bank = np.zeros((self.nID), dtype=np.int)
++                self.cat_bank = np.zeros((self.nID), dtype=int)
+ 
+     def reset(self):
+         self.id_count = 0
+         self.nID = 10000
+         self.tracks = []
+         self.embedding_bank = np.zeros((self.nID, 128))
+-        self.cat_bank = np.zeros((self.nID), dtype=np.int)
+-        self.tracklet_ages = np.zeros((self.nID), dtype=np.int)
++        self.cat_bank = np.zeros((self.nID), dtype=int)
++        self.tracklet_ages = np.zeros((self.nID), dtype=int)
+         self.alive = []
+ 
+     def step(self, results_with_low, public_det=None):
+@@ -253,7 +253,7 @@ class Tracker(object):
+         a = feat[None, :]
+         b = self.embedding_bank[:nID, :]
+         if len(b) > 0:
+-            alive = np.array(self.alive, dtype=np.int) - 1
++            alive = np.array(self.alive, dtype=int) - 1
+             cosim = cosine(a, b)
+             cosim = np.reshape(cosim, newshape=(-1))
+             cosim[alive] = -2
+diff --git a/yolox/deepsort_tracker/deepsort.py b/yolox/deepsort_tracker/deepsort.py
+index 198f3b0..ef5fc89 100644
+--- a/yolox/deepsort_tracker/deepsort.py
++++ b/yolox/deepsort_tracker/deepsort.py
+@@ -206,7 +206,7 @@ class DeepSort(object):
+             x1, y1, x2, y2 = self._tlwh_to_xyxy_noclip(box)
+             track_id = track.track_id
+             class_id = track.class_id
+-            outputs.append(np.array([x1, y1, x2, y2, track_id, class_id], dtype=np.int))
++            outputs.append(np.array([x1, y1, x2, y2, track_id, class_id], dtype=int))
+         if len(outputs) > 0:
+             outputs = np.stack(outputs, axis=0)
+         return outputs
+-- 
+2.39.2
+
