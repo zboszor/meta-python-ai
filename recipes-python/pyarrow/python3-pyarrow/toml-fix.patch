@@ -1,0 +1,15 @@
+Check presence of setuptools_scm without a fixed version
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+--- pyarrow-15.0.2/pyproject.toml.old	2024-04-09 11:22:14.990438030 +0200
++++ pyarrow-15.0.2/pyproject.toml	2024-04-09 11:23:28.420176971 +0200
+@@ -19,7 +19,7 @@
+ requires = [
+     "cython >= 0.29.31",
+     "oldest-supported-numpy>=0.14",
+-    "setuptools_scm < 8.0.0",
++    "setuptools_scm",
+     "setuptools >= 40.1.0",
+     "wheel"
+ ]

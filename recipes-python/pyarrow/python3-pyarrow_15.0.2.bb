@@ -12,7 +12,9 @@ PYPI_PACKAGE = "pyarrow"
 
 inherit cmake pypi setuptools3_legacy
 
-SRC_URI[sha256sum] = "876858f549d540898f927eba4ef77cd549ad8d24baa3207cf1b72e5788b50e83"
+SRC_URI[sha256sum] = "9c9bc803cb3b7bfacc1e96ffbfd923601065d9d3f911179d81e72d99fd74a3d9"
+
+SRC_URI += "file://toml-fix.patch"
 
 export PYARROW_BUILD_TYPE = "Release"
 
