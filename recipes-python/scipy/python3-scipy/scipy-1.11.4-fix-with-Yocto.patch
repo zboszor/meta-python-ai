@@ -2,7 +2,12 @@ Upstream-Status: Inappropriate [Yocto specific]
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
 --- scipy-1.11.4/pyproject.toml~	2023-09-27 21:51:29.000000000 +0200
 +++ scipy-1.11.4/pyproject.toml	2023-11-13 09:34:58.987093978 +0100
-@@ -15,9 +15,9 @@
+@@ -11,13 +11,13 @@
+ build-backend = 'mesonpy'
+ requires = [
+     # Reason for `<`: future-proofing (0.14.0 released and known to work)
+-    "meson-python>=0.12.1,<0.15.0",
++    "meson-python>=0.12.1",
      # Reason for `<`: we want to build the 1.11.x releases with 0.29.x (too many changes in 3.0)
      "Cython>=0.29.35,<3.0",   # when updating version, also update check in meson.build
      # Reason for `<`: future-proofing (2.11.1 is the most recent version)
