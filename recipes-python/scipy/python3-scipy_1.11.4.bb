@@ -27,7 +27,7 @@ RDEPENDS:${PN} += " \
 	${PYTHON_PN}-numpy \
 "
 
-PACKAGECONFIG ?= "lapack"
+PACKAGECONFIG ?= "openblas"
 
 PACKAGECONFIG[openblas] = "-Dblas=openblas -Dlapack=openblas,,openblas,openblas"
 PACKAGECONFIG[lapack] = "-Dblas=lapack -Dlapack=lapack,,lapack,lapack"
