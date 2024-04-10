@@ -13,6 +13,7 @@ SRC_URI = " \
 	git://github.com/pytorch/vision.git;protocol=https;branch=release/0.16 \
 	file://0001-Use-pkg-config-to-detect-libpng.patch \
 	file://0002-Pass-presence-and-version-of-ffmpeg-via-envvar.patch \
+	file://0001-Fix-build-with-ffmpeg-6.0.patch \
 "
 
 #PR = "r0"
@@ -28,7 +29,7 @@ export TORCHVISION_USE_PNG = "1"
 export TORCHVISION_USE_JPEG = "1"
 export TORCHVISION_USE_FFMPEG = "1"
 export FFMPEG_ROOT = "${STAGING_LIBDIR}/.."
-export FFMPEG_VERSION = "5.1.2"
+export FFMPEG_VERSION = "6.0"
 
 CXXFLAGS += " \
 	-I${STAGING_INCDIR}/torch/csrc/api/include \
