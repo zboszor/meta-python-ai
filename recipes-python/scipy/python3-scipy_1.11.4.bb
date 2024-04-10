@@ -5,9 +5,9 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=3387f60dd97ca5d8ea2a907e50aec3a0"
 
 inherit pkgconfig pypi python_mesonpy
 
-SRC_URI[sha256sum] = "bba4d955f54edd61899776bad459bf7326e14b9fa1c552181f0479cc60a568cd"
+SRC_URI[sha256sum] = "90a2b78e7f5733b9de748f589f09225013685f9b218275257f8a8168ededaeaa"
 
-SRC_URI += "file://scipy-1.11.3-fix-with-Yocto.patch"
+SRC_URI += "file://scipy-1.11.4-fix-with-Yocto.patch"
 
 DEPENDS += " \
 	${PYTHON_PN}-numpy-native \
