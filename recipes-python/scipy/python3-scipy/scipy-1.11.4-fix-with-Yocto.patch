@@ -1,17 +1,20 @@
 Upstream-Status: Inappropriate [Yocto specific]
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
---- scipy-1.11.3/pyproject.toml~	2023-09-27 21:51:29.000000000 +0200
-+++ scipy-1.11.3/pyproject.toml	2023-11-13 09:34:58.987093978 +0100
-@@ -16,7 +16,7 @@
-     # (too many changes in 3.0)
+--- scipy-1.11.4/pyproject.toml~	2023-09-27 21:51:29.000000000 +0200
++++ scipy-1.11.4/pyproject.toml	2023-11-13 09:34:58.987093978 +0100
+@@ -15,9 +15,9 @@
+     # Reason for `<`: we want to build the 1.11.x releases with 0.29.x (too many changes in 3.0)
      "Cython>=0.29.35,<3.0",   # when updating version, also update check in meson.build
      # Reason for `<`: future-proofing (2.11.1 is the most recent version)
 -    "pybind11>=2.10.4,<2.11.1",
-+    "pybind11>=2.10.4,<2.11.2",
++    "pybind11>=2.10.4",
      # Reason for `<`: future-proofing (0.14.0 released and known to work)
-     "pythran>=0.12.0,<0.15.0",
+-    "pythran>=0.12.0,<0.15.0",
++    "pythran>=0.12.0",
  
-@@ -42,7 +42,7 @@
+     # NumPy dependencies - to update these, sync from
+     # https://github.com/scipy/oldest-supported-numpy/, and then
+@@ -41,7 +41,7 @@
      # however macOS was broken and it's safe C API/ABI-wise to build against 1.21.6
      # (see oldest-supported-numpy issues gh-28 and gh-45)
      "numpy==1.21.6; python_version=='3.10' and (platform_system!='Windows' and platform_machine!='loongarch64') and platform_python_implementation != 'PyPy'",
