@@ -1,0 +1,27 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+
+diff -durpN scikit-build-0.16.7.old/skbuild/cmaker.py scikit-build-0.16.7/skbuild/cmaker.py
+--- scikit-build-0.16.7.old/skbuild/cmaker.py	2023-02-16 22:40:44.000000000 +0100
++++ scikit-build-0.16.7/skbuild/cmaker.py	2024-04-11 07:12:56.182055523 +0200
+@@ -248,7 +248,7 @@ class CMaker:
+             with contextlib.suppress(ImportError):
+                 import ninja  # pylint: disable=import-outside-toplevel
+ 
+-                ninja_executable_path = os.path.join(ninja.BIN_DIR, "ninja")
++                ninja_executable_path = "ninja"
+ 
+         if not os.path.exists(CMAKE_BUILD_DIR()):
+             os.makedirs(CMAKE_BUILD_DIR())
+diff -durpN scikit-build-0.16.7.old/skbuild/platform_specifics/unix.py scikit-build-0.16.7/skbuild/platform_specifics/unix.py
+--- scikit-build-0.16.7.old/skbuild/platform_specifics/unix.py	2023-02-16 22:40:44.000000000 +0100
++++ scikit-build-0.16.7/skbuild/platform_specifics/unix.py	2024-04-11 07:12:24.653705050 +0200
+@@ -15,7 +15,7 @@ class UnixPlatform(abstract.CMakePlatfor
+         try:
+             import ninja  # pylint: disable=import-outside-toplevel
+ 
+-            ninja_executable_path = os.path.join(ninja.BIN_DIR, "ninja")
++            ninja_executable_path = "ninja"
+             ninja_args = ["-DCMAKE_MAKE_PROGRAM:FILEPATH=" + ninja_executable_path]
+         except ImportError:
+             ninja_args = []
