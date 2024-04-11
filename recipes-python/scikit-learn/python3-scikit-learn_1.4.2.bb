@@ -4,7 +4,7 @@ HOMEPAGE = "http://scikit-learn.org"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://COPYING;md5=e087d8348a7a6d2b63e1f305d7acf1a9"
 
-SRC_URI[sha256sum] = "a2f54c76accc15a34bfb9066e6c7a56c1e7235dda5762b990792330b52ccfb05"
+SRC_URI[sha256sum] = "daa1c471d95bad080c6e44b4946c9390a4842adc3082572c20e4f8884e39e959"
 
 inherit pypi setuptools3 pkgconfig python3-dir
 
