@@ -6,7 +6,7 @@ DEPENDS = "python3-pybind11-native"
 
 PYPI_PACKAGE = "contourpy"
 
-inherit pypi python_mesonpy
+inherit pypi python_mesonpy python3native
 SRC_URI[sha256sum] = "4d8908b3bee1c889e547867ca4cdc54e5ab6be6d3e078556814a22457f49423c"
 
 export CONTOURPY_CXX11 = "1"
