@@ -1,13 +1,16 @@
 SUMMARY = "SciPy: Scientific Library for Python"
 HOMEPAGE = "https://www.scipy.org"
-LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=3387f60dd97ca5d8ea2a907e50aec3a0"
+LICENSE = "BSD-3-Clause & BSD-2-Clause & MIT & BSL-1.0 & Qhull & BSD-3-Clause-LBNL"
+LIC_FILES_CHKSUM = " \
+	file://LICENSE.txt;md5=5f477c3073ea2d02a70a764319f5f873 \
+	file://LICENSES_bundled.txt;md5=260cda725e2b9e064ca9d61bb178808b \
+"
 
 inherit pkgconfig pypi python_mesonpy
 
-SRC_URI[sha256sum] = "90a2b78e7f5733b9de748f589f09225013685f9b218275257f8a8168ededaeaa"
+SRC_URI[sha256sum] = "58569af537ea29d3f78e5abd18398459f195546bb3be23d16677fb26616cc11e"
 
-SRC_URI += "file://scipy-1.11.4-fix-with-Yocto.patch"
+SRC_URI += "file://use-unversioned-numpy.patch"
 
 DEPENDS += " \
 	${PYTHON_PN}-numpy-native \
