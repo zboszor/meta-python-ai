@@ -7,6 +7,8 @@ PYPI_PACKAGE = "partd"
 inherit pypi setuptools3
 SRC_URI[sha256sum] = "56c25dd49e6fea5727e731203c466c6e092f308d8f0024e199d02f6aa2167f67"
 
+SRC_URI += "file://70.patch"
+
 RDEPENDS:${PN} = " \
 	python3-locket \
 	python3-toolz \

@@ -1,0 +1,31 @@
+From c96a034367cb9fee0a0900f758b802aeef8a8a41 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Tom=C3=A1=C5=A1=20Hrn=C4=8Diar?= <tomas.hrnciar@me.com>
+Date: Wed, 12 Jul 2023 14:52:39 +0200
+Subject: [PATCH] Update versioneer.py to make the package compatible with
+ Python 3.12
+
+Fixes: #68
+
+(Untested on other Python versions than 3.12)
+
+Upstream-Status: Submitted [https://github.com/dask/partd/pull/70]
+---
+ versioneer.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/versioneer.py b/versioneer.py
+index 9882041..5b48f79 100644
+--- a/versioneer.py
++++ b/versioneer.py
+@@ -339,9 +339,9 @@ def get_config_from_root(root):
+     # configparser.NoOptionError (if it lacks "VCS="). See the docstring at
+     # the top of versioneer.py for instructions on writing your setup.cfg .
+     setup_cfg = os.path.join(root, "setup.cfg")
+-    parser = configparser.SafeConfigParser()
++    parser = configparser.RawConfigParser()
+     with open(setup_cfg, "r") as f:
+-        parser.readfp(f)
++        parser.read_file(f)
+     VCS = parser.get("versioneer", "VCS")  # mandatory
+ 
+     def get(parser, name):
