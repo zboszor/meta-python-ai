@@ -12,5 +12,5 @@ RDEPENDS:${PN} = " \
 	python3-fsspec \
 	python3-aiohttp \
 	python3-awscli \
-	python3-boto \
+	python3-boto3 \
 "
