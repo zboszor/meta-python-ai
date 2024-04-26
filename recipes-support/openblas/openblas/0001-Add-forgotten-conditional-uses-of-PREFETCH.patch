@@ -1,0 +1,480 @@
+From ca64861ce8a04ebe8da9eab484ad7fe7d36d4610 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zoltan.boszormenyi@xenial.com>
+Date: Fri, 19 Apr 2024 10:52:28 +0200
+Subject: [PATCH] Add forgotten conditional uses of PREFETCH
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This fixes a (cross-)compilation/linker error for PRESCOTT
+on Yocto.
+
+Signed-off-by: Zoltán Böszörményi <zoltan.boszormenyi@xenial.com>
+Upstream-Status: Backport
+---
+ kernel/x86_64/gemm_ncopy_4.S            | 18 ++++++++++++++
+ kernel/x86_64/gemm_tcopy_4.S            | 10 ++++++++
+ kernel/x86_64/zgemm_kernel_4x2_sse.S    | 32 +++++++++++++++++++++++--
+ kernel/x86_64/zsymv_L_sse2.S            |  8 +++++++
+ kernel/x86_64/zsymv_U_sse2.S            |  8 +++++++
+ kernel/x86_64/ztrsm_kernel_LN_4x2_sse.S | 12 ++++++++--
+ kernel/x86_64/ztrsm_kernel_LT_4x2_sse.S | 12 ++++++++--
+ kernel/x86_64/ztrsm_kernel_RT_4x2_sse.S | 12 ++++++++--
+ 8 files changed, 104 insertions(+), 8 deletions(-)
+
+diff --git a/kernel/x86_64/gemm_ncopy_4.S b/kernel/x86_64/gemm_ncopy_4.S
+index 7192cecc2..d30e9d362 100644
+--- a/kernel/x86_64/gemm_ncopy_4.S
++++ b/kernel/x86_64/gemm_ncopy_4.S
+@@ -189,12 +189,16 @@
+ 	movss	%xmm6,   6 * SIZE(B)
+ 	movss	%xmm7,   7 * SIZE(B)
+ 
++#ifdef PREFETCH
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO1)
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO2)
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO3)
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO4)
++#endif
+ 
++#ifdef PREFETCHW
+ 	PREFETCHW	WPREFETCHSIZE * SIZE(B)
++#endif
+ 
+ 	movss	%xmm8,   8 * SIZE(B)
+ 	movss	%xmm9,   9 * SIZE(B)
+@@ -205,29 +209,39 @@
+ 	movss	%xmm14, 14 * SIZE(B)
+ 	movss	%xmm15, 15 * SIZE(B)
+ #else
++#ifdef PREFETCH
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO1)
++#endif
+ 	movsd	0 * SIZE(AO1), %xmm0
+ 	movhpd	0 * SIZE(AO2), %xmm0
+ 	movsd	1 * SIZE(AO1), %xmm2
+ 	movhpd	1 * SIZE(AO2), %xmm2
++#ifdef PREFETCH
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO2)
++#endif
+ 	movsd	2 * SIZE(AO1), %xmm4
+ 	movhpd	2 * SIZE(AO2), %xmm4
+ 	movsd	3 * SIZE(AO1), %xmm6
+ 	movhpd	3 * SIZE(AO2), %xmm6
+ 
++#ifdef PREFETCH
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO3)
++#endif
+ 	movsd	0 * SIZE(AO3), %xmm1
+ 	movhpd	0 * SIZE(AO4), %xmm1
+ 	movsd	1 * SIZE(AO3), %xmm3
+ 	movhpd	1 * SIZE(AO4), %xmm3
++#ifdef PREFETCH
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO4)
++#endif
+ 	movsd	2 * SIZE(AO3), %xmm5
+ 	movhpd	2 * SIZE(AO4), %xmm5
+ 	movsd	3 * SIZE(AO3), %xmm7
+ 	movhpd	3 * SIZE(AO4), %xmm7
+ 
++#ifdef PREFETCHW
+ 	PREFETCHW	WPREFETCHSIZE * SIZE(B)
++#endif
+ 	movapd	%xmm0,   0 * SIZE(B)
+ 	movapd	%xmm1,   2 * SIZE(B)
+ 	movapd	%xmm2,   4 * SIZE(B)
+@@ -342,10 +356,14 @@
+ 	movapd	%xmm3,   6 * SIZE(B)
+ #endif
+ 
++#ifdef PREFETCH
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO1)
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO2)
++#endif
+ 
++#ifdef PREFETCHW
+ 	PREFETCHW	WPREFETCHSIZE * SIZE(B)
++#endif
+ 
+ 	addq	$4 * SIZE, AO1
+ 	addq	$4 * SIZE, AO2
+diff --git a/kernel/x86_64/gemm_tcopy_4.S b/kernel/x86_64/gemm_tcopy_4.S
+index ba7714b4b..177587c4b 100644
+--- a/kernel/x86_64/gemm_tcopy_4.S
++++ b/kernel/x86_64/gemm_tcopy_4.S
+@@ -219,31 +219,41 @@
+ 	movaps	%xmm3,   12 * SIZE(BO)
+ #else
+ 
++#ifdef PREFETCH
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO1)
++#endif
+ 	movsd	0 * SIZE(AO1), %xmm0
+ 	movhpd	1 * SIZE(AO1), %xmm0
+ 	movsd	2 * SIZE(AO1), %xmm1
+ 	movhpd	3 * SIZE(AO1), %xmm1
+ 
++#ifdef PREFETCH
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO2)
++#endif
+ 	movsd	0 * SIZE(AO2), %xmm2
+ 	movhpd	1 * SIZE(AO2), %xmm2
+ 	movsd	2 * SIZE(AO2), %xmm3
+ 	movhpd	3 * SIZE(AO2), %xmm3
+ 
++#ifdef PREFETCH
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO3)
++#endif
+ 	movsd	0 * SIZE(AO3), %xmm4
+ 	movhpd	1 * SIZE(AO3), %xmm4
+ 	movsd	2 * SIZE(AO3), %xmm5
+ 	movhpd	3 * SIZE(AO3), %xmm5
+ 
++#ifdef PREFETCH
+ 	PREFETCH	RPREFETCHSIZE * SIZE(AO4)
++#endif
+ 	movsd	0 * SIZE(AO4), %xmm6
+ 	movhpd	1 * SIZE(AO4), %xmm6
+ 	movsd	2 * SIZE(AO4), %xmm7
+ 	movhpd	3 * SIZE(AO4), %xmm7
+ 
++#ifdef PREFETCHW
+ 	PREFETCHW	WPREFETCHSIZE * SIZE(BO)
++#endif
+ 	movapd	%xmm0,    0 * SIZE(BO)
+ 	movapd	%xmm1,    2 * SIZE(BO)
+ 	movapd	%xmm2,    4 * SIZE(BO)
+diff --git a/kernel/x86_64/zgemm_kernel_4x2_sse.S b/kernel/x86_64/zgemm_kernel_4x2_sse.S
+index 7d606aa6f..5841f8b9e 100644
+--- a/kernel/x86_64/zgemm_kernel_4x2_sse.S
++++ b/kernel/x86_64/zgemm_kernel_4x2_sse.S
+@@ -102,6 +102,14 @@
+ #define RPREFETCHSIZE (8 *  7 + 4)
+ #define WPREFETCHSIZE (8 *  8 + 4)
+ 
++#ifdef PREFETCH
++#define PREFETCH_KERNEL1(xx) PREFETCH	(PREFETCHSIZE	  +  0) * SIZE + 1 * (xx) * SIZE(AO, %rax, 4) ;
++#define PREFETCH_KERNEL4(xx) PREFETCH	(PREFETCHSIZE     + 16) * SIZE + 1 * (xx) * SIZE(AO, %rax, 4) ;
++#else
++#define PREFETCH_KERNEL1(xx)
++#define PREFETCH_KERNEL4(xx)
++#endif
++
+ #ifndef GENERIC
+ #define KERNEL1(xx) \
+ 	mulps	%xmm0, %xmm1 ;\
+@@ -111,7 +119,7 @@
+ 	addps	%xmm3, %xmm9 ;\
+ 	movaps	-28 * SIZE + 2 * (xx) * SIZE(BO, %rax, 8), %xmm3 ;\
+ 	mulps	%xmm0, %xmm5 ;\
+-	PREFETCH	(PREFETCHSIZE     +  0) * SIZE + 1 * (xx) * SIZE(AO, %rax, 4) ;\
++	PREFETCH_KERNEL1(xx) \
+ 	mulps	-20 * SIZE + 2 * (xx) * SIZE(BO, %rax, 8), %xmm0 ;\
+ 	addps	%xmm5, %xmm10 ;\
+ 	movaps	-24 * SIZE + 2 * (xx) * SIZE(BO, %rax, 8), %xmm5 ;\
+@@ -157,7 +165,7 @@
+ 	mulps	 -4 * SIZE + 2 * (xx) * SIZE(BO, %rax, 8), %xmm6 ;\
+ 	addps	%xmm5, %xmm14 ;\
+ 	movaps	  8 * SIZE + 2 * (xx) * SIZE(BO, %rax, 8), %xmm5 ;\
+- 	PREFETCH	(PREFETCHSIZE     + 16) * SIZE + 1 * (xx) * SIZE(AO, %rax, 4) ;\
++	PREFETCH_KERNEL4(xx) \
+ 	addps	%xmm6, %xmm15 ;\
+ 	movaps	 -4 * SIZE + 1 * (xx) * SIZE(AO, %rax, 4), %xmm6
+ 
+@@ -1026,7 +1034,9 @@
+ 
+ .L22:
+ 	mulps	%xmm0, %xmm1
++#ifdef PREFETCH
+ 	PREFETCH	(PREFETCHSIZE +  0) * SIZE(AO)
++#endif
+ 	addps	%xmm1, %xmm8
+ 	movaps	-28 * SIZE(BO), %xmm1
+ 	mulps	%xmm0, %xmm1
+@@ -1079,7 +1089,9 @@
+ 	movaps	  0 * SIZE(AO), %xmm0
+ 
+ 	mulps	%xmm2, %xmm1
++#ifdef PREFETCH
+ 	PREFETCH	(PREFETCHSIZE + 16) * SIZE(AO)
++#endif
+ 	addps	%xmm1, %xmm8
+ 	movaps	 36 * SIZE(BO), %xmm1
+ 	mulps	%xmm2, %xmm1
+@@ -1285,7 +1297,9 @@
+ 
+ .L32:
+ 	mulps	%xmm0, %xmm1
++#ifdef PREFETCH
+ 	PREFETCH	(PREFETCHSIZE +  0) * SIZE(AO)
++#endif
+ 	addps	%xmm1, %xmm8
+ 	movaps	-28 * SIZE(BO), %xmm1
+ 	mulps	%xmm0, %xmm1
+@@ -1679,7 +1693,9 @@
+ 
+ .L52:
+ 	mulps	%xmm0, %xmm1
++#ifdef PREFETCH
+ 	PREFETCH	(PREFETCHSIZE +  0) * SIZE(AO)
++#endif
+ 	mulps	-28 * SIZE(BO), %xmm0
+ 	addps	%xmm1, %xmm8
+ 	movaps	-32 * SIZE(BO), %xmm1
+@@ -1705,7 +1721,9 @@
+ 	addps	%xmm0, %xmm13
+ 	movaps	 32 * SIZE(AO), %xmm0
+ 
++#ifdef PREFETCH
+ 	PREFETCH	(PREFETCHSIZE + 16) * SIZE(AO)
++#endif
+ 
+ 	mulps	%xmm2, %xmm3
+ 	mulps	-12 * SIZE(BO), %xmm2
+@@ -1733,7 +1751,9 @@
+ 	addps	%xmm2, %xmm13
+ 	movaps	 48 * SIZE(AO), %xmm2
+ 
++#ifdef PREFETCH
+ 	PREFETCH	(PREFETCHSIZE + 32) * SIZE(AO)
++#endif
+ 
+ 	mulps	%xmm4, %xmm5
+ 	mulps	  4 * SIZE(BO), %xmm4
+@@ -1761,7 +1781,9 @@
+ 	addps	%xmm4, %xmm13
+ 	movaps	 64 * SIZE(AO), %xmm4
+ 
++#ifdef PREFETCH
+ 	PREFETCH	(PREFETCHSIZE + 48) * SIZE(AO)
++#endif
+ 
+ 	mulps	%xmm6, %xmm7
+ 	mulps	 20 * SIZE(BO), %xmm6
+@@ -1942,7 +1964,9 @@
+ 
+ .L62:
+ 	mulps	%xmm0, %xmm1
++#ifdef PREFETCH
+ 	PREFETCH	(PREFETCHSIZE +  0) * SIZE(AO)
++#endif
+ 	mulps	-28 * SIZE(BO), %xmm0
+ 	addps	%xmm1, %xmm8
+ 	movaps	-24 * SIZE(BO), %xmm1
+@@ -1968,7 +1992,9 @@
+ 	addps	%xmm0, %xmm11
+ 	movaps    0 * SIZE(AO), %xmm0
+ 
++#ifdef PREFETCH
+ 	PREFETCH	(PREFETCHSIZE + 16) * SIZE(AO)
++#endif
+ 
+ 	mulps	%xmm2, %xmm5
+ 	mulps	  4 * SIZE(BO), %xmm2
+@@ -2130,7 +2156,9 @@
+ 
+ .L72:
+ 	mulps	%xmm0, %xmm1
++#ifdef PREFETCH
+ 	PREFETCH	(PREFETCHSIZE +  0) * SIZE(AO)
++#endif
+ 	addps	%xmm1, %xmm8
+ 	movaps	-28 * SIZE(BO), %xmm1
+ 	mulps	%xmm0, %xmm1
+diff --git a/kernel/x86_64/zsymv_L_sse2.S b/kernel/x86_64/zsymv_L_sse2.S
+index fa61ac939..acc5ad592 100644
+--- a/kernel/x86_64/zsymv_L_sse2.S
++++ b/kernel/x86_64/zsymv_L_sse2.S
+@@ -484,7 +484,9 @@
+ 	addpd	  a1,     yy1
+ 	MOVDDUP(1 * SIZE, A1, a1)
+ 
++#ifdef PREFETCH
+ 	PREFETCH	PREFETCHSIZE(A1)
++#endif
+ 
+ 	movapd	  xtemp3, xt1
+ 	mulpd	  a2,     xt1
+@@ -507,7 +509,9 @@
+ 	addpd	  a2,     yy2
+ 	MOVDDUP(0 * SIZE, A2, a2)
+ 
++#ifdef PREFETCH
+ 	PREFETCH	PREFETCHSIZE(XX)
++#endif
+ 
+ 	movapd	  xtemp3, xt1
+ 	movapd	12 * SIZE(XX), xtemp3
+@@ -546,7 +550,9 @@
+ 	addpd	  a2,     yy1
+ 	MOVDDUP(6 * SIZE, A2, a2)
+ 
++#ifdef PREFETCH
+ 	PREFETCH	PREFETCHSIZE(A2)
++#endif
+ 
+ 	movlpd	 yy1, 0 * SIZE(YY)
+ 	movhpd	 yy1, 1 * SIZE(YY)
+@@ -574,7 +580,9 @@
+ 	addpd	  a1,     yy1
+ 	MOVDDUP(6 * SIZE, A1, a1)
+ 
++#ifdef PREFETCHW
+ 	PREFETCHW	PREFETCHSIZE(YY)
++#endif
+ 
+ 	movapd	  xtemp4, xt1
+ 	mulpd	  a2,     xt1
+diff --git a/kernel/x86_64/zsymv_U_sse2.S b/kernel/x86_64/zsymv_U_sse2.S
+index 1657885c0..fa1fe9fe9 100644
+--- a/kernel/x86_64/zsymv_U_sse2.S
++++ b/kernel/x86_64/zsymv_U_sse2.S
+@@ -442,7 +442,9 @@
+ 	addpd	  a1,     yy1
+ 	MOVDDUP(3 * SIZE, A2, a1)
+ 
++#ifdef PREFETCH
+ 	PREFETCH	PREFETCHSIZE(A1)
++#endif
+ 
+ 	movapd	  xtemp3, xt1
+ 	mulpd	  a2,     xt1
+@@ -465,7 +467,9 @@
+ 	addpd	  a1,     yy2
+ 	MOVDDUP(3 * SIZE, A1, a1)
+ 
++#ifdef PREFETCH
+ 	PREFETCH	PREFETCHSIZE(XX)
++#endif
+ 
+ 	movapd	  xtemp3, xt1
+ 	movapd	12 * SIZE(XX), xtemp3
+@@ -504,7 +508,9 @@
+ 	addpd	  a2,     yy1
+ 	MOVDDUP(5 * SIZE, A1, a2)
+ 
++#ifdef PREFETCH
+ 	PREFETCH	PREFETCHSIZE(A2)
++#endif
+ 
+ 	movlpd	 yy1, 0 * SIZE(YY)
+ 	movhpd	 yy1, 1 * SIZE(YY)
+@@ -532,7 +538,9 @@
+ 	addpd	  a2,     yy1
+ 	MOVDDUP(4 * SIZE, A2, a2)
+ 
++#ifdef PREFETCH
+ 	PREFETCHW	PREFETCHSIZE(YY)
++#endif
+ 
+ 	movapd	  xtemp4, xt1
+ 	mulpd	  a3,     xt1
+diff --git a/kernel/x86_64/ztrsm_kernel_LN_4x2_sse.S b/kernel/x86_64/ztrsm_kernel_LN_4x2_sse.S
+index cd86db289..02b5098a2 100644
+--- a/kernel/x86_64/ztrsm_kernel_LN_4x2_sse.S
++++ b/kernel/x86_64/ztrsm_kernel_LN_4x2_sse.S
+@@ -109,12 +109,20 @@
+ #define PREFETCHSIZE (8 * 6 + 4)
+ #endif
+ 
++#ifdef PREFETCH
++#define PREFETCH_KERNEL1(xx) PREFETCH	(PREFETCHSIZE     +  0) * SIZE + 1 * (xx) * SIZE(AO) ;
++#define PREFETCH_KERNEL5(xx) PREFETCH	(PREFETCHSIZE     +  8) * SIZE + 1 * (xx) * SIZE(AO) ;
++#else
++#define PREFETCH_KERNEL1(xx)
++#define PREFETCH_KERNEL5(xx)
++#endif
++
+ #define KERNEL1(xx) \
+ 	mulps	%xmm8, %xmm9 ;\
+ 	addps	%xmm9, %xmm0 ;\
+ 	movaps	 0 * SIZE + 2 * (xx) * SIZE(BO), %xmm9 ;\
+ 	mulps	%xmm8, %xmm11 ;\
+-	PREFETCH	(PREFETCHSIZE     +  0) * SIZE + 1 * (xx) * SIZE(AO) ;\
++	PREFETCH_KERNEL1(xx) \
+ 	addps	%xmm11, %xmm1 ;\
+ 	movaps	 4 * SIZE + 2 * (xx) * SIZE(BO), %xmm11 ;\
+ 	mulps	%xmm8, %xmm13 ;\
+@@ -171,7 +179,7 @@
+ 	addps	%xmm9, %xmm0 ;\
+ 	movaps	32 * SIZE + 2 * (xx) * SIZE(BO), %xmm9 ;\
+ 	mulps	%xmm8, %xmm11 ;\
+-	PREFETCH	(PREFETCHSIZE     +  8) * SIZE + 1 * (xx) * SIZE(AO) ;\
++	PREFETCH_KERNEL5(xx) \
+ 	addps	%xmm11, %xmm1 ;\
+ 	movaps	36 * SIZE + 2 * (xx) * SIZE(BO), %xmm11 ;\
+ 	mulps	%xmm8, %xmm13 ;\
+diff --git a/kernel/x86_64/ztrsm_kernel_LT_4x2_sse.S b/kernel/x86_64/ztrsm_kernel_LT_4x2_sse.S
+index 53e5bb7f9..0c3a052a1 100644
+--- a/kernel/x86_64/ztrsm_kernel_LT_4x2_sse.S
++++ b/kernel/x86_64/ztrsm_kernel_LT_4x2_sse.S
+@@ -109,12 +109,20 @@
+ #define PREFETCHSIZE (8 * 6 + 4)
+ #endif
+ 
++#ifdef PREFETCH
++#define PREFETCH_KERNEL1(xx) PREFETCH	(PREFETCHSIZE     +  0) * SIZE + 1 * (xx) * SIZE(AO) ;
++#define PREFETCH_KERNEL5(xx) PREFETCH	(PREFETCHSIZE     +  8) * SIZE + 1 * (xx) * SIZE(AO) ;
++#else
++#define PREFETCH_KERNEL1(xx)
++#define PREFETCH_KERNEL5(xx)
++#endif
++
+ #define KERNEL1(xx) \
+ 	mulps	%xmm8, %xmm9 ;\
+ 	addps	%xmm9, %xmm0 ;\
+ 	movaps	 0 * SIZE + 2 * (xx) * SIZE(BO), %xmm9 ;\
+ 	mulps	%xmm8, %xmm11 ;\
+-	PREFETCH	(PREFETCHSIZE     +  0) * SIZE + 1 * (xx) * SIZE(AO) ;\
++	PREFETCH_KERNEL1(xx) \
+ 	addps	%xmm11, %xmm1 ;\
+ 	movaps	 4 * SIZE + 2 * (xx) * SIZE(BO), %xmm11 ;\
+ 	mulps	%xmm8, %xmm13 ;\
+@@ -171,7 +179,7 @@
+ 	addps	%xmm9, %xmm0 ;\
+ 	movaps	32 * SIZE + 2 * (xx) * SIZE(BO), %xmm9 ;\
+ 	mulps	%xmm8, %xmm11 ;\
+-	PREFETCH	(PREFETCHSIZE     +  8) * SIZE + 1 * (xx) * SIZE(AO) ;\
++	PREFETCH_KERNEL5(xx) \
+ 	addps	%xmm11, %xmm1 ;\
+ 	movaps	36 * SIZE + 2 * (xx) * SIZE(BO), %xmm11 ;\
+ 	mulps	%xmm8, %xmm13 ;\
+diff --git a/kernel/x86_64/ztrsm_kernel_RT_4x2_sse.S b/kernel/x86_64/ztrsm_kernel_RT_4x2_sse.S
+index 20b93e198..518e1b4fe 100644
+--- a/kernel/x86_64/ztrsm_kernel_RT_4x2_sse.S
++++ b/kernel/x86_64/ztrsm_kernel_RT_4x2_sse.S
+@@ -109,12 +109,20 @@
+ #define PREFETCHSIZE (8 * 6 + 4)
+ #endif
+ 
++#ifdef PREFETCH
++#define PREFETCH_KERNEL1(xx) PREFETCH	(PREFETCHSIZE     +  0) * SIZE + 1 * (xx) * SIZE(AO) ;
++#define PREFETCH_KERNEL5(xx) PREFETCH	(PREFETCHSIZE     +  8) * SIZE + 1 * (xx) * SIZE(AO) ;
++#else
++#define PREFETCH_KERNEL1(xx)
++#define PREFETCH_KERNEL5(xx)
++#endif
++
+ #define KERNEL1(xx) \
+ 	mulps	%xmm8, %xmm9 ;\
+ 	addps	%xmm9, %xmm0 ;\
+ 	movaps	 0 * SIZE + 2 * (xx) * SIZE(BO), %xmm9 ;\
+ 	mulps	%xmm8, %xmm11 ;\
+-	PREFETCH	(PREFETCHSIZE     +  0) * SIZE + 1 * (xx) * SIZE(AO) ;\
++	PREFETCH_KERNEL1(xx) \
+ 	addps	%xmm11, %xmm1 ;\
+ 	movaps	 4 * SIZE + 2 * (xx) * SIZE(BO), %xmm11 ;\
+ 	mulps	%xmm8, %xmm13 ;\
+@@ -171,7 +179,7 @@
+ 	addps	%xmm9, %xmm0 ;\
+ 	movaps	32 * SIZE + 2 * (xx) * SIZE(BO), %xmm9 ;\
+ 	mulps	%xmm8, %xmm11 ;\
+-	PREFETCH	(PREFETCHSIZE     +  8) * SIZE + 1 * (xx) * SIZE(AO) ;\
++	PREFETCH_KERNEL5(xx) \
+ 	addps	%xmm11, %xmm1 ;\
+ 	movaps	36 * SIZE + 2 * (xx) * SIZE(BO), %xmm11 ;\
+ 	mulps	%xmm8, %xmm13 ;\
+-- 
+2.44.0
+
