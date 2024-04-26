@@ -21,7 +21,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=5adf4792c949a00013ce25d476a2abc0"
 
 SRC_URI = " \
 	git://github.com/xianyi/OpenBLAS.git;protocol=https;branch=develop \
-	file://0001-Fix-a-build-issue-for-PRESCOTT-on-x86_64.patch \
+	file://0001-Add-forgotten-conditional-uses-of-PREFETCH.patch \
 "
 
 SRCREV = "ce3f668c992cb3cc80849d5c30ed637f5adbd5b2"
