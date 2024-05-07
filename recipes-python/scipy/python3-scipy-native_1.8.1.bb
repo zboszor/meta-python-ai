@@ -41,4 +41,7 @@ export LDSHARED := "${@d.getVar('LDSHARED', True).split()[0]}"
 # Tell Numpy to look in target sysroot site-packages directory for libraries
 LDFLAGS:append = " -L${STAGING_LIBDIR}/${PYTHON_DIR}/site-packages/numpy/core/lib"
 
+# GCC 14 chokes on some of the Cython generated sources
+CFLAGS:append = " -Wno-incompatible-pointer-types"
+
 INSANE_SKIP:${PN} = "already-stripped"
