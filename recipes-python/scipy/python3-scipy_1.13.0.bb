@@ -48,3 +48,9 @@ export F90
 export F77 = "${TARGET_PREFIX}gfortran"
 
 BBCLASSEXTEND = "native nativesdk"
+
+do_configure:append:class-target() {
+	if ! grep -q "numpy-include-dir" "${WORKDIR}/meson.cross" ; then
+		sed -i "s,\[properties\],\[properties\]\nnumpy-include-dir = \'${RECIPE_SYSROOT}${PYTHON_SITEPACKAGES_DIR}/numpy/core/include/\' ,g" "${WORKDIR}/meson.cross"
+	fi
+}
