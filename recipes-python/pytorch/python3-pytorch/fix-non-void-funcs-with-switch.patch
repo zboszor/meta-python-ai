@@ -1,0 +1,22 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+diff --git a/aten/src/ATen/native/vulkan/api/Tensor.cpp b/aten/src/ATen/native/vulkan/api/Tensor.cpp
+index 1d49603c371..a36a55970e3 100644
+--- a/aten/src/ATen/native/vulkan/api/Tensor.cpp
++++ b/aten/src/ATen/native/vulkan/api/Tensor.cpp
+@@ -443,6 +443,7 @@ VmaAllocationCreateInfo vTensor::get_allocation_create_info() const {
+     case api::StorageType::TEXTURE_3D:
+       return view_->image_.allocation_create_info();
+     case api::StorageType::UNKNOWN:
++    default:
+       return {};
+   }
+ }
+@@ -455,6 +456,7 @@ VkMemoryRequirements vTensor::get_memory_requirements() const {
+     case api::StorageType::TEXTURE_3D:
+       return view_->image_.get_memory_requirements();
+     case api::StorageType::UNKNOWN:
++    default:
+       return {};
+   }
+ }

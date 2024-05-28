@@ -1,14 +1,17 @@
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
 Upstream-Status: Inappropriate [Yocto specific]
 diff --git a/aten/src/ATen/native/vulkan/impl/Arithmetic.cpp b/aten/src/ATen/native/vulkan/impl/Arithmetic.cpp
-index ddbb12ca588..c0194201486 100644
+index 24d0eea4ddd..533d70ae96d 100644
 --- a/aten/src/ATen/native/vulkan/impl/Arithmetic.cpp
 +++ b/aten/src/ATen/native/vulkan/impl/Arithmetic.cpp
-@@ -14,6 +14,7 @@ api::ShaderInfo get_shader(const OpType type) {
-       return VK_KERNEL(sub);
-     case OpType::MUL:
-       return VK_KERNEL(mul);
-+    default: /* Silence error: control reaches end of non-void function [-Werror=return-type] */
-     case OpType::DIV:
-       return VK_KERNEL(div);
+@@ -20,8 +20,9 @@ api::ShaderInfo get_shader(const OpType type) {
+       return VK_KERNEL(floor_divide);
+     case OpType::POW:
+       return VK_KERNEL(pow);
++    default:
++      VK_THROW("Invalid OpType");
    }
+-  VK_THROW("Invalid OpType");
+ }
+ 
+ struct Params final {
