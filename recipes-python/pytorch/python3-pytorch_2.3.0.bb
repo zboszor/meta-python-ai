@@ -29,7 +29,7 @@ inherit cmake python3native setuptools3_legacy
 # ERROR: python3-pytorch do_fetch: Fetcher failure: Submodule refers to the parent repository. This will cause deadlock situation in current version of Bitbake.Consider using git fetcher instead.
 
 SRC_URI = " \
-	git://github.com/pytorch/pytorch.git;protocol=https;name=pytorch;branch=release/2.1 \
+	git://github.com/pytorch/pytorch.git;protocol=https;name=pytorch;branch=release/2.3 \
 	gitsm://github.com/facebookincubator/fbjni.git;protocol=https;name=fbjni;nobranch=1;destsuffix=git/android/libs/fbjni \
 	gitsm://github.com/Maratyszcza/FP16.git;protocol=https;name=fp16;nobranch=1;destsuffix=git/third_party/FP16 \
 	gitsm://github.com/Maratyszcza/FXdiv.git;protocol=https;name=fxdiv;nobranch=1;destsuffix=git/third_party/FXdiv \
@@ -91,9 +91,7 @@ SRC_URI = " \
 	gitsm://github.com/Maratyszcza/psimd.git;protocol=https;name=psimd;nobranch=1;destsuffix=git/third_party/psimd \
 	gitsm://github.com/Maratyszcza/pthreadpool.git;protocol=https;name=pthreadpool;nobranch=1;destsuffix=git/third_party/pthreadpool \
 	gitsm://github.com/pybind/pybind11.git;protocol=https;name=pybind11;nobranch=1;destsuffix=git/third_party/pybind11 \
-	gitsm://github.com/PeachPy/enum34.git;protocol=https;name=pyenum;nobranch=1;destsuffix=git/third_party/python-enum \
 	gitsm://github.com/malfet/PeachPy.git;protocol=https;name=peachpy;nobranch=1;destsuffix=git/third_party/python-peachpy \
-	gitsm://github.com/benjaminp/six.git;protocol=https;name=pysix;nobranch=1;destsuffix=git/third_party/python-six \
 	gitsm://github.com/shibatch/sleef.git;protocol=https;name=sleef;nobranch=1;destsuffix=git/third_party/sleef \
 	gitsm://github.com/oneapi-src/oneTBB.git;protocol=https;name=tbb;branch=tbb_2018;destsuffix=git/third_party/tbb \
 	gitsm://github.com/pytorch/tensorpipe.git;protocol=https;name=tensorpipe;nobranch=1;destsuffix=git/third_party/tensorpipe \
@@ -107,15 +105,14 @@ SRC_URI = " \
 	file://0003-Use-oneDNN-using-its-new-CMake-name.patch \
 	file://0005-Use-IsGoogleLoggingInitialized-from-the-Google-publi.patch \
 	file://0001-Pass-through-EXTRA_OECMAKE.patch \
-	file://0006-Gloo-header-fix.patch \
 	file://pytorch-fix-vulkan-get_shader-return-type.patch \
-	file://pytorch-fix-vulkan-look_up_shader_info.patch \
+	file://fix-non-void-funcs-with-switch.patch \
 "
 
 #PR = "r1"
 
 SRCREV_FORMAT = "pytorch"
-SRCREV_pytorch = "a8e7c98cb95ff97bb30a728c6b2a1ce6bff946eb"
+SRCREV_pytorch = "bd1040c3b0ff0375c24765cdcbd84c3b1db2a96c"
 
 # These are the git submodule commit IDs
 SRCREV_fbjni = "7e1e1fe3858c63c251c637ae41a20de425dde96f"
@@ -124,30 +121,30 @@ SRCREV_fxdiv = "b408327ac2a15ec3e43352421954f5b1967701d1"
 SRCREV_nnpack = "c07e3a0400713d546e0dea2d5466dd22ea389c73"
 SRCREV_qnnpack = "7d2a4e9931a82adc3814275b6219a03e24e36b4c"
 SRCREV_vulkanmemalloc = "a6bfc237255a6bac1513f7c1ebde6d8aed6b5191"
-SRCREV_xnnpack = "51a987591a6fc9f0fc0707077f53d763ac132cbf"
+SRCREV_xnnpack = "fcbf55af6cf28a4627bcd1f703ab7ad843f0f3a2"
 SRCREV_benchmark = "0d98dba29d66e93259db7daa53a9327df767a415"
-SRCREV_cpuinfo = "6481e8bef08f606ddd627e4d3be89f64d62e1b8a"
+SRCREV_cpuinfo = "d6860c477c99f1fce9e28eb206891af3c0e1a1d7"
 SRCREV_cub = "d106ddb991a56c3df1b6d51b2409e36ba8181ce4"
-SRCREV_cudnnfe = "12f35fa2be5994c1106367cac2fba21457b064f4"
-SRCREV_cutlass = "6f47420213f757831fae65c686aa471749fa8d60"
+SRCREV_cudnnfe = "150798fe976556078f443fdb059a1ff0361f58a2"
+SRCREV_cutlass = "bbe579a9e3beb6ea6626d9227ec32d0dae119a49"
 SRCREV_eigen = "3147391d946bb4b6c68edd901f2add6ac1f31f8c"
-SRCREV_fbgemm = "cdae5d97e3aa9fda4222f31c04dbd80249c918d1"
+SRCREV_fbgemm = "dbc3157bf256f1339b3fa1fef2be89ac4078be0e"
 SRCREV_fbgemmasmjit = "d3fbf7c9bc7c1d1365a94a45614b91c5a3706b81"
 SRCREV_fbgemmcpuinfo = "ed8b86a253800bafdb7b25c5c399f91bff9cb1f3"
 SRCREV_fbgemmcutlass = "fc9ebc645b63f3a6bc80aaefde5c063fb72110d6"
 SRCREV_fbgemmgtest = "cbf019de22c8dd37b2108da35b2748fd702d1796"
 SRCREV_fbgemmhiptorch = "23f53b025b466d8ec3c45d52290d3442f7fbe6b1"
 SRCREV_flatbuffers = "01834de25e4bf3975a9a00e816292b1ad0fe184b"
-SRCREV_fmt = "e57ca2e3685b160617d3d95fcd9e789c4e06ca88"
+SRCREV_fmt = "e69e5f977d458f2650bb346dadf2ad30c5320281"
 SRCREV_foxi = "c278588e34e535f0bb8f00df3880d26928038cad"
 SRCREV_gemmlowp = "3fb5c176c17c765a3492cd2f0321b0dab712f350"
-SRCREV_gloo = "597accfd79f5b0f9d57b228dec088ca996686475"
+SRCREV_gloo = "5354032ea08eadd7fc4456477f7f7c6308818509"
 SRCREV_gtest = "e2239ee6043f73722e7aa812a459f54a28552929"
-SRCREV_ideep = "6f4d653802bd43bc4eda515460df9f90353dbebe"
-SRCREV_ideep_onednn = "64f6bcbcbab628e96f33a62c3e975f8535a7bde4"
+SRCREV_ideep = "8a6cc4e09dc509f04f83c085e38786b1fb44e14d"
+SRCREV_ideep_onednn = "86e6af5974177e513fd3fee58425e1063e7f1361"
 SRCREV_ioscmake = "8abaed637d56f1337d6e1d2c4026e25c1eade724"
 SRCREV_ittapi = "5b8a7d7422611c3a0d799fb5fc5dd4abfae35b42"
-SRCREV_kineto = "49e854d805d916b2031e337763928d2f8d2e1fbf"
+SRCREV_kineto = "3f30237e868ca92b46b309da17d84b37be373a6e"
 SRCREV_kineto_dynolog = "7d04a0053a845370ae06ce317a22a48e9edcc74e"
 SRCREV_kineto_dynolog_dcgm = "ffde4e54bc7249a6039a5e6b45b395141e1217f9"
 SRCREV_kineto_dynolog_cpr = "871ed52d350214a034f6ef8a3b8f51c5ce1bd400"
@@ -161,27 +158,25 @@ SRCREV_kineto_dynolog_pfs = "f68a2fa8ea36c783bdd760371411fcb495aa3150"
 SRCREV_kineto_fmt = "a33701196adfad74917046096bf5a2aa0ab0bb50"
 SRCREV_kineto_gtest = "7aca84427f224eeed3144123d5230d5871e93347"
 SRCREV_mimalloc = "b66e3214d8a104669c2ec05ae91ebc26a8f5ab78"
-SRCREV_nccl = "0b083e52096c387bad7a5c5c65b26a9dca54de8c"
+SRCREV_nccl = "48bb7fec7953112ff37499a272317f6663f8f600"
 SRCREV_neon2sse = "97a126f08ce318023be604d03f88bf0820a9464a"
 SRCREV_nlohmann = "87cda1d6646592ac5866dc703c8e1839046a6806"
-SRCREV_onnx = "1014f41f17ecc778d63e760a994579d96ba471ff"
-SRCREV_onnx_benchmark = "0d98dba29d66e93259db7daa53a9327df767a415"
-SRCREV_onnx_pybind11 = "0bd8896a4010f2d91b2340570c24fa08606ec406"
+SRCREV_onnx = "990217f043af7222348ca8f0301e17fa7b841781"
+SRCREV_onnx_benchmark = "2dd015dfef425c866d9a43f2c67d8b52d709acb6"
+SRCREV_onnx_pybind11 = "5b0a6fc2017fcc176545afe3e09c9f9885283242"
 SRCREV_onnxtensorrt = "c153211418a7c57ce071d9ce2a41f8d1c85a878f"
 SRCREV_onnxtensorrt_onnx = "765f5ee823a67a866f4bd28a9860e81f3c811ce8"
 SRCREV_onnxtensorrt_onnx_benchmark = "e776aa0275e293707b6a0901e0e8d8a8a3679508"
 SRCREV_onnxtensorrt_onnx_pybind11 = "a1041190c8b8ff0cd9e2f0752248ad5e3789ea0c"
 SRCREV_onnxtensorrt_onnx_pybind11_cindex = "6a00cbc4a9b8e68b71caf7f774b3f9c753ae84d5"
-SRCREV_pocketfft = "ea778e37710c07723435b1be58235996d1d43a5a"
+SRCREV_pocketfft = "9d3ab05a7fffbc71a492bc6a17be034e83e8f0fe"
 SRCREV_protobuf = "d1eca4e4b421cd2997495c4b4e65cea6be4e9b8a"
 SRCREV_protobuf_benchmark = "5b7683f49e1e9223cf9927b24f6fd3d6bd82e3f8"
 SRCREV_protobuf_gtest = "5ec7f0c4a113e2f18ac2c6cc7df51ad6afc24081"
 SRCREV_psimd = "072586a71b55b7f8c584153d223e95687148a900"
-SRCREV_pthreadpool = "a134dd5d4cee80cce15db81a72e7f929d71dd413"
-SRCREV_pybind11 = "8a099e44b3d5f85b20f05828d919d2332a8de841"
-SRCREV_pyenum = "4cfedc426c4e2fc52e3f5c2b4297e15ed8d6b8c7"
+SRCREV_pthreadpool = "4fe0e1e183925bf8cfa6aae24237e724a96479b8"
+SRCREV_pybind11 = "3e9dfa2866941655c56877882565e7577de6fc7b"
 SRCREV_peachpy = "f45429b087dd7d5bc78bb40dc7cf06425c252d67"
-SRCREV_pysix = "15e31431af97e5e64b80af0a3f598d382bcdd49a"
 SRCREV_sleef = "e0a003ee838b75d11763aa9c3ef17bf71a725bff"
 SRCREV_tbb = "a51a90bc609bb73db8ea13841b5cf7aa4344d4a9"
 SRCREV_tensorpipe = "52791a2fd214b2a9dc5759d36725909c1daa7f2e"
