@@ -9,4 +9,5 @@ DEPENDS += "python3-pytorch-native"
 
 RDEPENDS:${PN} += " \
 	python3-pytorch \
+	python3-kornia-rs \
 "
