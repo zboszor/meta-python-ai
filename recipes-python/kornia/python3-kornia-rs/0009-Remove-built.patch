@@ -1,0 +1,81 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -265,10 +265,6 @@
+ [dev-dependencies.semver]
+ version = "1.0"
+ 
+-[build-dependencies.built]
+-version = "0.7.1"
+-features = []
+-
+ [build-dependencies.cc]
+ version = "1.0"
+ features = ["parallel"]
+@@ -306,7 +302,6 @@
+     "asm",
+     "threading",
+     "signal_support",
+-    "git_version",
+ ]
+ desync_finder = ["backtrace"]
+ dump_ivf = ["ivf"]
+@@ -314,7 +309,6 @@
+     "byteorder",
+     "image",
+ ]
+-git_version = ["built/git2"]
+ quick_test = []
+ scenechange = []
+ serialize = [
+--- a/build.rs
++++ b/build.rs
+@@ -247,8 +247,6 @@
+ 
+ #[allow(unused_variables)]
+ fn main() {
+-  built::write_built_file().expect("Failed to acquire build-time information");
+-
+   let arch = env::var("CARGO_CFG_TARGET_ARCH").unwrap();
+   let os = env::var("CARGO_CFG_TARGET_OS").unwrap();
+   // let env = env::var("CARGO_CFG_TARGET_ENV").unwrap();
+--- a/src/bin/common.rs
++++ b/src/bin/common.rs
+@@ -23,11 +23,6 @@
+ use std::io::prelude::*;
+ use std::path::PathBuf;
+ 
+-pub mod built_info {
+-  // The file has been placed there by the build script.
+-  include!(concat!(env!("OUT_DIR"), "/built.rs"));
+-}
+-
+ #[derive(Clap)]
+ #[clap(
+   name = "rav1e",
+@@ -280,8 +275,8 @@
+     format!(
+       "{}\n{} {}\nCompiled CPU Features: {}\nRuntime Assembly Support: {}{}\nThreading: {}\nUnstable Features: {}\nCompiler Flags: {}",
+       get_version(),
+-      built_info::RUSTC_VERSION,
+-      built_info::TARGET,
++      "unknown rustc version",
++      "unknown target",
+       option_env!("CARGO_CFG_TARGET_FEATURE").unwrap_or("(None)"),
+       if cfg!(feature = "asm") { "Enabled" } else { "Disabled" },
+       if cfg!(feature = "asm") {
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -118,11 +118,6 @@
+ #[macro_use]
+ extern crate log;
+ 
+-pub(crate) mod built_info {
+-  // The file has been placed there by the build script.
+-  include!(concat!(env!("OUT_DIR"), "/built.rs"));
+-}
+-
+ mod serialize {
+   cfg_if::cfg_if! {
+     if #[cfg(feature="serialize")] {
