@@ -2,7 +2,7 @@ SUMMARY = "compiling Python code using LLVM"
 LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d9bed34136e8491d5d792c7efc17f10c"
 
-DEPENDS = "llvm-native llvm python3-numpy-native openmp"
+DEPENDS = "llvm-native llvm python3-numpy-native"
 
 PYPI_PACKAGE = "numba"
 
