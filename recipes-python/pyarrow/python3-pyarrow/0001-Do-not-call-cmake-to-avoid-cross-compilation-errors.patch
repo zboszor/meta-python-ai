@@ -1,0 +1,28 @@
+From 5438115c86f97a37947e565c56f9f4b32a8aa250 Mon Sep 17 00:00:00 2001
+From: Xabier Marquiegui <xmarquiegui@ainguraiiot.com>
+Date: Thu, 19 May 2022 14:48:00 +0200
+Subject: [PATCH] Do not call cmake to avoid cross-compilation errors
+
+---
+ python/setup.py | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/python/setup.py b/python/setup.py
+index 1189357b23..3aae5b0a90 100755
+--- a/python/setup.py
++++ b/python/setup.py
+@@ -616,11 +616,6 @@ setup(
+     package_data={'pyarrow': ['*.pxd', '*.pyx', 'includes/*.pxd']},
+     include_package_data=True,
+     distclass=BinaryDistribution,
+-    # Dummy extension to trigger build_ext
+-    ext_modules=[Extension('__dummy__', sources=[])],
+-    cmdclass={
+-        'build_ext': build_ext
+-    },
+     entry_points={
+         'console_scripts': [
+             'plasma_store = pyarrow:_plasma_store_entry_point'
+-- 
+2.25.1
+

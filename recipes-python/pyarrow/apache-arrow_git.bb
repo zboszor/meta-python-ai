@@ -9,15 +9,11 @@ DEPENDS = " \
 
 inherit cmake python3native
 
-#PR = "r1"
+require arrow.inc
 
-LIC_FILES_CHKSUM = "file://../LICENSE.txt;md5=8031a2c33230c952ed3f3ccff1d3fa89"
-
-SRC_URI = "git://github.com/apache/arrow.git;protocol=https;branch=maint-${PV}"
-
-SRCREV = "e03105efc38edca4ca429bf967a17b4d0fbebe40"
-
-S = "${WORKDIR}/git/cpp"
+S = "${WORKDIR}/git"
+B = "${WORKDIR}/build"
+OECMAKE_SOURCEPATH = "${S}/cpp"
 
 EXTRA_OECMAKE = " \
 	-DARROW_DEPENDENCY_SOURCE=SYSTEM \
@@ -58,3 +54,5 @@ do_install:append () {
 }
 
 FILES:${PN}-dbg += "${datadir}/gdb ${datadir}/arrow/gdb"
+
+BBCLASSEXTEND = "native nativesdk"
