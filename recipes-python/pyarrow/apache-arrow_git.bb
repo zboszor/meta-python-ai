@@ -4,7 +4,7 @@ LICENSE = "Apache-2.0"
 
 DEPENDS = " \
 	protobuf boost zlib bzip2 lz4 zstd openssl brotli \
-	snappy orc glog gflags utf8proc re2 rapidjson \
+	snappy orc glog gflags utf8proc re2 rapidjson xsimd \
 "
 
 inherit cmake python3native
@@ -14,6 +14,13 @@ require arrow.inc
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 OECMAKE_SOURCEPATH = "${S}/cpp"
+
+ARROW_SIMD_LEVEL ?= "DEFAULT"
+ARROW_RUNTIME_SIMD_LEVEL ?= "MAX"
+
+PACKAGECONFIG ?= ""
+
+PACKAGECONFIG[altivec] = "-DARROW_ALTIVEC=ON,-DARROW_ALTIVEC=OFF"
 
 EXTRA_OECMAKE = " \
 	-DARROW_DEPENDENCY_SOURCE=SYSTEM \
@@ -29,8 +36,8 @@ EXTRA_OECMAKE = " \
 	-DARROW_WITH_RE2=ON \
 	-DARROW_ORC=OFF \
 	-DARROW_USE_GLOG=ON \
-	-DARROW_SIMD_LEVEL=NONE \
-	-DARROW_RUNTIME_SIMD_LEVEL=NONE \
+	-DARROW_SIMD_LEVEL=${ARROW_SIMD_LEVEL} \
+	-DARROW_RUNTIME_SIMD_LEVEL=${ARROW_RUNTIME_SIMD_LEVEL} \
 	-DARROW_JEMALLOC=OFF \
 	-DARROW_CSV=ON \
 	-DARROW_COMPUTE=ON \
