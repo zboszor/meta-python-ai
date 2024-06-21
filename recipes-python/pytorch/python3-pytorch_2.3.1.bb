@@ -14,9 +14,8 @@ DEPENDS = " \
 "
 
 DEPENDS:append:class-target = " \
-	zstd-native intel-oneapi-mkl intel-oneapi-dpcpp-cpp \
-	onednn tbb glog gloo numactl opencv \
-	opencl-headers virtual/opencl-icd \
+	zstd-native glog gloo numactl \
+	chipstar-native chipstar virtual/opencl-icd \
 	shaderc spirv-tools mesa vulkan-headers vulkan-loader \
 	python3-numpy python3-typing-extensions python3-pyyaml \
 	python3-pybind11 python3-pytorch-native \
@@ -230,9 +229,6 @@ BUILD_CFLAGS += " \
 	-Wno-error=uninitialized \
 "
 
-LDFLAGS:append:class-target = " -ldnnl"
-BUILD_LDFLAGS:append:class-target = " -ldnnl"
-
 # Leave these variables below un-indented.
 # The contents of EXTRA_OECMAKE is split in python code,
 # which expects a single space between pieces.
@@ -249,12 +245,8 @@ EXTRA_OECMAKE = "\
 -DPYTHON_LIBRARY=${STAGING_DIR}/${libdir}/${PYTHON_DIR} \
 -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIR} \
 -DGLIBCXX_USE_CXX11_ABI=1 \
--DBLAS=MKL \
--DUSE_MKLDNN=ON \
--DUSE_MKLDNN_CBLAS=ON \
--DBUILD_ONEDNN_GRAPH=ON \
 -DUSE_ITT=OFF \
--DUSE_CUDA=OFF \
+-DUSE_CUDA=ON \
 -DUSE_FFMPEG=OFF \
 -DBUILD_CAFFE2=ON \
 -DBUILD_CAFFE2_OPS=ON \
@@ -263,11 +255,10 @@ EXTRA_OECMAKE = "\
 -DUSE_SYSTEM_SLEEF=ON \
 -DUSE_GOLD_LINKER=ON \
 -DUSE_TBB=ON \
--DUSE_SYSTEM_TBB=ON \
 -DUSE_GFLAGS=ON \
 -DUSE_GLOG=ON \
--DUSE_OPENCL=OFF \
--DUSE_OPENCV=ON \
+-DUSE_OPENCL=ON \
+-DUSE_OPENCV=OFF \
 -DUSE_VULKAN=ON \
 -DUSE_VULKAN_FP16_INFERENCE=ON \
 -DUSE_VULKAN_RELAXED_PRECISION=ON \
@@ -295,6 +286,12 @@ EXTRA_OECMAKE:class-native = "\
 -DONNX_ML=OFF"
 
 export CMAKE_TOOLCHAIN_FILE="${WORKDIR}/toolchain.cmake"
+
+# For chipStar: Fake CUDA 12.0.0
+#CUCC_VERSION_STRING = "12.0.0"
+#export CUCC_VERSION_STRING
+export STAGING_BINDIR_NATIVE
+export STAGING_EXECPREFIXDIR
 
 do_configure () {
 	export EXTRA_OECMAKE="${EXTRA_OECMAKE}"
@@ -337,9 +334,7 @@ FILES:${PN} += " \
 INSANE_SKIP:${PN} = "dev-so"
 
 RDEPENDS:${PN}:class-target = " \
-	sleef glslang gflags zstd \
-	intel-oneapi-mkl intel-oneapi-dpcpp-cpp-runtime \
-	onednn tbb glog numactl opencv \
+	sleef glslang gflags zstd glog numactl \
 	shaderc spirv-tools vulkan-loader \
 	python3-numpy python3-typing-extensions \
 	python3-pyyaml python3-pybind11 \
