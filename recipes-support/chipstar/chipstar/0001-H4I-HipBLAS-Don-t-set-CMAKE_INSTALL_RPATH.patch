@@ -1,0 +1,30 @@
+From 81c0ab815785aa884e29aa7b7bc8a599185b4a6f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 19 Jun 2024 07:42:16 +0200
+Subject: [PATCH] H4I-HipBLAS: Don't set CMAKE_INSTALL_RPATH
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ CMakeLists.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ed479ac..aefcd15 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -51,7 +51,6 @@ file(RELATIVE_PATH relRPath
+         ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}
+         ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}
+     )
+-set(CMAKE_INSTALL_RPATH $ORIGIN $ORIGIN/${relRPath})
+ 
+ # Define a target capturing common configuration settings.
+ # Although we use 'add_library' for this, it is not a library - 
+-- 
+2.45.2
+

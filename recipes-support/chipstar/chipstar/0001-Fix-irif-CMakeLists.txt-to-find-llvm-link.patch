@@ -1,0 +1,45 @@
+From f8c861eaae683e6d6f9557d3e50217d29ac60682 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 17 Jun 2024 10:36:21 +0200
+Subject: [PATCH] Fix irif/CMakeLists.txt to find llvm-link
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ irif/CMakeLists.txt | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/irif/CMakeLists.txt b/irif/CMakeLists.txt
+index a874772..d9e3502 100644
+--- a/irif/CMakeLists.txt
++++ b/irif/CMakeLists.txt
+@@ -11,12 +11,16 @@ file(GLOB sources
+ 
+ set(irif_lib_file ${CMAKE_CURRENT_BINARY_DIR}/irif.bc)
+ 
+-# find_program(LLVM_LINK_EXECUTABLE NAMES llvm-link PATHS ${LLVM_CONFIG_DIR} NO_DEFAULT_PATH)
+-# if(NOT LLVM_LINK_EXECUTABLE)
+-#   message(FATAL_ERROR "llvm-link not found")
+-# endif()
+-# add_executable(llvm-link IMPORTED)
+-# set_target_properties(llvm-link PROPERTIES IMPORTED_LOCATION ${LLVM_LINK_EXECUTABLE})
++if(NOT DEFINED LLVM_LINK)
++  find_program(LLVM_LINK NAMES llvm-link NO_DEFAULT_PATH PATHS ${CLANG_ROOT_PATH_BIN} ENV PATH)
++  if(NOT LLVM_LINK)
++    message(FATAL_ERROR "Can't find llvm-link. Please provide CMake argument -D$LLVM_LINK=/path/to/llvm-link<-version>")
++  endif()
++endif()
++message(STATUS "Using llvm-link: ${LLVM_LINK}")
++
++add_executable(llvm-link IMPORTED)
++set_target_properties(llvm-link PROPERTIES IMPORTED_LOCATION ${LLVM_LINK})
+ 
+ add_custom_command(OUTPUT ${irif_lib_file}
+   COMMAND $<TARGET_FILE:llvm-link> ${sources} -o ${irif_lib_file}
+-- 
+2.45.2
+

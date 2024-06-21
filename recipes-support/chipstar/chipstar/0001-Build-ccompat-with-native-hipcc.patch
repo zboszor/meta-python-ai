@@ -1,0 +1,44 @@
+From f744933a68f40ca1fde55b233a9435f5561e1c02 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 17 Jun 2024 14:28:01 +0200
+Subject: [PATCH] Build ccompat with native hipcc
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ samples/ccompat/CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/samples/ccompat/CMakeLists.txt b/samples/ccompat/CMakeLists.txt
+index 2c0e7648..05a478e9 100644
+--- a/samples/ccompat/CMakeLists.txt
++++ b/samples/ccompat/CMakeLists.txt
+@@ -1,18 +1,18 @@
+ add_custom_command(
+   OUTPUT saxpy.o DEPENDS ${CMAKE_SOURCE_DIR}/samples/ccompat/saxpy.hip
+-  COMMAND ${CMAKE_BINARY_DIR}/bin/hipcc
++  COMMAND hipcc
+   ${CMAKE_SOURCE_DIR}/samples/ccompat/saxpy.hip -c -g -pthread
+   -I${CMAKE_SOURCE_DIR}/include -I${CMAKE_SOURCE_DIR}/HIP/include)
+ 
+ add_custom_command(
+   OUTPUT ccompat.o DEPENDS ${CMAKE_SOURCE_DIR}/samples/ccompat/ccompat.c
+-  COMMAND ${CMAKE_BINARY_DIR}/bin/hipcc
++  COMMAND hipcc
+   ${CMAKE_SOURCE_DIR}/samples/ccompat/ccompat.c -c -g -pthread
+   -I${CMAKE_SOURCE_DIR}/include -I${CMAKE_SOURCE_DIR}/HIP/include)
+ 
+ add_custom_command(
+ OUTPUT ccompat DEPENDS ccompat.o saxpy.o
+-COMMAND ${CMAKE_BINARY_DIR}/bin/hipcc 
++COMMAND hipcc 
+ ./ccompat.o ./saxpy.o -o ccompat  -g -pthread)
+ 
+ add_custom_target(ccompatBuild ALL
+-- 
+2.45.2
+
