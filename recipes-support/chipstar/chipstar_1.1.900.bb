@@ -35,7 +35,7 @@ SRC_URI:append:class-target = " \
 	file://0001-H4I-HipBLAS-Don-t-set-CMAKE_INSTALL_RPATH.patch;patchdir=${S}/H4I-HipBLAS \
 "
 
-SRCREV = "c5a60ca7f52c3f3079a6ae3bb4d1889d01b7ea58"
+SRCREV = "2403b0b16d0e5c29d3ef8d5ad73387eb975be4e1"
 
 S = "${WORKDIR}/git"
 
@@ -75,7 +75,7 @@ do_configure:prepend () {
 
 do_configure:prepend:class-target () {
 	# Target build fails if it finds nvcc pointing to cucc
-	rm -f ${STAGING_BINDIR_NATIVE}/nvcc
+	#rm -f ${STAGING_BINDIR_NATIVE}/nvcc
 }
 
 do_configure:append:class-target () {
