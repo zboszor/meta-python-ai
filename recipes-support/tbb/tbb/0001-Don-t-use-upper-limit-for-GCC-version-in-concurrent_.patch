@@ -1,0 +1,51 @@
+From 7e8de483c7c7c7e9589bacdebb0c5308f833c287 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 19 Jun 2024 14:54:50 +0200
+Subject: [PATCH] Don't use upper limit for GCC version in concurrent_monitor.h
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This fixes a compiler error in GCC 14:
+
+| In file included from /usr/include/c++/14/atomic:50,
+|                  from tmp-sicom-glibc/work/x86_64-linux/tbb-native/2021.12.0/git/src/tbb/../../include/oneapi/tbb/detail/_utils.h:22,
+|                  from tmp-sicom-glibc/work/x86_64-linux/tbb-native/2021.12.0/git/src/tbb/task_dispatcher.h:20,
+|                  from tmp-sicom-glibc/work/x86_64-linux/tbb-native/2021.12.0/git/src/tbb/arena.cpp:17:
+| In member function ‘void std::__atomic_base<_IntTp>::store(__int_type, std::memory_order) [with _ITp = bool]’,
+|     inlined from ‘void std::atomic<bool>::store(bool, std::memory_order)’ at /usr/include/c++/14/atomic:109:20,
+|     inlined from ‘void tbb::detail::r1::concurrent_monitor_base<Context>::notify_one_relaxed() [with Context = long unsigned int]’ at tmp-sicom-glibc/work/x86_64-linux/tbb-native/2021.12.0/git/src/tbb/concurrent_monitor.h:300:53:
+| /usr/include/c++/14/bits/atomic_base.h:477:25: error: ‘void __atomic_store_1(volatile void*, unsigned char, int)’ writing 1 byte into a region of size 0 overflows the destination [-Werror=stringop-overflow=]
+|   477 |         __atomic_store_n(&_M_i, __i, int(__m));
+|       |         ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+| compilation terminated due to -Wfatal-errors.
+| cc1plus: all warnings being treated as errors
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ src/tbb/concurrent_monitor.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/tbb/concurrent_monitor.h b/src/tbb/concurrent_monitor.h
+index 3e5c4beb..c84552f6 100644
+--- a/src/tbb/concurrent_monitor.h
++++ b/src/tbb/concurrent_monitor.h
+@@ -293,12 +293,12 @@ public:
+ 
+ // GCC 12.x-13.x issues a warning here that to_wait_node(n)->my_is_in_list might have size 0, since n is
+ // a base_node pointer. (This cannot happen, because only wait_node pointers are added to my_waitset.)
+-#if (__TBB_GCC_VERSION >= 120100 && __TBB_GCC_VERSION < 140000 ) && !__clang__ && !__INTEL_COMPILER
++#if (__TBB_GCC_VERSION >= 120100 ) && !__clang__ && !__INTEL_COMPILER
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+ #endif
+                 to_wait_node(n)->my_is_in_list.store(false, std::memory_order_relaxed);
+-#if (__TBB_GCC_VERSION >= 120100 && __TBB_GCC_VERSION < 140000 ) && !__clang__ && !__INTEL_COMPILER
++#if (__TBB_GCC_VERSION >= 120100 ) && !__clang__ && !__INTEL_COMPILER
+ #pragma GCC diagnostic pop
+ #endif
+             }
+-- 
+2.45.2
+
