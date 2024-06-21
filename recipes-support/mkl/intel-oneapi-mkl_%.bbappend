@@ -1,0 +1,2 @@
+BBCLASSEXTEND = "native nativesdk"
+SYSROOT_DIRS_NATIVE += "${RECIPE_SYSROOT_NATIVE}/opt"
