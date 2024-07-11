@@ -17,7 +17,8 @@ DEPENDS:append:class-target = " \
 	zstd-native intel-oneapi-mkl intel-oneapi-dpcpp-cpp \
 	onednn tbb glog gloo numactl opencv \
 	opencl-headers virtual/opencl-icd \
-	shaderc spirv-tools mesa vulkan-headers vulkan-loader \
+	shaderc spirv-tools mesa \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-headers vulkan-loader', '', d)} \
 	python3-numpy python3-typing-extensions python3-pyyaml \
 	python3-pybind11 python3-pytorch-native \
 "
@@ -268,10 +269,10 @@ EXTRA_OECMAKE = "\
 -DUSE_GLOG=ON \
 -DUSE_OPENCL=OFF \
 -DUSE_OPENCV=ON \
--DUSE_VULKAN=ON \
--DUSE_VULKAN_FP16_INFERENCE=ON \
--DUSE_VULKAN_RELAXED_PRECISION=ON \
--DUSE_VULKAN_SHADERC_RUNTIME=ON"
+-DUSE_VULKAN=${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'ON', 'OFF', d)} \
+-DUSE_VULKAN_FP16_INFERENCE=${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'ON', 'OFF', d)} \
+-DUSE_VULKAN_RELAXED_PRECISION=${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'ON', 'OFF', d)} \
+-DUSE_VULKAN_SHADERC_RUNTIME=${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'ON', 'OFF', d)}"
 
 EXTRA_OECMAKE:class-native = "\
 -DSTAGING_LIBDIR=${STAGING_LIBDIR} \
@@ -340,7 +341,7 @@ RDEPENDS:${PN}:class-target = " \
 	sleef glslang gflags zstd \
 	intel-oneapi-mkl intel-oneapi-dpcpp-cpp-runtime \
 	onednn tbb glog numactl opencv \
-	shaderc spirv-tools vulkan-loader \
+    shaderc spirv-tools ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-loader', '', d)} \
 	python3-numpy python3-typing-extensions \
 	python3-pyyaml python3-pybind11 \
 	python3-sympy python3-six python3-onnx \
