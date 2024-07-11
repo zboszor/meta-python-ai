@@ -1,0 +1,31 @@
+From f65d4a6be3da2cce6ae1fbb06a473284526376c1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 17 Jun 2024 14:20:48 +0200
+Subject: [PATCH] Build hipInfo with native hipcc
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ea989ca2..5514d6ee 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -395,7 +395,7 @@ endif()
+ # once hipcc.bin is built, execute hipcc ./samples/hipSample.cpp
+ add_custom_command(
+   OUTPUT ${CMAKE_BINARY_DIR}/hipInfo
+-  COMMAND ${HIPCC_BUILD_PATH}/hipcc ${CMAKE_SOURCE_DIR}/samples/hipInfo/hipInfo.cpp -o ${CMAKE_BINARY_DIR}/hipInfo
++  COMMAND hipcc ${CMAKE_SOURCE_DIR}/samples/hipInfo/hipInfo.cpp -o ${CMAKE_BINARY_DIR}/hipInfo
+   DEPENDS ${CMAKE_SOURCE_DIR}/samples/hipInfo/hipInfo.cpp hipcc.bin CHIP devicelib_bc
+ )
+ 
+-- 
+2.45.2
+

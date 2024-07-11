@@ -1,0 +1,39 @@
+From 81e528767342d17e06851ea8a932cc8c07d991e9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 17 Jun 2024 13:50:00 +0200
+Subject: [PATCH] Use TARGET_SYS for offload compiler commands
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 272e759e..ea989ca2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -493,14 +493,14 @@ set(HIP_OFFLOAD_COMPILE_OPTIONS_INSTALL_
+   ${HIP_ENABLE_SPIRV}
+   ${HIP_OFFLOAD_COMPILE_ONLY_OPTIONS_}
+   --hip-path=${CMAKE_INSTALL_PREFIX}
+-  ${HOST_ARCH}
++  --target=${TARGET_SYS}
+   ${HIP_FIXUPS_HEADER_INSTALL})
+ 
+ set(HIP_OFFLOAD_COMPILE_OPTIONS_BUILD_
+   ${HIP_ENABLE_SPIRV}
+   ${HIP_OFFLOAD_COMPILE_ONLY_OPTIONS_}
+   --hip-path=${CMAKE_BINARY_DIR}
+-  ${HOST_ARCH}
++  --target=${TARGET_SYS}
+   ${HIP_FIXUPS_HEADER_BUILD}
+   -I${CMAKE_SOURCE_DIR}/include
+   -I${CMAKE_SOURCE_DIR}/HIP/include
+-- 
+2.45.2
+

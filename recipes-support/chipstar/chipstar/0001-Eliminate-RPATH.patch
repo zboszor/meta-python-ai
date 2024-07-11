@@ -1,0 +1,61 @@
+From d86a6b7c55a024343a206b78163111df508bc760 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 19 Jun 2024 07:54:25 +0200
+Subject: [PATCH] Eliminate RPATH
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ CMakeLists.txt | 11 -----------
+ 1 file changed, 11 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5514d6ee..481c7485 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -208,7 +208,6 @@ option(CHIP_VERBOSE "Verbose compilation" OFF)
+ option(CHIP_BUILD_SHARED_LIBS "Build chipStar as a shared library" ON)
+ option(CHIP_BUILD_DOCS "Build doxygen documentation" OFF)
+ option(CHIP_LLVM_USE_INTERGRATED_SPIRV "Use LLVM's intergrated SPIR-V backend for emitting device binary instead of SPIR-V translator. Requires LLVM 15" OFF)
+-option(CHIP_SET_RPATH "Add CMAKE_INSTALL_PREFIX/lib to the RPATH for chipStar executables" ON)
+ option(CHIP_ENABLE_UNCOMPILABLE_TESTS "Enable tests which are known to not compile" OFF)
+ option(CHIP_BUILD_TESTS "Enable build_tests target" ON)
+ option(CHIP_BUILD_SAMPLES "Build samples" ON)
+@@ -506,8 +505,6 @@ set(HIP_OFFLOAD_COMPILE_OPTIONS_BUILD_
+   -I${CMAKE_SOURCE_DIR}/HIP/include
+   -I${CMAKE_BINARY_DIR}/include)
+ 
+-# HIP applications need to link against libCHIP.so; add it to rpath
+-#
+ # -no-hip-rt: Prevents linking amdhip64 library implicitly when doing
+ #             combined compile and link or when the --hip-link is
+ #             present at the link step.
+@@ -517,22 +514,14 @@ list(APPEND HIP_OFFLOAD_LINK_OPTIONS_BUILD_
+   "-L${CMAKE_BINARY_DIR}" "-lCHIP" "-no-hip-rt")
+ 
+ if(OpenCL_LIBRARY)
+-  target_link_options(CHIP PUBLIC -Wl,-rpath,${OpenCL_DIR})
+   target_link_directories(CHIP PUBLIC ${OpenCL_DIR})
+ endif()
+ 
+ if(LevelZero_LIBRARY)
+   include_directories(CHIP PUBLIC ${LevelZeroInclude_DIR})
+-  target_link_options(CHIP PUBLIC -Wl,-rpath,${LevelZeroLib_DIR})
+   target_link_directories(CHIP PUBLIC ${LevelZeroLib_DIR})
+ endif()
+ 
+-if(CHIP_SET_RPATH)
+-  list(APPEND HIP_OFFLOAD_LINK_OPTIONS_INSTALL_ "-Wl,-rpath,${LIB_INSTALL_DIR}")
+-  list(APPEND HIP_OFFLOAD_LINK_OPTIONS_BUILD_ "-Wl,-rpath,${CMAKE_BINARY_DIR}")
+-  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+-endif()
+-
+ # Workaround istead of trying to generate the CMake generator expression
+ string(REPLACE ";" " " HIP_OFFLOAD_COMPILE_OPTIONS_INSTALL "${HIP_OFFLOAD_COMPILE_OPTIONS_INSTALL_}")
+ string(REPLACE ";" " " HIP_OFFLOAD_COMPILE_OPTIONS_BUILD "${HIP_OFFLOAD_COMPILE_OPTIONS_BUILD_}")
+-- 
+2.45.2
+
