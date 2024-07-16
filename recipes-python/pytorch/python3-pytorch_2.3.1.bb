@@ -18,7 +18,7 @@ DEPENDS:append:class-target = " \
 	onednn tbb glog gloo numactl opencv \
 	opencl-headers virtual/opencl-icd \
 	shaderc spirv-tools mesa \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-headers vulkan-loader', '', d)} \
+	${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-headers vulkan-loader', '', d)} \
 	python3-numpy python3-typing-extensions python3-pyyaml \
 	python3-pybind11 python3-pytorch-native \
 "
@@ -341,7 +341,7 @@ RDEPENDS:${PN}:class-target = " \
 	sleef glslang gflags zstd \
 	intel-oneapi-mkl intel-oneapi-dpcpp-cpp-runtime \
 	onednn tbb glog numactl opencv \
-    shaderc spirv-tools ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-loader', '', d)} \
+	shaderc spirv-tools ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-loader', '', d)} \
 	python3-numpy python3-typing-extensions \
 	python3-pyyaml python3-pybind11 \
 	python3-sympy python3-six python3-onnx \
