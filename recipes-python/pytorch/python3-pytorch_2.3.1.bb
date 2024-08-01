@@ -13,14 +13,17 @@ DEPENDS = " \
 	sleef glslang gflags zstd \
 "
 
+DEPENDSINTEL ?= ""
+DEPENDSINTEL:append:x86-64 = "intel-oneapi-mkl intel-oneapi-dpcpp-cpp onednn"
+
 DEPENDS:append:class-target = " \
-	zstd-native intel-oneapi-mkl intel-oneapi-dpcpp-cpp \
-	onednn tbb glog gloo numactl opencv \
-	opencl-headers virtual/opencl-icd \
-	shaderc spirv-tools mesa \
-	${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-headers vulkan-loader', '', d)} \
-	python3-numpy python3-typing-extensions python3-pyyaml \
-	python3-pybind11 python3-pytorch-native \
+        zstd-native ${DEPENDSINTEL} \
+        tbb glog gloo numactl opencv \
+        opencl-headers virtual/opencl-icd \
+        shaderc spirv-tools mesa \
+        ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-headers vulkan-loader', '', d)} \
+        python3-numpy python3-typing-extensions python3-pyyaml \
+        python3-pybind11 python3-pytorch-native \
 "
 
 inherit cmake python3native setuptools3_legacy
@@ -231,12 +234,23 @@ BUILD_CFLAGS += " \
 	-Wno-error=uninitialized \
 "
 
-LDFLAGS:append:class-target = " -ldnnl"
-BUILD_LDFLAGS:append:class-target = " -ldnnl"
+LDFLAGS:append:class-target:x86-64 = " -ldnnl"
+BUILD_LDFLAGS:append:class-target:x86-64 = " -ldnnl"
 
 # Leave these variables below un-indented.
 # The contents of EXTRA_OECMAKE is split in python code,
 # which expects a single space between pieces.
+
+EXTRA_OECMAKE_ARCH_FLAGS ?= ""
+
+EXTRA_OECMAKE_ARCH_FLAGS:append:x86-64 = "\
+-DBLAS=MKL \
+-DBLAS_MKLDNN=ON \
+-DUSE_MKLDNN_CBLAS=ON \
+-DBUILD_ONEDNN_GRAPH=ON"
+
+EXTRA_OECMAKE_ARCH_FLAGS:append:aarch64 = "\
+-DBLAS=Eigen"
 
 EXTRA_OECMAKE = "\
 -DC_HAS_AVX_2_EXITCODE=0 -DC_HAS_AVX_2_EXITCODE__TRYRUN_OUTPUT='' \
@@ -250,10 +264,7 @@ EXTRA_OECMAKE = "\
 -DPYTHON_LIBRARY=${STAGING_DIR}/${libdir}/${PYTHON_DIR} \
 -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIR} \
 -DGLIBCXX_USE_CXX11_ABI=1 \
--DBLAS=MKL \
--DUSE_MKLDNN=ON \
--DUSE_MKLDNN_CBLAS=ON \
--DBUILD_ONEDNN_GRAPH=ON \
+${EXTRA_OECMAKE_ARCH_FLAGS} \
 -DUSE_ITT=OFF \
 -DUSE_CUDA=OFF \
 -DUSE_FFMPEG=OFF \
@@ -337,17 +348,20 @@ FILES:${PN} += " \
 
 INSANE_SKIP:${PN} = "dev-so"
 
+RDEPENDSINTEL ?= ""
+RDEPENDSINTEL:append:x86-64 = "intel-oneapi-mkl intel-oneapi-dpcpp-cpp-runtime onednn"
+
 RDEPENDS:${PN}:class-target = " \
-	sleef glslang gflags zstd \
-	intel-oneapi-mkl intel-oneapi-dpcpp-cpp-runtime \
-	onednn tbb glog numactl opencv \
-	shaderc spirv-tools ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-loader', '', d)} \
-	python3-numpy python3-typing-extensions \
-	python3-pyyaml python3-pybind11 \
-	python3-sympy python3-six python3-onnx \
+        sleef glslang gflags zstd \
+        ${RDEPENDSINTEL} \
+        tbb glog numactl opencv \
+        shaderc spirv-tools ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-loader', '', d)} \
+        python3-numpy python3-typing-extensions \
+        python3-pyyaml python3-pybind11 \
+        python3-sympy python3-six python3-onnx \
 "
 
-INSANE_SKIP:${PN} = "dev-so"
+INSANE_SKIP:${PN} = "dev-so already-stripped"
 SKIP_FILEDEPS:${PN} = '1'
 
 BBCLASSEXTEND = "native"
