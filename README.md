@@ -23,6 +23,9 @@ The recently added `python3-llvmlite` (https://pypi.org/project/llvmlite/)
 recipe needs LLVM 14.x but can also build with LLVM 15.x as an experimental
 change. The llvmlite project is quite slow to adopt newer LLVM versions,
 so if you need this package and want to build it in Yocto 4.3 or newer,
-then please use the `mickledore` branch of the `meta-clang` layer, which
-overrides the LLVM version present in `oe-core` to the required version. YMMV.
+then please use these branches from the forked https://github.com/zboszor/meta-clang
+until the relevant pull requests are merged:
 
+* `nanbield-add-clang15` (https://github.com/kraj/meta-clang/pull/988)
+* `scarthgap-add-clang15` (https://github.com/kraj/meta-clang/pull/989)
+* `master-add-clang15` (https://github.com/kraj/meta-clang/pull/990)
