@@ -2,7 +2,7 @@ SUMMARY = "lightweight wrapper around basic LLVM functionality"
 LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=a15ea9843f27327e08f3c5fbf8043a2b"
 
-DEPENDS = "llvm5-native llvm5"
+DEPENDS = "clang15-native clang15"
 
 PYPI_PACKAGE = "llvmlite"
 
