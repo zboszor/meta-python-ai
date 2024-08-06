@@ -1,5 +1,5 @@
 DEPENDS:append:class-target:x86-64 = " intel-oneapi-mkl intel-oneapi-dpcpp-cpp onednn"
-RDEPENDS:${PN}:append:x86-64 = " intel-oneapi-mkl intel-oneapi-dpcpp-cpp-runtime onednn"
+RDEPENDS:${PN}:append:class-target:x86-64 = " intel-oneapi-mkl intel-oneapi-dpcpp-cpp-runtime onednn"
 
 LDFLAGS:append:class-target:x86-64 = " -ldnnl"
 BUILD_LDFLAGS:append:class-target:x86-64 = " -ldnnl"
