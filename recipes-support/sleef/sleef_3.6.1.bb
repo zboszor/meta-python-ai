@@ -3,15 +3,14 @@ DESCRIPTION = "SIMD Library for Evaluating Elementary Functions, vectorized libm
 LICENSE = "BSL-1.0"
 LIC_FILES_CHKSUM = "file://${S}/LICENSE.txt;md5=e4224ccaecb14d942c71d31bef20d78c  "
 
-PR = "r1"
+#PR = "r1"
 
 S = "${WORKDIR}/git"
 
-SRCREV = "85440a5e87dae36ca1b891de14bc83b441ae7c43"
+SRCREV = "6ee14bcae5fe92c2ff8b000d5a01102dab08d774"
 
 SRC_URI = " \
 	git://github.com/shibatch/sleef.git;protocol=https;nobranch=1 \
-	file://471.patch \
 "
 
 DEPENDS = "gmp mpfr fftw openssl"
@@ -20,14 +19,16 @@ DEPENDS:append:class-target = " sleef-native"
 inherit cmake
 
 EXTRA_OECMAKE = " \
-	-DBUILD_TESTS=OFF \
-	-DBUILD_DFT=ON \
-	-DBUILD_QUAD=ON \
+	-DSLEEF_BUILD_SHARED_LIBS=ON \
+	-DSLEEF_BUILD_TESTS=OFF \
+	-DSLEEF_BUILD_DFT=ON \
+	-DSLEEF_BUILD_QUAD=ON \
+	-DSLEEF_BUILD_GNUABI_LIBS=OFF \
 "
 
 EXTRA_OECMAKE:append:class-target = " \
 	-DNATIVE_BUILD_DIR=${STAGING_BINDIR_NATIVE}/.. \
-	-DBUILD_SCALAR_LIB=ON \
+	-DSLEEF_BUILD_SCALAR_LIB=ON \
 "
 
 BBCLASSEXTEND = "native nativesdk"
