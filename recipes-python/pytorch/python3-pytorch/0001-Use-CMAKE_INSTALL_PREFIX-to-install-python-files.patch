@@ -1,0 +1,30 @@
+From 1b0004d531a5f4f24b70bc7ff99cde57eb09ee30 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Thu, 8 Aug 2024 16:14:48 +0200
+Subject: [PATCH] Use CMAKE_INSTALL_PREFIX to install python files
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ caffe2/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/caffe2/CMakeLists.txt b/caffe2/CMakeLists.txt
+index 89c31fab113..448dbf71244 100644
+--- a/caffe2/CMakeLists.txt
++++ b/caffe2/CMakeLists.txt
+@@ -1917,6 +1917,6 @@ if(BUILD_PYTHON)
+ 
+   # Install commands
+   # Pick up static python files
+-  install(DIRECTORY ${CMAKE_BINARY_DIR}/caffe2 DESTINATION ${PYTHON_LIB_REL_PATH}
++  install(DIRECTORY ${CMAKE_BINARY_DIR}/caffe2 DESTINATION ${CMAKE_INSTALL_PREFIX}${PYTHON_LIB_REL_PATH}
+           FILES_MATCHING PATTERN "*.py")
+ endif()
+-- 
+2.45.2
+
