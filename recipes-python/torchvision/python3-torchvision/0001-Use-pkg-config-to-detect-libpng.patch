@@ -17,8 +17,8 @@ diff --git a/setup.py b/setup.py
 index 24b7a2edb9..f1f54505d5 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -251,45 +251,29 @@ def get_extensions():
-         image_macros += [("USE_PYTHON", None)]
+@@ -254,45 +254,29 @@ def get_extensions():
+     image_link_flags = []
  
      # Locating libPNG
 -    libpng = shutil.which("libpng-config")
