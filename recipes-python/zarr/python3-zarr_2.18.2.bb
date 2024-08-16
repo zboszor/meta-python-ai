@@ -7,6 +7,6 @@ DEPENDS = "python3-setuptools-scm-native"
 PYPI_PACKAGE = "zarr"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "564b3aa072122546fe69a0fa21736f466b20fad41754334b62619f088ce46261"
+SRC_URI[sha256sum] = "9bb393b8a0a38fb121dbb913b047d75db28de9890f6d644a217a73cf4ae74f47"
 
 RDEPENDS:${PN} = "python3-numpy python3-asciitree python3-fasteners python3-numcodecs"
