@@ -8,7 +8,7 @@ inherit autotools-brokensep pkgconfig
 
 #PR = "r1"
 
-LIC_FILES_CHKSUM = "file://licenses/NASA_Open_Source_Agreement_1.3.txt;md5=50ca71c0848be9ed864756ed2b32ba47"
+LIC_FILES_CHKSUM = "file://licenses/License.txt;md5=77856e8a5492e2119200b3401a8e7966"
 
 SRC_URI = " \
 	git://github.com/zboszor/cfitsio.git;protocol=https;branch=master \
@@ -18,7 +18,7 @@ SRC_URI = " \
 	file://cfitsio-remove-rpath.patch \
 "
 
-SRCREV = "6fa3b7c48299326a1d93b80db2ce7b7ac55a276d"
+SRCREV = "4ba65ba446843b5355511191e5d6617c767bdefd"
 
 S = "${WORKDIR}/git"
 
