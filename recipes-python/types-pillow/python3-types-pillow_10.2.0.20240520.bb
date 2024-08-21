@@ -5,4 +5,4 @@ LIC_FILES_CHKSUM = "file://PKG-INFO;beginline=6;endline=6;md5=ef4dc1e740f5c928f1
 PYPI_PACKAGE = "types-Pillow"
 
 inherit pypi setuptools3
-SRC_URI[sha256sum] = "a04401181979049977e318dae4523ab5ae8246314fc68fcf50b043ac885a5468"
+SRC_URI[sha256sum] = "130b979195465fa1e1676d8e81c9c7c30319e8e95b12fae945e8f0d525213107"
