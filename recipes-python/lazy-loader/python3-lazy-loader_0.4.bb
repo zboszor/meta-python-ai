@@ -7,6 +7,6 @@ DEPENDS = "python3-flit-core-native"
 PYPI_PACKAGE = "lazy_loader"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "3b68898e34f5b2a29daaaac172c6555512d0f32074f147e2254e4a6d9d838f37"
+SRC_URI[sha256sum] = "47c75182589b91a4e1a85a136c074285a5ad4d9f39c63e0d7fb76391c4574cd1"
 
 BBCLASSEXTEND = "native nativesdk"
