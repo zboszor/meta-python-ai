@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=a234723b439c69716295c522ab084190"
 PYPI_PACKAGE = "tifffile"
 
 inherit pypi setuptools3
-SRC_URI[sha256sum] = "4920a3ec8e8e003e673d3c6531863c99eedd570d1b8b7e141c072ed78ff8030d"
+SRC_URI[sha256sum] = "fdc12124f1478a07b1524641dc6b50cf6bde0483011a63fd2a773094090c3dcf"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
