@@ -14,7 +14,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "shapely"
 
 inherit pypi setuptools3
-SRC_URI[sha256sum] = "4d65d0aa7910af71efa72fd6447e02a8e5dd44da81a983de9d736d6e6ccbe674"
+SRC_URI[sha256sum] = "997f6159b1484059ec239cacaa53467fd8b5564dabe186cd84ac2944663b0bf6"
 
 export GEOS_INCLUDE_PATH = "${STAGING_INCDIR}"
 export GEOS_LIBRARY_PATH = "${STAGING_LIBDIR}"
