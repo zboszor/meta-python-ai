@@ -2,9 +2,10 @@ SUMMARY = "A set of python modules for machine learning and data mining"
 HOMEPAGE = "http://scikit-learn.org"
 
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://COPYING;md5=e087d8348a7a6d2b63e1f305d7acf1a9"
+LIC_FILES_CHKSUM = "file://COPYING;md5=c0c49304a5cb997fd012292beee4ddce"
 
-SRC_URI[sha256sum] = "daa1c471d95bad080c6e44b4946c9390a4842adc3082572c20e4f8884e39e959"
+PYPI_PACKAGE = "scikit_learn"
+SRC_URI[sha256sum] = "0ea5d40c0e3951df445721927448755d3fe1d80833b0b7308ebff5d2a45e6414"
 
 inherit pypi setuptools3 pkgconfig python3-dir
 
@@ -37,4 +38,10 @@ DEPENDS += " \
 	python3-cython \
 "
 
-RDEPENDS:${PN} += "python3-numpy python3-scipy python3-joblib python3-threadpoolctl python3-pytest"
+RDEPENDS:${PN} += " \
+	python3-numpy \
+	python3-scipy \
+	python3-joblib \
+	python3-threadpoolctl \
+	python3-pytest \
+"
