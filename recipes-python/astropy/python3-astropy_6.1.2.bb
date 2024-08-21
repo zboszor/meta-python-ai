@@ -10,7 +10,9 @@ DEPENDS = " \
 PYPI_PACKAGE = "astropy"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "89a975de356d0608e74f1f493442fb3acbbb7a85b739e074460bb0340014b39c"
+SRC_URI[sha256sum] = "a2103d4e24e90389a820cfcdaaf4ca2d1ab22e5fd72978d147ff5cace54f1d3a"
+
+SRC_URI += "file://fix-numpy.patch"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
@@ -38,6 +40,5 @@ RDEPENDS:${PN} = " \
 	python3-typing-extensions \
 	python3-fsspec \
 	python3-s3fs \
-	python3-packaging \
 	python3-pre-commit \
 "
