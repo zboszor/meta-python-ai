@@ -1,0 +1,37 @@
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+diff -durpN imagecodecs-2024.6.1.old/setup.py imagecodecs-2024.6.1/setup.py
+--- imagecodecs-2024.6.1.old/setup.py	2024-06-02 04:59:15.000000000 +0200
++++ imagecodecs-2024.6.1/setup.py	2024-08-21 09:39:54.366252252 +0200
+@@ -259,14 +259,16 @@ def customize_build_default(EXTENSIONS,
+     Works on Ubuntu 24.04
+ 
+     """
++    INCLIB = os.environ.get('INCLIB', '.')
++
+     EXTENSIONS['jpeg2k']['include_dirs'].extend(
+         (
+-            '/usr/include/openjpeg-2.3',
+-            '/usr/include/openjpeg-2.4',
+-            '/usr/include/openjpeg-2.5',
++            os.path.join(INCLIB, 'include', 'openjpeg-2.3'),
++            os.path.join(INCLIB, 'include', 'openjpeg-2.4'),
++            os.path.join(INCLIB, 'include', 'openjpeg-2.5'),
+         )
+     )
+-    EXTENSIONS['jpegxr']['include_dirs'].append('/usr/include/jxrlib')
++    # EXTENSIONS['jpegxr']['include_dirs'].append('/usr/include/jxrlib')
+     # EXTENSIONS['jpeg8']['sources'] = []  # requires libjpeg-turbo v3
+ 
+     # these extensions are required by core dependent libraries
+@@ -279,8 +281,8 @@ def customize_build_default(EXTENSIONS,
+         'jpeg2k',
+         'jpeg8',
+         # 'jpegxl',  # requires v0.10
+-        'jpegxr',
+-        'lerc',  # requires v4
++        # 'jpegxr',
++        # 'lerc',  # requires v4
+         'lz4',
+         'lzma',
+         'png',
