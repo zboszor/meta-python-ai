@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=55150c668a8c5a6b580ae9a69ae2d8cd"
 PYPI_PACKAGE = "aiobotocore"
 
 inherit pypi setuptools3
-SRC_URI[sha256sum] = "41160f33cdada96815be7d180d1a2405fbf03f0364bac88c03d6ff1ad2cd83d7"
+SRC_URI[sha256sum] = "8ae2ffe3fd227923c69e12271b7a723c7c93853d8dbbd214e774613bd444b32f"
 
 RDEPENDS:${PN} = " \
 	python3-botocore \
