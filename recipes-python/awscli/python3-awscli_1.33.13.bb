@@ -5,9 +5,9 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=7970352423db76abb33cbe303884afbf"
 PYPI_PACKAGE = "awscli"
 
 inherit pypi setuptools3
-SRC_URI[sha256sum] = "df75ca5cb98a1be366920218eaf24ec2eca5a2d91e87a3dc452b6246dff92696"
+SRC_URI[sha256sum] = "bad4402c4a0ff825a59a43e76e0072152497f4daf7f62c9376fe6e0014fa2a9b"
 
-PR = "r1"
+#PR = "r1"
 
 RDEPENDS:${PN} = " \
 	python3-botocore \
