@@ -4,8 +4,10 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=b38a11bf4dcdfc66307f8515ce1fbaa6"
 
 PYPI_PACKAGE = "fsspec"
 
-inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "f39780e282d7d117ffb42bb96992f8a90795e4d0fb0f661a70ca39fe9c43ded9"
+inherit pypi python_hatchling
+SRC_URI[sha256sum] = "fad7d7e209dd4c1208e3bbfda706620e0da5142bebbd9c384afb95b07e798e49"
+
+DEPENDS += "python3-hatch-vcs-native"
 
 RDEPENDS:${PN} = " \
 	python3-dask \
