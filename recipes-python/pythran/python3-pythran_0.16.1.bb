@@ -7,7 +7,7 @@ DEPENDS = "python3-gast"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "f9bc61bcb96df2cd4b578abc5a62dfb3fbb0b0ef02c264513dfb615c5f87871c"
+SRC_URI[sha256sum] = "861748c0f9c7d422b32724b114b3817d818ed4eab86c09781aa0a3f7ceabb7f9"
 
 RDEPENDS:${PN} = " \
 	python3-beniget \
