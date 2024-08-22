@@ -14,7 +14,7 @@ require ${BPN}-crates.inc
 
 inherit pypi cargo-update-recipe-crates python3native rust python_maturin
 
-SRC_URI[sha256sum] = "e299d110774fc10f82c547fb04b1b8bf450a0514010324e7be06206d2179ceaf"
+SRC_URI[sha256sum] = "00520988740e9de1682f2f682caecb9b740d2489f3fbbb1ca0b6fc56af70d298"
 
 SRC_URI += "file://0009-Remove-built.patch;patchdir=${WORKDIR}/cargo_home/bitbake/rav1e-0.7.1"
 
