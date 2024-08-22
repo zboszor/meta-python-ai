@@ -12,7 +12,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=06e852077699178e4248d905b3846a4b"
 
 SRC_URI = "git://github.com/Blosc/c-blosc.git;protocol=https;branch=main"
 
-SRCREV = "d306135aaf378ade04cd4d149058c29036335758"
+SRCREV = "616f4b7343a8479f7e71dd3d7025bd92c9a6bbd0"
 
 S = "${WORKDIR}/git"
 
