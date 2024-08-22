@@ -27,6 +27,14 @@ ARROWPYTHON_DIR = "${WORKDIR}/git/python/build/dist/lib/cmake/ArrowPython"
 ARROW_PYTHON_INCLUDE_DIR = "${WORKDIR}/git/python/build/dist/include"
 ARROW_PYTHON_LIB_DIR = "${WORKDIR}/git/python/build/dist/lib"
 
+do_configure:prepend:class-target () {
+	# brute force: allow building with thrift
+	sed -i \
+		-e 's:set_and_check(THRIFT_INCLUDE_DIR "${includedir}/thrift"):set_and_check(THRIFT_INCLUDE_DIR "${STAGING_INCDIR}/thrift"):' \
+		-e 's:set_and_check(THRIFT_CMAKE_DIR "${libdir}/cmake/thrift"):set_and_check(THRIFT_CMAKE_DIR "${STAGING_LIBDIR}/cmake/thrift"):' \
+		${STAGING_LIBDIR}/cmake/thrift/ThriftConfig.cmake
+}
+
 do_compile:prepend() {
     export CMAKE_SYSTEM_PROCESSOR="${HOST_ARCH}"
     export CMAKE_TOOLCHAIN_FILE="${WORKDIR}/toolchain.cmake"
@@ -50,5 +58,7 @@ do_install:append:class-target() {
 }
 
 FILES:${PN}-staticdev += " ${libdir}/${PYTHON_DIR}/site-packages/pyarrow/libarrow_python.a "
+
+RDEPENDS:${PN} += "bash"
 
 BBCLASSEXTEND = "native nativesdk"
