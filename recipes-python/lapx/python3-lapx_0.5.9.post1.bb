@@ -6,7 +6,7 @@ PROVIDES = "python3-lap"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "0c799718ba686faa947b7a35c73b3fefb91a03c4498e3f755be550ffd5042f27"
+SRC_URI[sha256sum] = "13f14a4007dccbfbacf54a556a3bf8b031737bbd4edb989bbb4518d49cf74f86"
 
 SRC_URI += "file://lapx-use-cython3.patch"
 
