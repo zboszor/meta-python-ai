@@ -3,9 +3,11 @@ HOMEPAGE = "https://github.com/apache/arrow"
 LICENSE = "Apache-2.0"
 
 DEPENDS = " \
-	protobuf boost zlib bzip2 lz4 zstd openssl brotli \
+	protobuf boost zlib bzip2 lz4 zstd openssl brotli thrift \
 	snappy orc glog gflags utf8proc re2 rapidjson xsimd \
 "
+
+DEPENDS:append:class-target = "thrift-native"
 
 inherit cmake python3native
 
@@ -42,9 +44,22 @@ EXTRA_OECMAKE = " \
 	-DARROW_CSV=ON \
 	-DARROW_COMPUTE=ON \
 	-DARROW_DATASET=ON \
+	-DARROW_PARQUET=ON \
 	-DARROW_FILESYSTEM=ON \
 	-DARROW_JSON=ON \
 "
+
+EXTRA_OECMAKE:append:class-target = " \
+	-DTHRIFT_COMPILER=${STAGING_BINDIR_NATIVE}/thrift \
+"
+
+do_configure:prepend:class-target () {
+	# brute force: allow building with thrift
+	sed -i \
+		-e 's:set_and_check(THRIFT_INCLUDE_DIR "${includedir}/thrift"):set_and_check(THRIFT_INCLUDE_DIR "${STAGING_INCDIR}/thrift"):' \
+		-e 's:set_and_check(THRIFT_CMAKE_DIR "${libdir}/cmake/thrift"):set_and_check(THRIFT_CMAKE_DIR "${STAGING_LIBDIR}/cmake/thrift"):' \
+		${STAGING_LIBDIR}/cmake/thrift/ThriftConfig.cmake
+}
 
 do_compile:prepend () {
 	# fix for qa check buildpaths
