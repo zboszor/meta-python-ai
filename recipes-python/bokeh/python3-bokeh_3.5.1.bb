@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=4d2241e774601133cb2c58ae1277f9a5"
 PYPI_PACKAGE = "bokeh"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "9ea6bc407b5e7d04ba7a2f07d8f00e8b6ffe02c2368e707f41bb362a9928569a"
+SRC_URI[sha256sum] = "21dbe86842b24d83c73a1aef2de346a1a7c11c437015d6e9d180a1637e6e8197"
 
 DEPENDS += " \
 	python3-colorama-native \
