@@ -12,7 +12,7 @@ PYPI_PACKAGE = "onnx"
 
 inherit pypi cmake python3native python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "237c6987c6c59d9f44b6136f5819af79574f8d96a760a1fa843bede11f3822f7"
+SRC_URI[sha256sum] = "b33a282b038813c4b69e73ea65c2909768e8dd6cc10619b70632335daf094646"
 
 CXXFLAGS += "-I${STAGING_INCDIR}/${PYTHON_DIR}"
 
