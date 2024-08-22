@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=792c1f2e813587ebc2e046ff8dff59ae"
 
 inherit pypi setuptools3
 
-SRC_URI[sha256sum] = "2795844ef075ec8a2b8d385c4d59f5ea48b08e7180fce3cb2787be0db00b1fb4"
+SRC_URI[sha256sum] = "060e9a10fe136c643e9d2bf264ea1fbe966ed17d2fd37348dd65b1c650c2df4f"
 
 RDEPENDS_${PN} += "python3-json"
 
