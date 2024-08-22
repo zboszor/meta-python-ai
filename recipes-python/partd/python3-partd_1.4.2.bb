@@ -4,10 +4,10 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=01cbb2369bb5a7c865b5a165065dabb9"
 
 PYPI_PACKAGE = "partd"
 
-inherit pypi setuptools3
-SRC_URI[sha256sum] = "56c25dd49e6fea5727e731203c466c6e092f308d8f0024e199d02f6aa2167f67"
+inherit pypi python_setuptools_build_meta
+SRC_URI[sha256sum] = "d022c33afbdc8405c226621b015e8067888173d85f7f5ecebb3cafed9a20f02c"
 
-SRC_URI += "file://70.patch"
+DEPENDS += "python3-versioneer-native"
 
 RDEPENDS:${PN} = " \
 	python3-locket \
