@@ -2,6 +2,7 @@ SUMMARY = "Low level implementations for computer vision in Rust"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 DEPENDS = " \
+	nasm-native \
 	python3-pytorch-native \
 	python3-pytorch \
 	python3-numpy-native \
