@@ -7,7 +7,7 @@ DEPENDS = "python3-numpy-native python3-cython-native"
 
 PYPI_PACKAGE = "pywavelets"
 
-inherit pypi python_mesonpy
+inherit pypi pkgconfig python_mesonpy
 SRC_URI[sha256sum] = "ea027c70977122c5fc27b2510f0a0d9528f9c3df6ea3e4c577ca55fd00325a5b"
 
 SRC_URI += "file://build-fixes.patch"
