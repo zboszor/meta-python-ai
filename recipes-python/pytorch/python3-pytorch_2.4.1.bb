@@ -14,7 +14,7 @@ DEPENDS = " \
 "
 
 DEPENDS:append:class-target = " \
-	zstd-native glog gloo numactl opencv \
+	zstd-native glog numactl opencv \
 	opencl-headers virtual/opencl-icd \
 	shaderc spirv-tools mesa \
 	${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-headers vulkan-loader', '', d)} \
@@ -214,7 +214,6 @@ ${EXTRA_OECMAKE_ARCH_FLAGS} \
 -DBUILD_CAFFE2=ON \
 -DBUILD_CAFFE2_OPS=ON \
 -DCAFFE2_CUSTOM_PROTOC_EXECUTABLE=${STAGING_DIR_NATIVE}${PYTHON_SITEPACKAGES_DIR}/torch/bin/protoc \
--DUSE_SYSTEM_GLOO=ON \
 -DUSE_SYSTEM_SLEEF=ON \
 -DUSE_GOLD_LINKER=ON \
 -DUSE_GFLAGS=ON \
