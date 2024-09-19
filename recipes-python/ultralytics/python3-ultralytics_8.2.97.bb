@@ -6,7 +6,7 @@ DEPENDS = "python3-numpy-native"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "8a85bc8cb5321b2e105e741a35c7c12037decefd70f7f1343cdc001dbca1fa29"
+SRC_URI[sha256sum] = "bed9b66220118e6afbe0f9a4580a25e3659ae9da8a268b91b79f19e8d560de7a"
 
 RDEPENDS:${PN} = " \
 	bash \
