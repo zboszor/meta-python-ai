@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${S}/LICENSE.txt;md5=e4224ccaecb14d942c71d31bef20d78c
 
 #PR = "r1"
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/git"
 
 SRCREV = "6ee14bcae5fe92c2ff8b000d5a01102dab08d774"
 
