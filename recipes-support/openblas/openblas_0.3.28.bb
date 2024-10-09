@@ -20,7 +20,7 @@ SRC_URI = "git://github.com/xianyi/OpenBLAS.git;protocol=https;branch=develop"
 
 SRCREV = "5ef8b1964658f9cb6a6324a06f6a1a022609b0c5"
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/git"
 
 # Used for TARGET=... , documented in TargetList.txt
 BLAS_X86_ARCH ?= "ATOM"
