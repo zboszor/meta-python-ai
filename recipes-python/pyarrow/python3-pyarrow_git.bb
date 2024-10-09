@@ -1,6 +1,6 @@
 require arrow.inc
 
-S = "${WORKDIR}/git/python"
+S = "${UNPACKDIR}/git/python"
 LIC_FILES_CHKSUM = "file://../LICENSE.txt;md5=100c3e6324688e340080d7fd971b8c5e"
 
 DEPENDS = " \
@@ -20,12 +20,12 @@ inherit cmake python3native setuptools3
 
 DISTUTILS_SETUP_PATH = "${S}"
 
-OECMAKE_C_FLAGS += " -isystem ${WORKDIR}/git/cpp/src -DARROW_COMPUTE"
-OECMAKE_CXX_FLAGS += " -isystem ${WORKDIR}/git/cpp/src -DARROW_COMPUTE"
+OECMAKE_C_FLAGS += " -isystem ${UNPACKDIR}/git/cpp/src -DARROW_COMPUTE"
+OECMAKE_CXX_FLAGS += " -isystem ${UNPACKDIR}/git/cpp/src -DARROW_COMPUTE"
 SETUPTOOLS_BUILD_ARGS += " build_ext "
-ARROWPYTHON_DIR = "${WORKDIR}/git/python/build/dist/lib/cmake/ArrowPython"
-ARROW_PYTHON_INCLUDE_DIR = "${WORKDIR}/git/python/build/dist/include"
-ARROW_PYTHON_LIB_DIR = "${WORKDIR}/git/python/build/dist/lib"
+ARROWPYTHON_DIR = "${UNPACKDIR}/git/python/build/dist/lib/cmake/ArrowPython"
+ARROW_PYTHON_INCLUDE_DIR = "${UNPACKDIR}/git/python/build/dist/include"
+ARROW_PYTHON_LIB_DIR = "${UNPACKDIR}/git/python/build/dist/lib"
 
 do_configure:prepend:class-target () {
 	# brute force: allow building with thrift
@@ -48,7 +48,7 @@ do_compile:prepend() {
                                    -DARROW_PYTHON_LIB_DIR=${ARROW_PYTHON_LIB_DIR} \
                                    "
 
-    export ARROW_BUILD_DIR="${WORKDIR}/git/cpp/src"
+    export ARROW_BUILD_DIR="${UNPACKDIR}/git/cpp/src"
     export PYARROW_CXXFLAGS="${OECMAKE_CXX_FLAGS}"
 }
 
