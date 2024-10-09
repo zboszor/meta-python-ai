@@ -13,7 +13,7 @@ inherit cmake python3native
 
 require arrow.inc
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/git"
 B = "${WORKDIR}/build"
 OECMAKE_SOURCEPATH = "${S}/cpp"
 
