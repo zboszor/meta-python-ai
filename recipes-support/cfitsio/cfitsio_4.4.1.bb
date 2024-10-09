@@ -20,7 +20,7 @@ SRC_URI = " \
 
 SRCREV = "4ba65ba446843b5355511191e5d6617c767bdefd"
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/git"
 
 do_install:append () {
 	chown -R root:root ${D}${prefix}
