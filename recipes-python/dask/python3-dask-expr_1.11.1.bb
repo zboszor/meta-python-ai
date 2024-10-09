@@ -9,7 +9,7 @@ inherit python_setuptools_build_meta
 SRC_URI = "git://github.com/dask/dask-expr.git;protocol=https;branch=main"
 SRCREV = "b0c980e51525ce49fb29c89711ce4536970e377b"
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/git"
 
 RDEPENDS:${PN} = " \
 	python3-dask \
