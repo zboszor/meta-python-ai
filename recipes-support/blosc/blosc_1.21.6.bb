@@ -14,7 +14,7 @@ SRC_URI = "git://github.com/Blosc/c-blosc.git;protocol=https;branch=main"
 
 SRCREV = "616f4b7343a8479f7e71dd3d7025bd92c9a6bbd0"
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/git"
 
 #OECMAKE_GENERATOR = "Unix Makefiles"
 
