@@ -31,6 +31,10 @@ EXTRA_OECMAKE:append:class-target = " \
 	-DSLEEF_BUILD_SCALAR_LIB=ON \
 "
 
+do_install:append () {
+	sed -i 's:${STAGING_EXECPREFIXDIR}:\$\{_IMPORT_PREFIX\}:g' ${D}${libdir}/cmake/sleef/sleefTargets.cmake
+}
+
 BBCLASSEXTEND = "native nativesdk"
 
 SYSROOT_PREPROCESS_FUNCS:append:class-native = " sleep_sysroot_preprocess"
