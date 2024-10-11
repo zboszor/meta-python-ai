@@ -1,10 +1,10 @@
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
 Upstream-Status: Inappropriate [Yocto specific]
 
-diff -durpN scikit-build-0.16.7.old/skbuild/cmaker.py scikit-build-0.16.7/skbuild/cmaker.py
---- scikit-build-0.16.7.old/skbuild/cmaker.py	2023-02-16 22:40:44.000000000 +0100
-+++ scikit-build-0.16.7/skbuild/cmaker.py	2024-04-11 07:12:56.182055523 +0200
-@@ -248,7 +248,7 @@ class CMaker:
+diff -durpN scikit_build-0.18.1.orig/skbuild/cmaker.py scikit_build-0.18.1/skbuild/cmaker.py
+--- scikit_build-0.18.1.orig/skbuild/cmaker.py	2024-10-10 18:35:56.527316626 +0200
++++ scikit_build-0.18.1/skbuild/cmaker.py	2024-10-11 08:55:30.960282579 +0200
+@@ -247,7 +247,7 @@ class CMaker:
              with contextlib.suppress(ImportError):
                  import ninja  # pylint: disable=import-outside-toplevel
  
@@ -13,15 +13,15 @@ diff -durpN scikit-build-0.16.7.old/skbuild/cmaker.py scikit-build-0.16.7/skbuil
  
          if not os.path.exists(CMAKE_BUILD_DIR()):
              os.makedirs(CMAKE_BUILD_DIR())
-diff -durpN scikit-build-0.16.7.old/skbuild/platform_specifics/unix.py scikit-build-0.16.7/skbuild/platform_specifics/unix.py
---- scikit-build-0.16.7.old/skbuild/platform_specifics/unix.py	2023-02-16 22:40:44.000000000 +0100
-+++ scikit-build-0.16.7/skbuild/platform_specifics/unix.py	2024-04-11 07:12:24.653705050 +0200
-@@ -15,7 +15,7 @@ class UnixPlatform(abstract.CMakePlatfor
+diff -durpN scikit_build-0.18.1.orig/skbuild/platform_specifics/unix.py scikit_build-0.18.1/skbuild/platform_specifics/unix.py
+--- scikit_build-0.18.1.orig/skbuild/platform_specifics/unix.py	2024-10-10 18:35:56.527316626 +0200
++++ scikit_build-0.18.1/skbuild/platform_specifics/unix.py	2024-10-11 08:56:14.884698349 +0200
+@@ -17,7 +17,7 @@ class UnixPlatform(abstract.CMakePlatfor
          try:
              import ninja  # pylint: disable=import-outside-toplevel
  
 -            ninja_executable_path = os.path.join(ninja.BIN_DIR, "ninja")
 +            ninja_executable_path = "ninja"
-             ninja_args = ["-DCMAKE_MAKE_PROGRAM:FILEPATH=" + ninja_executable_path]
+             ninja_args = [f"-DCMAKE_MAKE_PROGRAM:FILEPATH={ninja_executable_path}"]
          except ImportError:
              ninja_args = []
