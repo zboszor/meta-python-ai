@@ -8,6 +8,6 @@ PYPI_PACKAGE = "av"
 
 inherit pypi python_setuptools_build_meta pkgconfig
 
-SRC_URI[sha256sum] = "04b1892562aff3277efc79f32bd8f1d0cbb64ed011241cb3e96f9ad471816c22"
+SRC_URI[sha256sum] = "d3da736c55847d8596eb8c26c60e036f193001db3bc5c10da8665622d906c17e"
 
 RDEPENDS:${PN} = "ffmpeg"
