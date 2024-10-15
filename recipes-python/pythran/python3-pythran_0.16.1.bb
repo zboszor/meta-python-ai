@@ -9,6 +9,8 @@ inherit pypi python_setuptools_build_meta
 
 SRC_URI[sha256sum] = "861748c0f9c7d422b32724b114b3817d818ed4eab86c09781aa0a3f7ceabb7f9"
 
+SRC_URI += "file://fix-gast-expectation.patch"
+
 RDEPENDS:${PN} = " \
 	python3-beniget \
 	python3-gast \
