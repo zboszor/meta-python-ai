@@ -1,0 +1,34 @@
+From 6abf0a09addbf039b72bba5b39eb15fed62a13e1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Tue, 15 Oct 2024 09:29:55 +0200
+Subject: [PATCH] Delete some values from macros.h.in
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This should avoid host side paths leaking into libraries when
+cross compiling.
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [cross compile specific]
+---
+ caffe2/core/macros.h.in | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/caffe2/core/macros.h.in b/caffe2/core/macros.h.in
+index 2497effd863..95d8d5b8dac 100644
+--- a/caffe2/core/macros.h.in
++++ b/caffe2/core/macros.h.in
+@@ -34,8 +34,6 @@
+ // torch.__build__.show()
+ #define CAFFE2_BUILD_STRINGS { \
+   {"TORCH_VERSION", "${TORCH_VERSION}"}, \
+-  {"CXX_COMPILER", "${CMAKE_CXX_COMPILER}"}, \
+-  {"CXX_FLAGS", "${CMAKE_CXX_FLAGS}"}, \
+   {"BUILD_TYPE", "${CMAKE_BUILD_TYPE}"}, \
+   {"BLAS_INFO", "${BLAS_INFO}"}, \
+   {"LAPACK_INFO", "${LAPACK_INFO}"}, \
+-- 
+2.47.0
+

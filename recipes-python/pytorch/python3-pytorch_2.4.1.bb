@@ -86,6 +86,7 @@ SRC_URI = " \
 	file://pytorch-fix-vulkan-get_shader-return-type.patch \
 	file://fix-non-void-funcs-with-switch.patch \
 	file://0001-Use-CMAKE_INSTALL_PREFIX-to-install-python-files.patch \
+	file://0001-Delete-some-values-from-macros.h.in.patch \
 "
 
 #PR = "r1"
@@ -262,6 +263,8 @@ do_install () {
 	setuptools3_legacy_do_install
 
 	( cd ${D}${libdir} ; ln -s ${PYTHON_DIR}/site-packages/torch/lib/lib*.so . )
+
+	sed -i 's:set(ATEN_INCLUDE_DIR "${S}/torch/include"):set(ATEN_INCLUDE_DIR "${PYTHON_SITEPACKAGES_DIR}/torch/include"):' ${D}${PYTHON_SITEPACKAGES_DIR}/torch/share/cmake/ATen/ATenConfig.cmake
 }
 
 PRIVATE_LIBS = " \
