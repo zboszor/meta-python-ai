@@ -14,6 +14,21 @@ SRC_URI[sha256sum] = "a2103d4e24e90389a820cfcdaaf4ca2d1ab22e5fd72978d147ff5cace5
 
 SRC_URI += "file://fix-numpy.patch"
 
+do_install:prepend () {
+	sed -i \
+		-e 's:${RECIPE_SYSROOT_NATIVE}::g' \
+		-e 's:${RECIPE_SYSROOT}::g' \
+		${S}/astropy/table/_np_utils.c \
+		${S}/astropy/table/_column_mixins.c \
+		${S}/astropy/stats/_stats.c \
+		${S}/astropy/convolution/_convolve.c \
+		${S}/astropy/timeseries/periodograms/bls/_impl.c \
+		${S}/astropy/timeseries/periodograms/lombscargle/implementations/cython_impl.c \
+		${S}/astropy/io/fits/_utils.c \
+		${S}/astropy/io/ascii/cparser.c \
+		${S}/astropy/cosmology/flrw/scalar_inv_efuncs.c
+}
+
 RDEPENDS:${PN} = " \
 	python3-numpy \
 	python3-pyerfa \
