@@ -25,3 +25,5 @@ RDEPENDS:${PN} = " \
 	python3-pytorch \
 	python3-numpy \
 "
+
+INSANE_SKIP:${PN}-dbg += "buildpaths"
