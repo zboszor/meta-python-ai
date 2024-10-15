@@ -10,6 +10,7 @@ Content-Transfer-Encoding: 8bit
 See https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
 
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Submitted [https://github.com/ifzhang/ByteTrack/pull/327]
 ---
  yolox/motdt_tracker/motdt_tracker.py | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)

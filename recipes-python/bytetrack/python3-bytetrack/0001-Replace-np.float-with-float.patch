@@ -10,6 +10,7 @@ Content-Transfer-Encoding: 8bit
 See https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
 
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Submitted [https://github.com/ifzhang/ByteTrack/pull/327]
 ---
  tutorials/centertrack/byte_tracker.py         |  2 +-
  tutorials/centertrack/mot_online/matching.py  | 36 +++++++++----------
