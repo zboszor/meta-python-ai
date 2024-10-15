@@ -47,6 +47,10 @@ do_compile() {
 do_install () {
 	export EXTRA_OECMAKE="${EXTRA_OECMAKE}"
 	setuptools3_legacy_do_install
+
+	if [ -f ${D}${PYTHON_SITEPACKAGES_DIR}/torchvision-*.egg-info/SOURCES.txt ]; then
+		sed -i 's:${S}/::' ${D}${PYTHON_SITEPACKAGES_DIR}/torchvision-*.egg-info/SOURCES.txt
+	fi
 }
 
 RDEPENDS:${PN} += " \
