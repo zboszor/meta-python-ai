@@ -16,6 +16,10 @@ SRC_URI[sha256sum] = "0f3e94b7f51e2f78287b7ffae82cd850b1007639148894538274fa50bd
 
 SRC_URI += "file://fix-includes.patch"
 
+do_install:prepend () {
+	sed -i 's:${RECIPE_SYSROOT}::g' ${S}/imagecodecs/_jpeg2k.c
+}
+
 RDEPENDS:${PN} = "python3-numpy python3-numcodecs"
 
 export INCLIB = "${STAGING_LIBDIR}/.."
