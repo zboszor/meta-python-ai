@@ -14,6 +14,10 @@ SRC_URI[sha256sum] = "ba4fac7036ea5a078c7afe1d4dffeb9685080d42f19c9c16b12dad8667
 
 SRC_URI += "file://0001-fix-c-compiler-setup-562.patch"
 
+do_install:prepend () {
+	sed -i 's:${RECIPE_SYSROOT_NATIVE}::g' ${S}/numcodecs/vlen.c
+}
+
 RDEPENDS:${PN} = " \
 	python3-numpy \
 	python3-pcodec \
