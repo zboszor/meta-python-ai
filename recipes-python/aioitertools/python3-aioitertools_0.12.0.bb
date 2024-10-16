@@ -7,4 +7,4 @@ DEPENDS = "python3-flit-core-native"
 PYPI_PACKAGE = "aioitertools"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "42c68b8dd3a69c2bf7f2233bf7df4bb58b557bca5252ac02ed5187bbc67d6831"
+SRC_URI[sha256sum] = "c2a9055b4fbb7705f561b9d86053e8af5d10cc845d22c32008c43490b2d8dd6b"
