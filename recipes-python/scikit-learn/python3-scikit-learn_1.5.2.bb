@@ -5,7 +5,7 @@ LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://COPYING;md5=c0c49304a5cb997fd012292beee4ddce"
 
 PYPI_PACKAGE = "scikit_learn"
-SRC_URI[sha256sum] = "0ea5d40c0e3951df445721927448755d3fe1d80833b0b7308ebff5d2a45e6414"
+SRC_URI[sha256sum] = "b4237ed7b3fdd0a4882792e68ef2545d5baa50aca3bb45aa7df468138ad8f94d"
 
 inherit pypi setuptools3 pkgconfig python3-dir
 
@@ -26,6 +26,16 @@ do_compile:prepend() {
 	cp ${STAGING_DIR_TARGET}${libdir}/python${PYTHON_BASEVERSION}/site-packages/numpy/core/lib/npy-pkg-config/* ${WORKDIR}/npy-pkg-config
 	sed -i 's&prefix=${pkgdir}&prefix=${STAGING_DIR_TARGET}${libdir}/python${PYTHON_BASEVERSION}/site-packages/numpy/core&g' ${WORKDIR}/npy-pkg-config/npymath.ini
 	sed -i 's&prefix=${pkgdir}&prefix=${STAGING_DIR_TARGET}${libdir}/python${PYTHON_BASEVERSION}/site-packages/numpy/core&g' ${WORKDIR}/npy-pkg-config/mlib.ini
+}
+
+do_install:append () {
+	sed -i \
+		-e 's:${RECIPE_SYSROOT_NATIVE}::g' \
+		-e 's:${RECIPE_SYSROOT}::g' \
+		${D}${PYTHON_SITEPACKAGES_DIR}/sklearn/*/*.c \
+		${D}${PYTHON_SITEPACKAGES_DIR}/sklearn/*/*/*.c \
+		${D}${PYTHON_SITEPACKAGES_DIR}/sklearn/*/*.cpp \
+		${D}${PYTHON_SITEPACKAGES_DIR}/sklearn/*/*/*.cpp
 }
 
 DEPENDS += " \
