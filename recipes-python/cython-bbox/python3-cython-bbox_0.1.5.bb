@@ -10,4 +10,11 @@ PYPI_PACKAGE_EXT = "tar.gz"
 inherit pypi setuptools3
 SRC_URI[sha256sum] = "c73a513e4f668db483e703701707c6d289de61322f8083635111cf8ee3e969a2"
 
+do_install:prepend () {
+	sed -i \
+		-e 's:${RECIPE_SYSROOT_NATIVE}::g' \
+		-e 's:${RECIPE_SYSROOT}::g' \
+		${S}/src/cython_bbox.c
+}
+
 RDEPENDS:${PN} = "python3-numpy"
