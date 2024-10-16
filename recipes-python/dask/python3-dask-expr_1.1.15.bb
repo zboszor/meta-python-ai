@@ -10,7 +10,7 @@ SRC_URI = " \
 	git://github.com/dask/dask-expr.git;protocol=https;branch=main \
 	file://0001-Use-versioneer-toml-0.28.patch \
 "
-SRCREV = "b0c980e51525ce49fb29c89711ce4536970e377b"
+SRCREV = "ca5db2215c94d011ea0f2a086195a96734477d3f"
 
 S = "${UNPACKDIR}/git"
 
