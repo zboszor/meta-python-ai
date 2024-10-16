@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=b53a93744e3ff841e5fc9a934da8e1c8"
 PYPI_PACKAGE = "pre_commit"
 
 inherit pypi setuptools3
-SRC_URI[sha256sum] = "8bb6494d4a20423842e198980c9ecf9f96607a07ea29549e180eef9ae80fe7af"
+SRC_URI[sha256sum] = "80905ac375958c0444c65e9cebebd948b3cdb518f335a091a670a89d652139d2"
 
 RDEPENDS:${PN} = " \
 	python3-cfgv \
