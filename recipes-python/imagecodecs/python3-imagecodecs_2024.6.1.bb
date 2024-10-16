@@ -11,7 +11,7 @@ DEPENDS = " \
 
 PYPI_PACKAGE = "imagecodecs"
 
-inherit pypi setuptools3
+inherit pypi python_setuptools_build_meta
 SRC_URI[sha256sum] = "0f3e94b7f51e2f78287b7ffae82cd850b1007639148894538274fa50bd179886"
 
 SRC_URI += "file://fix-includes.patch"
