@@ -3,6 +3,8 @@ HOMEPAGE = "https://github.com/xlwings/jsondiff"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=792c1f2e813587ebc2e046ff8dff59ae"
 
+DEPENDS += "python3-setuptools-scm-native"
+
 #PR = "r1"
 
 inherit pypi python_setuptools_build_meta
