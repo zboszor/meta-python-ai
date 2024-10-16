@@ -6,7 +6,10 @@ DEPENDS = "python3-cython-native python3-versioneer-native"
 
 inherit python_setuptools_build_meta
 
-SRC_URI = "git://github.com/dask/dask-expr.git;protocol=https;branch=main"
+SRC_URI = " \
+	git://github.com/dask/dask-expr.git;protocol=https;branch=main \
+	file://0001-Use-versioneer-toml-0.28.patch \
+"
 SRCREV = "b0c980e51525ce49fb29c89711ce4536970e377b"
 
 S = "${UNPACKDIR}/git"

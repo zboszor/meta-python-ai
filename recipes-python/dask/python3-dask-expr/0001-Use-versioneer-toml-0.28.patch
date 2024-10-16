@@ -1,0 +1,29 @@
+From 3900a0245ef92fd28586389cbbe04c7d2e2eeb3a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 16 Oct 2024 08:28:38 +0200
+Subject: [PATCH] Use versioneer[toml]>=0.28
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+---
+ pyproject.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index 46b1c8e..45cab29 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,5 +1,5 @@
+ [build-system]
+-requires = ["setuptools>=62.6", "versioneer[toml]==0.28"]
++requires = ["setuptools>=62.6", "versioneer[toml]>=0.28"]
+ build-backend = "setuptools.build_meta"
+ 
+ [project]
+-- 
+2.47.0
+
