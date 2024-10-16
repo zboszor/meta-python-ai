@@ -10,7 +10,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "numcodecs"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "ba4fac7036ea5a078c7afe1d4dffeb9685080d42f19c9c16b12dad866703aa2e"
+SRC_URI[sha256sum] = "a3cf37881df0898f3a9c0d4477df88133fe85185bffe57ba31bcc2fa207709bc"
 
 SRC_URI += "file://0001-fix-c-compiler-setup-562.patch"
 
