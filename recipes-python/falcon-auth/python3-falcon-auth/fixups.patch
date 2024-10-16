@@ -1,5 +1,5 @@
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
-Uptream-Status: Inappropriate [Yocto specific]
+Upstream-Status: Inappropriate [Yocto specific]
 
 --- falcon-auth-1.1.0/setup.cfg~	2017-09-11 06:05:09.000000000 +0000
 +++ falcon-auth-1.1.0/setup.cfg	2022-04-29 08:58:21.096655510 +0000
