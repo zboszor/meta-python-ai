@@ -1,6 +1,6 @@
 SUMMARY = "Open Neural Network Exchange"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=d273d63619c9aeaf15cdaf76422c4f87"
 
 DEPENDS = " \
 	python3-numpy-native python3-protobuf-native \
@@ -12,7 +12,7 @@ PYPI_PACKAGE = "onnx"
 
 inherit pypi cmake python3native python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "b33a282b038813c4b69e73ea65c2909768e8dd6cc10619b70632335daf094646"
+SRC_URI[sha256sum] = "48ca1a91ff73c1d5e3ea2eef20ae5d0e709bb8a2355ed798ffc2169753013fd3"
 
 CXXFLAGS += "-I${STAGING_INCDIR}/${PYTHON_DIR}"
 
