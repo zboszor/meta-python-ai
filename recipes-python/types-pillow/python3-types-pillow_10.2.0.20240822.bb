@@ -1,6 +1,6 @@
 SUMMARY = "Typing stubs for Pillow"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://PKG-INFO;beginline=6;endline=6;md5=ef4dc1e740f5c928f1608a4a9c7b578e"
+LIC_FILES_CHKSUM = "file://PKG-INFO;beginline=6;endline=6;md5=c2d9643b4523fdf462545aeb1356ad23"
 
 PYPI_PACKAGE = "types-Pillow"
 
