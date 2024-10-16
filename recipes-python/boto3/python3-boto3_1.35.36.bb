@@ -9,9 +9,9 @@ SECTION = "devel/python"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
-SRC_URI[sha256sum] = "dab8f72a6c4e62b4fd70da09e08a6b2a65ea2115b27dd63737142005776ef216"
+SRC_URI[sha256sum] = "586524b623e4fbbebe28b604c6205eb12f263cc4746bccb011562d07e217a4cb"
 
-inherit pypi setuptools3
+inherit pypi python_setuptools_build_meta
 
 RDEPENDS:${PN} += " \
 	python3-botocore \
