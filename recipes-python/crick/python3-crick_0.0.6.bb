@@ -17,7 +17,10 @@ do_install:append () {
 		-e 's:${RECIPE_SYSROOT}::g' \
 		${D}${PYTHON_SITEPACKAGES_DIR}/crick/space_saving.c \
 		${D}${PYTHON_SITEPACKAGES_DIR}/crick/stats.c \
-		${D}${PYTHON_SITEPACKAGES_DIR}/crick/tdigest.c
+		${D}${PYTHON_SITEPACKAGES_DIR}/crick/tdigest.c \
+		${S}/crick/space_saving.c \
+		${S}/crick/stats.c \
+		${S}/crick/tdigest.c
 }
 
 RDEPENDS:${PN} = " \
