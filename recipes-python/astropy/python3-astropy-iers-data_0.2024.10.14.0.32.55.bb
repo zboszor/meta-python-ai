@@ -7,4 +7,4 @@ DEPENDS = "python3-setuptools-scm-native"
 PYPI_PACKAGE = "astropy_iers_data"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "f8bea6abbdc8a3076b67a0941e3c1e6c89e5dffb5582a92c1a6e43e4a2e51c4a"
+SRC_URI[sha256sum] = "efe7e5b26fa064df08fcda528ea910c79137625208ccc4073addf4f0eb9289a0"
