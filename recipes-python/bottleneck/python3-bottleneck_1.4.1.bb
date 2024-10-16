@@ -7,6 +7,6 @@ DEPENDS = "python3-pip-native python3-numpy-native"
 PYPI_PACKAGE = "bottleneck"
 
 inherit pypi setuptools3
-SRC_URI[sha256sum] = "beb36df519b8709e7d357c0c9639b03b885ca6355bbf5e53752c685de51605b8"
+SRC_URI[sha256sum] = "58c66619db62291c9ca3b497b05f40f7b1ff9ac010b88bff1925f3101dae2c89"
 
 RDEPENDS:${PN} = "python3-numpy"
