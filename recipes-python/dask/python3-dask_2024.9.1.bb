@@ -23,4 +23,5 @@ RDEPENDS:${PN} = " \
 	python3-pyyaml \
 	python3-toolz \
 	python3-importlib-metadata \
+	python3-dask-expr \
 "
