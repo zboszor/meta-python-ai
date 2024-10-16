@@ -10,7 +10,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "astropy"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "a2103d4e24e90389a820cfcdaaf4ca2d1ab22e5fd72978d147ff5cace54f1d3a"
+SRC_URI[sha256sum] = "361558e2b093a99bebe69f1fd47fac86a192607a4c16ed39ba0a800b2ab60c34"
 
 SRC_URI += "file://fix-numpy.patch"
 
