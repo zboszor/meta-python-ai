@@ -16,9 +16,7 @@ DEPENDS = " \
     python3-setuptools-scm-native \
     "
 
-inherit cmake python3native setuptools3
-
-DISTUTILS_SETUP_PATH = "${S}"
+inherit cmake python3native python_setuptools_build_meta
 
 OECMAKE_C_FLAGS += " -isystem ${UNPACKDIR}/git/cpp/src -DARROW_COMPUTE"
 OECMAKE_CXX_FLAGS += " -isystem ${UNPACKDIR}/git/cpp/src -DARROW_COMPUTE"
@@ -53,12 +51,13 @@ do_compile:prepend() {
 }
 
 do_install:append:class-target() {
-    ln -s ${libdir}/${PYTHON_DIR}/site-packages/pyarrow/libarrow_python.so.1000 ${D}${libdir}/
-    ln -s ${libdir}/${PYTHON_DIR}/site-packages/pyarrow/libarrow_python.so.1000.1.0 ${D}${libdir}/
+	sed -i \
+		-e 's:${RECIPE_SYSROOT_NATIVE}::g' \
+		-e 's:${RECIPE_SYSROOT}::g' \
+		${D}${PYTHON_SITEPACKAGES_DIR}/pyarrow/include/arrow/util/config.h
 }
 
 FILES:${PN}-staticdev += " ${libdir}/${PYTHON_DIR}/site-packages/pyarrow/libarrow_python.a "
-INSANE_SKIP:${PN}-dbg += "buildpaths"
 
 RDEPENDS:${PN} += "bash"
 
