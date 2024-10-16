@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=7970352423db76abb33cbe303884afbf"
 PYPI_PACKAGE = "awscli"
 
 inherit pypi setuptools3
-SRC_URI[sha256sum] = "bad4402c4a0ff825a59a43e76e0072152497f4daf7f62c9376fe6e0014fa2a9b"
+SRC_URI[sha256sum] = "78f9ad964dcb3e35890617396614d0683310fdf55082801afbe5909e1421cc23"
 
 #PR = "r1"
 
