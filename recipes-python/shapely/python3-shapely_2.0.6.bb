@@ -13,7 +13,7 @@ DEPENDS = " \
 
 PYPI_PACKAGE = "shapely"
 
-inherit pypi setuptools3
+inherit pypi python_setuptools_build_meta
 SRC_URI[sha256sum] = "997f6159b1484059ec239cacaa53467fd8b5564dabe186cd84ac2944663b0bf6"
 
 SRC_URI += " \
