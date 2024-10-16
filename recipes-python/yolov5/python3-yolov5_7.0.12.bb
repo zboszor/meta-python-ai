@@ -8,6 +8,8 @@ inherit setuptools3
 
 SRCREV = "89c3040e734e8a0185fb49c667184600bb827f25"
 
+S = "${UNPACKDIR}/git"
+
 SRC_URI = " \
 	git://github.com/ultralytics/yolov5.git;protocol=https;branch=master;subdir=${S};destsuffix=yolov5 \
 	file://setup.py;subdir=${S} \
