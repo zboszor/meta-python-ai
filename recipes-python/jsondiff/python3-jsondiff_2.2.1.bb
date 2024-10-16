@@ -5,11 +5,11 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=792c1f2e813587ebc2e046ff8dff59ae"
 
 #PR = "r1"
 
-inherit pypi setuptools3
+inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "060e9a10fe136c643e9d2bf264ea1fbe966ed17d2fd37348dd65b1c650c2df4f"
+SRC_URI[sha256sum] = "658d162c8a86ba86de26303cd86a7b37e1b2c1ec98b569a60e2ca6180545f7fe"
 
-RDEPENDS_${PN} += "python3-json"
+RDEPENDS:${PN} += "python3-json"
 
 do_install:append () {
 	# Conflicts with python3-jsonpatch in meta-openembedded
