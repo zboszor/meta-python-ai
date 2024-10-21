@@ -23,7 +23,7 @@ above lines in your `distro.conf` file.
 The OpenBLAS recipe in this layer has its default configuration carried
 over from [meta-scikit-learn](https://github.com/tuxable-ltd/meta-scikit-learn).
 But it is not enough to satisfy the `python3-scipy` recipe. To allow
-`python3-scipy` build and work, this settings is needed in an
+`python3-scipy` build and work, this setting is needed in an
 `openblas_%.bbappend`:
 
     PACKAGECONFIG = "lapack cblas affinity dynarch"
