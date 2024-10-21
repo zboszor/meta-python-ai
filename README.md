@@ -11,7 +11,7 @@ Installation
 ------------
 
 You will need to enable FORTRAN support by adding the following to your
-`local.conf` file if you want to cross-compile python3-scipy:
+`local.conf` file if you want to cross-compile `python3-scipy`:
 
     FORTRAN:forcevariable = ",fortran"
     RUNTIMETARGET:append:pn-gcc-runtime = " libquadmath"
