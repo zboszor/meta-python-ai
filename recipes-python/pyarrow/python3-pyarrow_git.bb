@@ -59,6 +59,8 @@ do_install:append:class-target() {
 
 FILES:${PN}-staticdev += " ${libdir}/${PYTHON_DIR}/site-packages/pyarrow/libarrow_python.a "
 
+INSANE_SKIP:${PN}-dbg += "buildpaths"
+
 RDEPENDS:${PN} += "bash"
 
 BBCLASSEXTEND = "native nativesdk"
