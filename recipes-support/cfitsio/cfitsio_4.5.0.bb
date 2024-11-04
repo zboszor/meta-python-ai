@@ -12,15 +12,14 @@ LIC_FILES_CHKSUM = "file://licenses/License.txt;md5=77856e8a5492e2119200b3401a8e
 
 SRC_URI = " \
 	git://github.com/zboszor/cfitsio.git;protocol=https;branch=master \
-	file://cfitsio-noversioncheck.patch \
 	file://cfitsio-pkgconfig.patch \
-	file://cfitsio-ldflags.patch \
-	file://cfitsio-remove-rpath.patch \
 "
 
-SRCREV = "4ba65ba446843b5355511191e5d6617c767bdefd"
+SRCREV = "896abff8a64258007c56b28818571851715a3e4d"
 
 S = "${UNPACKDIR}/git"
+
+EXTRA_OECONF += "--without-fortran"
 
 do_install:append () {
 	chown -R root:root ${D}${prefix}
