@@ -1,0 +1,31 @@
+From db7e15fbeb04d5b78b7573006aedfebedb66868c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Tue, 26 Nov 2024 16:44:40 +0100
+Subject: [PATCH 3/3] Use native build of prepare-builtins
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [cross compiler specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ cmake/OCL.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/OCL.cmake b/cmake/OCL.cmake
+index c6005d2..fa99889 100644
+--- a/cmake/OCL.cmake
++++ b/cmake/OCL.cmake
+@@ -137,7 +137,7 @@ macro(opencl_bc_lib)
+       -o "${OUT_NAME}${LIB_SUFFIX}" ${internal_link_libs}
+     COMMAND opt -passes=strip
+       -o "${OUT_NAME}${STRIP_SUFFIX}" "${OUT_NAME}${LIB_SUFFIX}"
+-    COMMAND "${PREPARE_BUILTINS}"
++    COMMAND prepare-builtins
+       -o ${OUTPUT_BC_LIB} "${OUT_NAME}${STRIP_SUFFIX}"
+       DEPENDS "${deps}" "${CMAKE_CURRENT_BINARY_DIR}/${OUT_NAME}_response" "${PREPARE_BUILTINS}" ${internal_link_libs})
+ 
+-- 
+2.47.0
+
