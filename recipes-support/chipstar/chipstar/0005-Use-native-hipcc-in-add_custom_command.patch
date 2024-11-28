@@ -1,0 +1,31 @@
+From a2f46d748c9af2144374bf99626ffa25419ef2f5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 27 Nov 2024 13:15:41 +0100
+Subject: [PATCH 5/7] Use native hipcc in add_custom_command()
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [cross compiler specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 59a7822b..aeb25580 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -428,7 +428,7 @@ endif()
+ # once hipcc.bin is built, execute hipcc ./samples/hipSample.cpp
+ add_custom_command(
+   OUTPUT ${CMAKE_BINARY_DIR}/hipInfo
+-  COMMAND ${HIPCC_BUILD_PATH}/hipcc ${CMAKE_SOURCE_DIR}/samples/hipInfo/hipInfo.cpp -o ${CMAKE_BINARY_DIR}/hipInfo
++  COMMAND hipcc ${CMAKE_SOURCE_DIR}/samples/hipInfo/hipInfo.cpp -o ${CMAKE_BINARY_DIR}/hipInfo
+   DEPENDS ${CMAKE_SOURCE_DIR}/samples/hipInfo/hipInfo.cpp hipcc.bin CHIP devicelib_bc
+ )
+ 
+-- 
+2.47.0
+

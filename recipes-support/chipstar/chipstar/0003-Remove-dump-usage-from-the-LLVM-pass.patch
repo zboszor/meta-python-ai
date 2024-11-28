@@ -1,0 +1,73 @@
+From 2ae94496af84f2cfed2e2bf46312b601dedfbeee Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 27 Nov 2024 11:58:32 +0100
+Subject: [PATCH 3/7] Remove ->dump() usage from the LLVM pass
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Release builds of LLVM do not have the Elt->dump() method
+which Yocto uses for LLVM and CLang. This fixes the error:
+
+chipstar/1.2.1/build/lib/libLLVMHipSpvPasses.so: undefined symbol: _ZNK4llvm5Value4dumpEv
+
+Upstream-Status: Inappropriate [oe specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ llvm_passes/HipPrintf.cpp          |  3 ---
+ llvm_passes/HipTextureLowering.cpp | 17 +----------------
+ 2 files changed, 1 insertion(+), 19 deletions(-)
+
+diff --git a/llvm_passes/HipPrintf.cpp b/llvm_passes/HipPrintf.cpp
+index 18a8441c..5aa83984 100644
+--- a/llvm_passes/HipPrintf.cpp
++++ b/llvm_passes/HipPrintf.cpp
+@@ -303,7 +303,6 @@ PreservedAnalyses HipPrintfToOpenCLPrintfPass::run(Module &Mod,
+   // 1 use if the "printf" is only used by "_cl_printf"
+   if (Printf == nullptr || Printf->getNumUses() == 1)
+     return PreservedAnalyses::all();
+-  LLVM_DEBUG(dbgs() << "Found printf decl: "; Printf->dump());
+ 
+   Function *PrintfF = cast<Function>(Printf);
+ 
+@@ -351,8 +350,6 @@ PreservedAnalyses HipPrintfToOpenCLPrintfPass::run(Module &Mod,
+         if (!Callee->hasName() || Callee->getName() != ORIG_PRINTF_FUNC_NAME)
+           continue;
+ 
+-        LLVM_DEBUG(dbgs() << "Original printf call: "; CI->dump());
+-
+         CallInst &OrigCall = cast<CallInst>(I);
+         unsigned TotalFmtSpecCount;
+         auto FmtSpecPieces =
+diff --git a/llvm_passes/HipTextureLowering.cpp b/llvm_passes/HipTextureLowering.cpp
+index c363010c..d2d799ac 100644
+--- a/llvm_passes/HipTextureLowering.cpp
++++ b/llvm_passes/HipTextureLowering.cpp
+@@ -136,22 +136,7 @@ public:
+   }
+ };
+ 
+-void TextureUseGroup::dump() const {
+-#define DOIT(_container, _desc)                                                \
+-  do {                                                                         \
+-    dbgs() << _desc << ":" << (_container.empty() ? " none" : "") << "\n";     \
+-    for (auto *Elt : _container) {                                             \
+-      dbgs() << "- ";                                                          \
+-      Elt->dump();                                                             \
+-    }                                                                          \
+-  } while (0)
+-
+-  DOIT(DirectTexSources_, "Direct tex sources");
+-  DOIT(IndirectTexSources_, "Indirect tex sources");
+-  DOIT(TexFunctionCalls_, "Tex function calls");
+-  DOIT(UnknownTexUsers_, "Unknown tex users");
+-#undef DOIT
+-}
++void TextureUseGroup::dump() const {}
+ 
+ using TextureUseGroupList = std::vector<TextureUseGroup>;
+ using TextureUseGroupMap = std::map<Value *, TextureUseGroup *>;
+-- 
+2.47.0
+
