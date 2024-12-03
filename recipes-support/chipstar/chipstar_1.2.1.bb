@@ -80,6 +80,10 @@ do_install:append:class-native () {
 }
 
 do_install:append:class-target () {
+	install -m644 ${S}/samples/hip-cuda/RecursiveGaussian/RecursiveGaussian_Input.bmp ${D}${bindir}/chip_spv_samples/
+	install -m644 ${S}/samples/cuda_samples/2_Graphics/dwtHaar1D/data/signal.dat ${D}${bindir}/chip_spv_samples/cuda_samples
+	install -m644 ${S}/samples/cuda_samples/2_Graphics/dwtHaar1D/data/regression.gold.dat ${D}${bindir}/chip_spv_samples/cuda_samples
+
 	sed -i 's:^HIP_CLANG_PATH=.*$:HIP_CLANG_PATH=:' ${D}${datadir}/.hipInfo
 
 	sed -i \
