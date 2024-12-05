@@ -30,8 +30,8 @@ PACKAGECONFIG ??= ""
 # Due to DISTRO_FEATURES may contain both x11 and wayland,
 # plus xwayland also exists, it can't be automatically determined
 # which browser build is to be used.
-PACKAGECONFIG[chromiumx11] = ",,,chromium-x11-chromedriver,,chromium-ozone-wayland-chromedriver"
-PACKAGECONFIG[chromiumwayland] = ",,,chromium-ozone-wayland-chromedriver,,chromium-x11-chromedriver"
+PACKAGECONFIG[chromiumx11] = ",,,chromium-x11-chromedriver"
+PACKAGECONFIG[chromiumwayland] = ",,,chromium-ozone-wayland-chromedriver"
 
 # TODO: Find out whether meta-browser/meta-firefox packages geckodriver.
 
