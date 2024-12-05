@@ -1,0 +1,13 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+
+--- selenium-4.27.1/Cargo.toml.old	2024-12-05 14:57:29.501216135 +0100
++++ selenium-4.27.1/Cargo.toml	2024-12-05 14:57:42.818361127 +0100
+@@ -45,7 +45,6 @@ is_executable = "1.0.4"
+ opt-level = 'z'     # Optimize for size
+ lto = true          # Enable Link Time Optimization
+ codegen-units = 1   # Reduce number of codegen units to increase optimizations
+-panic = 'abort'     # Abort on panic
+ strip = true        # Strip symbols from binary
+ 
+ [profile.dev]
