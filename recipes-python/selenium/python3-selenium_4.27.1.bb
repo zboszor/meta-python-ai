@@ -3,6 +3,8 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=fc85982553603542b7c1fc0ffa7e4fc7"
 DEPENDS = "python3-setuptools-rust-native"
 
+PR = "r1"
+
 PYPI_PACKAGE = "selenium"
 
 S = "${WORKDIR}/${PYPI_PACKAGE}-${PV}"
@@ -34,5 +36,12 @@ PACKAGECONFIG[chromiumx11] = ",,,chromium-x11-chromedriver"
 PACKAGECONFIG[chromiumwayland] = ",,,chromium-ozone-wayland-chromedriver"
 
 # TODO: Find out whether meta-browser/meta-firefox packages geckodriver.
+
+do_install:append () {
+	# Add missing files needed for correct operation
+	cp -r ${S}/selenium/webdriver/common/fedcm ${D}${PYTHON_SITEPACKAGES_DIR}/${PYPI_PACKAGE}/webdriver/common/
+	cp ${S}/selenium/webdriver/common/mutation-listener.js ${D}${PYTHON_SITEPACKAGES_DIR}/${PYPI_PACKAGE}/webdriver/common/
+	cp ${S}/selenium/webdriver/remote/*.js ${D}${PYTHON_SITEPACKAGES_DIR}/${PYPI_PACKAGE}/webdriver/remote/
+}
 
 INSANE_SKIP:${PN} = "already-stripped"
