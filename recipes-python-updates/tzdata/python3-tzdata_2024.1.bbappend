@@ -1,2 +1,0 @@
-PV = "2024.2"
-SRC_URI[sha256sum] = "7d85cc416e9382e69095b7bdf4afd9e3880418a2413feec7069d533d6b4e31cc"
