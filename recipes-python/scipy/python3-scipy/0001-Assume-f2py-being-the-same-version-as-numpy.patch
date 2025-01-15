@@ -1,0 +1,34 @@
+From 96fa6339819f16d33e03bcf613a4c2f6452b660f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 15 Jan 2025 11:11:12 +0100
+Subject: [PATCH] Assume f2py being the same version as numpy
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This fixes an error when meson tries to run "f2py -v".
+
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ scipy/meson.build | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/scipy/meson.build b/scipy/meson.build
+index 73168d859..75b66a321 100644
+--- a/scipy/meson.build
++++ b/scipy/meson.build
+@@ -208,7 +208,8 @@ f2py = find_program('f2py')
+ # details).
+ # This should be robust enough. If not, we can make this more complex, using
+ # a fallback to `python -m f2py` rather than erroring out.
+-f2py_version = run_command([f2py, '-v'], check: true).stdout().strip()
++# In Yocto, it's guaranteed that the numpy and f2py versions match.
++f2py_version = _numpy_dep.version()
+ if f2py_version.version_compare('<'+min_numpy_version)
+   error(f'Found f2py executable is too old: @f2py_version@')
+ endif
+-- 
+2.47.1
+
