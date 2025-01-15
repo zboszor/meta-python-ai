@@ -1,3 +1,2 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/${BPN}:"
-
-SRC_URI:append:class-native = " file://avoid-host-includes.patch"
+PV = "2.13.6"
+SRCREV = "58c382a8e3d7081364d2f5c62e7f429f0412743b"
