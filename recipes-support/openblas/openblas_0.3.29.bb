@@ -18,7 +18,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=5adf4792c949a00013ce25d476a2abc0"
 
 SRC_URI = "git://github.com/xianyi/OpenBLAS.git;protocol=https;branch=develop"
 
-SRCREV = "5ef8b1964658f9cb6a6324a06f6a1a022609b0c5"
+SRCREV = "8795fc7985635de1ecf674b87e2008a15097ffab"
 
 S = "${UNPACKDIR}/git"
 
