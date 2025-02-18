@@ -37,8 +37,8 @@ do_compile:append () {
 	# This is needed to remove read-only files
 	go clean -modcache
 	rm -rf src/${GO_IMPORT}/pkg/mod
-	find ${B}/pkg -type d -exec chmod 775 {} \;
-	find ${S}/pkg -type d -exec chmod 775 {} \;
+	[[ -d ${B}/pkg ]] && find ${B}/pkg -type d -exec chmod 775 {} \;
+	[[ -d ${S}/pkg ]] && find ${S}/pkg -type d -exec chmod 775 {} \;
 
 	# Remove rpicamera
 	rm -rf ${S}/internal/staticsources/rpicamera/mtxrpicam_*
