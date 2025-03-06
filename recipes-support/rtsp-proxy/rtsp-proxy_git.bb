@@ -29,4 +29,4 @@ do_install:append () {
 	install -m0644 ${S}/contrib/rtsp-proxy-nng@.service.sample ${D}${systemd_system_unitdir}/rtsp-proxy-nng@.service
 }
 
-FILES:${PN} += "${systemd_system_unitdir}/rtsp-proxy@.service"
+FILES:${PN} += "${systemd_system_unitdir}/*.service"
