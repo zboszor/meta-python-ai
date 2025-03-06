@@ -1,0 +1,25 @@
+From 8e1d8c5613c99f644e252275a187673bb651f71c Mon Sep 17 00:00:00 2001
+From: Ponsanthini <ponsanthini.arunachalam@multicorewareinc.com>
+Date: Thu, 19 Dec 2024 23:36:14 +0530
+Subject: [PATCH 05/13] Add check for input video resolution exceeding 8k
+
+Upstream-Status: Backport
+---
+ source/common/param.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/source/common/param.cpp b/source/common/param.cpp
+index 7d934b351..0fa1cffa2 100755
+--- a/source/common/param.cpp
++++ b/source/common/param.cpp
+@@ -1667,6 +1667,7 @@ int x265_check_params(x265_param* param)
+ {
+ #define CHECK(expr, msg) check_failed |= _confirm(param, expr, msg)
+     int check_failed = 0; /* abort if there is a fatal configuration problem */
++    CHECK((param->sourceWidth >= 8192 && param->sourceHeight >= 4320), "Input video resolution exceeds the maximum supported 8K resolution of 8192x4320");
+     CHECK(param->uhdBluray == 1 && (X265_DEPTH != 10 || param->internalCsp != 1 || param->interlaceMode != 0),
+         "uhd-bd: bit depth, chroma subsample, source picture type must be 10, 4:2:0, progressive");
+     CHECK(param->maxCUSize != 64 && param->maxCUSize != 32 && param->maxCUSize != 16,
+-- 
+2.48.1
+

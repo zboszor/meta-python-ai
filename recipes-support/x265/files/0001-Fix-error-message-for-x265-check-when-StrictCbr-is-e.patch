@@ -1,0 +1,27 @@
+From 825b5da5c15d48f42ea88319b975cbffba689694 Mon Sep 17 00:00:00 2001
+From: Uthayakumar Muthu <uthayakumar.muthu@multicorewareinc.com>
+Date: Tue, 3 Dec 2024 18:04:43 +0530
+Subject: [PATCH 01/13] Fix error message for x265 check when StrictCbr is
+ enabled
+
+Upstream-Status: Backport
+---
+ source/common/param.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/source/common/param.cpp b/source/common/param.cpp
+index a35b06339..7d934b351 100755
+--- a/source/common/param.cpp
++++ b/source/common/param.cpp
+@@ -1870,7 +1870,7 @@ int x265_check_params(x265_param* param)
+     CHECK(param->rc.rateControlMode == X265_RC_CQP && param->rc.bStatRead,
+           "Constant QP is incompatible with 2pass");
+     CHECK(param->rc.bStrictCbr && (param->rc.bitrate <= 0 || param->rc.vbvBufferSize <=0),
+-          "Strict-cbr cannot be applied without specifying target bitrate or vbv bufsize");
++          "Strict-cbr cannot be applied without specifying both target bitrate and vbv bufsize");
+     CHECK(strlen(param->analysisSave) && (param->analysisSaveReuseLevel < 0 || param->analysisSaveReuseLevel > 10),
+         "Invalid analysis save refine level. Value must be between 1 and 10 (inclusive)");
+     CHECK(strlen(param->analysisLoad) && (param->analysisLoadReuseLevel < 0 || param->analysisLoadReuseLevel > 10),
+-- 
+2.48.1
+

@@ -1,0 +1,26 @@
+From 30290ccd0edfc1c79eb275e7fc40797ba6e1e35c Mon Sep 17 00:00:00 2001
+From: Ponsanthini <ponsanthini.arunchalam@multicorewareinc.com>
+Date: Tue, 7 Jan 2025 17:09:44 +0530
+Subject: [PATCH 06/13] Fix max supported input resolution check
+
+Upstream-Status: Backport
+---
+ source/common/param.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/source/common/param.cpp b/source/common/param.cpp
+index 0fa1cffa2..ead908013 100755
+--- a/source/common/param.cpp
++++ b/source/common/param.cpp
+@@ -1667,7 +1667,7 @@ int x265_check_params(x265_param* param)
+ {
+ #define CHECK(expr, msg) check_failed |= _confirm(param, expr, msg)
+     int check_failed = 0; /* abort if there is a fatal configuration problem */
+-    CHECK((param->sourceWidth >= 8192 && param->sourceHeight >= 4320), "Input video resolution exceeds the maximum supported 8K resolution of 8192x4320");
++    CHECK((param->sourceWidth > 8192 && param->sourceHeight > 4320), "Input video resolution exceeds the maximum supported 8K resolution of 8192x4320");
+     CHECK(param->uhdBluray == 1 && (X265_DEPTH != 10 || param->internalCsp != 1 || param->interlaceMode != 0),
+         "uhd-bd: bit depth, chroma subsample, source picture type must be 10, 4:2:0, progressive");
+     CHECK(param->maxCUSize != 64 && param->maxCUSize != 32 && param->maxCUSize != 16,
+-- 
+2.48.1
+

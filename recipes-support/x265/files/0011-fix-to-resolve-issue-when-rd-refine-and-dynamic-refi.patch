@@ -1,0 +1,70 @@
+From a4756bfa69171d8178fb34a834af3c246d4b1e71 Mon Sep 17 00:00:00 2001
+From: Shanmathi Paramanandam <shanmathi.paramanandam@multicorewareinc.com>
+Date: Fri, 17 Jan 2025 15:21:37 +0530
+Subject: [PATCH 11/13] fix to resolve issue when rd-refine and dynamic-refine
+ are used together
+
+This patch also disables rd refine when enabled with scc and dynamic refine/refine-inter
+
+Upstream-Status: Backport
+---
+ source/common/param.cpp     | 13 +++++++++++++
+ source/encoder/analysis.cpp | 17 ++++++++++++-----
+ 2 files changed, 25 insertions(+), 5 deletions(-)
+
+diff --git a/source/common/param.cpp b/source/common/param.cpp
+index 459833ab3..cad527eaa 100755
+--- a/source/common/param.cpp
++++ b/source/common/param.cpp
+@@ -2026,6 +2026,19 @@ int x265_check_params(x265_param* param)
+         if (checkValid)
+             param->bEnableSCC = 0;
+     }
++    if (!!param->bEnableSCC)
++    {
++        if (param->bEnableRdRefine && param->bDynamicRefine)
++        {
++            param->bEnableRdRefine = 0;
++            x265_log(param, X265_LOG_WARNING, "Disabling rd-refine as it can not be used with scc and dynamic-refine\n");
++        }
++        if (param->bEnableRdRefine && param->interRefine > 0)
++        {
++            param->bEnableRdRefine = 0;
++            x265_log(param, X265_LOG_WARNING, "Disabling rd-refine as it can not be used with scc and inter-refine\n");
++        }
++    }
+     CHECK(!!param->bEnableSCC&& param->rdLevel != 6, "Enabling scc extension in x265 requires rdlevel of 6 ");
+ #endif
+ 
+diff --git a/source/encoder/analysis.cpp b/source/encoder/analysis.cpp
+index da5aeca77..5475e4800 100644
+--- a/source/encoder/analysis.cpp
++++ b/source/encoder/analysis.cpp
+@@ -2960,12 +2960,19 @@ void Analysis::recodeCU(const CUData& parentCTU, const CUGeom& cuGeom, int32_t q
+ 
+         if (m_refineLevel > 1 || (m_refineLevel && parentCTU.m_predMode[cuGeom.absPartIdx] == MODE_SKIP  && !mode.cu.isSkipped(0)))
+         {
+-            if (parentCTU.m_cuDepth[cuGeom.absPartIdx] < 4 && mightNotSplit)
+-                m_evaluateInter = 1;
++            if ((m_slice->m_origSliceType != I_SLICE))
++            {
++                if (parentCTU.m_cuDepth[cuGeom.absPartIdx] < 4 && mightNotSplit)
++                    m_evaluateInter = 1;
++                else
++                    bDecidedDepth = true;
++                m_param->rdLevel > 4 ? compressInterCU_rd5_6(parentCTU, cuGeom, qp) : compressInterCU_rd0_4(parentCTU, cuGeom, qp);
++                m_evaluateInter = 0;
++            }
+             else
+-                bDecidedDepth = true;
+-            m_param->rdLevel > 4 ? compressInterCU_rd5_6(parentCTU, cuGeom, qp) : compressInterCU_rd0_4(parentCTU, cuGeom, qp);
+-            m_evaluateInter = 0;
++            {
++                compressIntraCU(parentCTU, cuGeom, qp);
++            }
+         }
+     }
+     if (!bDecidedDepth || split)
+-- 
+2.48.1
+

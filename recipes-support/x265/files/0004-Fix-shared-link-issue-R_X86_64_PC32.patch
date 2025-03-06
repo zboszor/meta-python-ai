@@ -1,0 +1,78 @@
+From 1a0ba366cc223bf8c54ed2deb9b3ca2226d70837 Mon Sep 17 00:00:00 2001
+From: Min Chen <chenm003@163.com>
+Date: Thu, 5 Dec 2024 22:32:27 -0800
+Subject: [PATCH 04/13] Fix shared link issue (R_X86_64_PC32)
+
+Upstream-Status: Backport
+---
+ source/common/x86/cpu-a.asm       |  7 +++++++
+ source/common/x86/pixel-util8.asm | 18 +++++++++++++++++-
+ 2 files changed, 24 insertions(+), 1 deletion(-)
+
+diff --git a/source/common/x86/cpu-a.asm b/source/common/x86/cpu-a.asm
+index 0930e142b..747b921f7 100644
+--- a/source/common/x86/cpu-a.asm
++++ b/source/common/x86/cpu-a.asm
+@@ -174,7 +174,14 @@ cglobal safe_intel_cpu_indicator_init
+     sub  rsp, 32 ; shadow space
+ %endif
+     and  rsp, ~31
++%if WIN64
++    lea rax, [intel_cpu_indicator_init]
++    call rax
++%elif UNIX64
++    call [rel intel_cpu_indicator_init wrt ..plt]
++%else
+     call intel_cpu_indicator_init
++%endif
+     leave
+ %if ARCH_X86_64
+     pop r14
+diff --git a/source/common/x86/pixel-util8.asm b/source/common/x86/pixel-util8.asm
+index 3f8c6be35..6ad2852d3 100644
+--- a/source/common/x86/pixel-util8.asm
++++ b/source/common/x86/pixel-util8.asm
+@@ -8484,7 +8484,13 @@ cglobal costCoeffNxN, 6,11,6
+     ; r4 - nonZero
+     ; r5 - scanFlagMask
+     ; r6 - sum
++
++%if UNIX64
++    mov         r0, [private_prefix %+ _entropyStateBits wrt ..gotpc]
++%else
+     lea         r0, [private_prefix %+ _entropyStateBits]
++    ;mov         r0, private_prefix %+ _entropyStateBits
++%endif
+     mov         r1, r6mp
+     xor         r6d, r6d
+     xor         r4d, r4d
+@@ -8664,7 +8670,12 @@ cglobal costCoeffNxN, 6,10,5
+     ; r6 - sum
+     ; {r3,r4} - ctxSig[15-0]
+     ; r8m - (numNonZero != 0) || (subPosBase == 0)
++%if UNIX64
++    mov             r0, [private_prefix %+ _entropyStateBits wrt ..gotpc]
++%else
+     lea             r0, [private_prefix %+ _entropyStateBits]
++    ;mov             r0, private_prefix %+ _entropyStateBits
++%endif
+     mov             r1, r6mp
+     xor             r6d, r6d
+     xor             r8d, r8d
+@@ -8903,7 +8914,12 @@ cglobal costC1C2Flag, 4,12,2
+     or          r11d, 0x100                     ; default value setting to 8
+     bsf         r11d, r11d
+ 
+-    lea         r5, [private_prefix %+ _entropyStateBits]
++%if UNIX64
++    mov             r5, [private_prefix %+ _entropyStateBits wrt ..gotpc]
++%else
++    lea             r5, [private_prefix %+ _entropyStateBits]
++    ;mov             r5, private_prefix %+ _entropyStateBits
++%endif
+     xor         r6d, r6d
+     mov         r4d, 0xFFFFFFF9
+ 
+-- 
+2.48.1
+

@@ -1,0 +1,43 @@
+From 35e750ed50d91036e3ee9c05be978bd95bc7cb7f Mon Sep 17 00:00:00 2001
+From: Min Chen <chenm003@163.com>
+Date: Wed, 11 Dec 2024 03:10:16 -0800
+Subject: [PATCH 02/13] Fix memory leak if no command line option
+
+Upstream-Status: Backport
+---
+ source/x265cli.cpp | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/source/x265cli.cpp b/source/x265cli.cpp
+index 6ca6fb495..0f3fc3070 100755
+--- a/source/x265cli.cpp
++++ b/source/x265cli.cpp
+@@ -617,6 +617,12 @@ namespace X265_NS {
+ 
+     bool CLIOptions::parse(int argc, char **argv)
+     {
++        if (argc <= 1)
++        {
++            x265_log(NULL, X265_LOG_ERROR, "No input file. Run x265 --help for a list of options.\n");
++            return true;
++        }
++
+         bool bError = false;
+         int bShowHelp = false;
+         int inputBitDepth = 8;
+@@ -636,12 +642,6 @@ namespace X265_NS {
+         int svtEnabled = 0;
+         argCnt = argc;
+ 
+-        if (argc <= 1)
+-        {
+-            x265_log(NULL, X265_LOG_ERROR, "No input file. Run x265 --help for a list of options.\n");
+-            return true;
+-        }
+-
+         /* Presets are applied before all other options. */
+         for (optind = 0;;)
+         {
+-- 
+2.48.1
+

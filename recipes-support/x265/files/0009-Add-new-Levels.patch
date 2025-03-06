@@ -1,0 +1,210 @@
+From 61c18f846959551b4f73571b1ebb518514fe2ade Mon Sep 17 00:00:00 2001
+From: Mr-Z-2697 <74594146+Mr-Z-2697@users.noreply.github.com>
+Date: Sun, 12 Jan 2025 12:35:38 +0800
+Subject: [PATCH 09/13] Add new Levels
+
+This patch does the following:
+
+1. Add new Levels 6.3 to 7.2 specified in ITU-T H.265 (V9) (09/2023) and above.
+    Level constraint values from ITU-T H.265 (V10) (07/2024) (PDF) Table A.8 and A.9.
+    Level "Name" from HM TypeDef.h and its comment: "// code = (level * 30)".
+
+2. Correct resolution constraint in param.cpp and update the value to Level 7.2 limit.
+
+3. Change luma sample rate related variables from uint32_t to uint64_t.
+
+4. Make the VBV maxrate and bufsize clipping limit 4x as big.
+
+5. Add MAX_UINT64 macro.
+
+Upstream-Status: Backport
+---
+ source/common/common.h         |  1 +
+ source/common/param.cpp        |  3 ++-
+ source/common/slice.h          |  6 ++++-
+ source/encoder/level.cpp       | 42 +++++++++++++++++++---------------
+ source/encoder/ratecontrol.cpp | 12 +++++-----
+ source/input/input.h           |  4 ++--
+ 6 files changed, 39 insertions(+), 29 deletions(-)
+
+diff --git a/source/common/common.h b/source/common/common.h
+index c4cd919dd..f5e2f63fe 100644
+--- a/source/common/common.h
++++ b/source/common/common.h
+@@ -150,6 +150,7 @@ typedef uint64_t sse_t;
+ #endif
+ 
+ #define MAX_UINT        0xFFFFFFFFU // max. value of unsigned 32-bit integer
++#define MAX_UINT64      0xFFFFFFFFFFFFFFFFULL // max. value of unsigned 64-bit integer
+ #define MAX_INT         2147483647  // max. value of signed 32-bit integer
+ #define MAX_INT64       0x7FFFFFFFFFFFFFFFLL  // max. value of signed 64-bit integer
+ #define MAX_DOUBLE      1.7e+308    // max. value of double-type value
+diff --git a/source/common/param.cpp b/source/common/param.cpp
+index ead908013..459833ab3 100755
+--- a/source/common/param.cpp
++++ b/source/common/param.cpp
+@@ -1667,7 +1667,8 @@ int x265_check_params(x265_param* param)
+ {
+ #define CHECK(expr, msg) check_failed |= _confirm(param, expr, msg)
+     int check_failed = 0; /* abort if there is a fatal configuration problem */
+-    CHECK((param->sourceWidth > 8192 && param->sourceHeight > 4320), "Input video resolution exceeds the maximum supported 8K resolution of 8192x4320");
++    CHECK((uint64_t)param->sourceWidth * param->sourceHeight > 142606336,
++          "Input video resolution exceeds the maximum supported luma samples 142,606,336 (16384x8704) of Level 7.2.");
+     CHECK(param->uhdBluray == 1 && (X265_DEPTH != 10 || param->internalCsp != 1 || param->interlaceMode != 0),
+         "uhd-bd: bit depth, chroma subsample, source picture type must be 10, 4:2:0, progressive");
+     CHECK(param->maxCUSize != 64 && param->maxCUSize != 32 && param->maxCUSize != 16,
+diff --git a/source/common/slice.h b/source/common/slice.h
+index df6f540f8..641be210d 100644
+--- a/source/common/slice.h
++++ b/source/common/slice.h
+@@ -104,6 +104,10 @@ namespace Level {
+         LEVEL6 = 180,
+         LEVEL6_1 = 183,
+         LEVEL6_2 = 186,
++        LEVEL6_3 = 189,
++        LEVEL7 = 210,
++        LEVEL7_1 = 213,
++        LEVEL7_2 = 216,
+         LEVEL8_5 = 255,
+     };
+ }
+@@ -113,7 +117,7 @@ struct ProfileTierLevel
+     int      profileIdc[MAX_LAYERS];
+     int      levelIdc;
+     uint32_t minCrForLevel;
+-    uint32_t maxLumaSrForLevel;
++    uint64_t maxLumaSrForLevel;
+     uint32_t bitDepthConstraint;
+     int      chromaFormatConstraint;
+     bool     tierFlag;
+diff --git a/source/encoder/level.cpp b/source/encoder/level.cpp
+index c2f840325..34ad23d1f 100644
+--- a/source/encoder/level.cpp
++++ b/source/encoder/level.cpp
+@@ -31,7 +31,7 @@ namespace X265_NS {
+ typedef struct
+ {
+     uint32_t maxLumaSamples;
+-    uint32_t maxLumaSamplesPerSecond;
++    uint64_t maxLumaSamplesPerSecond;
+     uint32_t maxBitrateMain;
+     uint32_t maxBitrateHigh;
+     uint32_t maxCpbSizeMain;
+@@ -44,20 +44,24 @@ typedef struct
+ 
+ LevelSpec levels[] =
+ {
+-    { 36864,    552960,     128,      MAX_UINT, 350,    MAX_UINT, 2, Level::LEVEL1,   "1",   10 },
+-    { 122880,   3686400,    1500,     MAX_UINT, 1500,   MAX_UINT, 2, Level::LEVEL2,   "2",   20 },
+-    { 245760,   7372800,    3000,     MAX_UINT, 3000,   MAX_UINT, 2, Level::LEVEL2_1, "2.1", 21 },
+-    { 552960,   16588800,   6000,     MAX_UINT, 6000,   MAX_UINT, 2, Level::LEVEL3,   "3",   30 },
+-    { 983040,   33177600,   10000,    MAX_UINT, 10000,  MAX_UINT, 2, Level::LEVEL3_1, "3.1", 31 },
+-    { 2228224,  66846720,   12000,    30000,    12000,  30000,    4, Level::LEVEL4,   "4",   40 },
+-    { 2228224,  133693440,  20000,    50000,    20000,  50000,    4, Level::LEVEL4_1, "4.1", 41 },
+-    { 8912896,  267386880,  25000,    100000,   25000,  100000,   6, Level::LEVEL5,   "5",   50 },
+-    { 8912896,  534773760,  40000,    160000,   40000,  160000,   8, Level::LEVEL5_1, "5.1", 51 },
+-    { 8912896,  1069547520, 60000,    240000,   60000,  240000,   8, Level::LEVEL5_2, "5.2", 52 },
+-    { 35651584, 1069547520, 60000,    240000,   60000,  240000,   8, Level::LEVEL6,   "6",   60 },
+-    { 35651584, 2139095040, 120000,   480000,   120000, 480000,   8, Level::LEVEL6_1, "6.1", 61 },
+-    { 35651584, 4278190080U, 240000,  800000,   240000, 800000,   6, Level::LEVEL6_2, "6.2", 62 },
+-    { MAX_UINT, MAX_UINT, MAX_UINT, MAX_UINT, MAX_UINT, MAX_UINT, 1, Level::LEVEL8_5, "8.5", 85 },
++    { 36864,      552960,         128,      MAX_UINT, 350,     MAX_UINT, 2, Level::LEVEL1,   "1",   10 },
++    { 122880,     3686400,        1500,     MAX_UINT, 1500,    MAX_UINT, 2, Level::LEVEL2,   "2",   20 },
++    { 245760,     7372800,        3000,     MAX_UINT, 3000,    MAX_UINT, 2, Level::LEVEL2_1, "2.1", 21 },
++    { 552960,     16588800,       6000,     MAX_UINT, 6000,    MAX_UINT, 2, Level::LEVEL3,   "3",   30 },
++    { 983040,     33177600,       10000,    MAX_UINT, 10000,   MAX_UINT, 2, Level::LEVEL3_1, "3.1", 31 },
++    { 2228224,    66846720,       12000,    30000,    12000,   30000,    4, Level::LEVEL4,   "4",   40 },
++    { 2228224,    133693440,      20000,    50000,    20000,   50000,    4, Level::LEVEL4_1, "4.1", 41 },
++    { 8912896,    267386880,      25000,    100000,   25000,   100000,   6, Level::LEVEL5,   "5",   50 },
++    { 8912896,    534773760,      40000,    160000,   40000,   160000,   8, Level::LEVEL5_1, "5.1", 51 },
++    { 8912896,    1069547520,     60000,    240000,   60000,   240000,   8, Level::LEVEL5_2, "5.2", 52 },
++    { 35651584,   1069547520,     60000,    240000,   60000,   240000,   8, Level::LEVEL6,   "6",   60 },
++    { 35651584,   2139095040,     120000,   480000,   120000,  480000,   8, Level::LEVEL6_1, "6.1", 61 },
++    { 35651584,   4278190080U,    240000,   800000,   240000,  800000,   6, Level::LEVEL6_2, "6.2", 62 },
++    { 80216064,   4812963840ULL,  320000,   1600000,  240000,  1600000,  6, Level::LEVEL6_3, "6.3", 63 },
++    { 142606336,  4812963840ULL,  320000,   1600000,  240000,  1600000,  6, Level::LEVEL7,   "7",   70 },
++    { 142606336,  8556380160ULL,  480000,   3200000,  480000,  3200000,  6, Level::LEVEL7_1, "7.1", 71 },
++    { 142606336,  17112760320ULL, 960000,   6400000,  960000,  6400000,  6, Level::LEVEL7_2, "7.2", 72 },
++    { MAX_UINT, MAX_UINT64, MAX_UINT, MAX_UINT, MAX_UINT, MAX_UINT, 1, Level::LEVEL8_5, "8.5", 85 },
+ };
+ 
+ static inline int _confirm(x265_param* param, bool bflag, const char* message)
+@@ -153,7 +157,7 @@ void determineLevel(const x265_param &param, VPS& vps)
+ #endif
+ 
+     uint32_t lumaSamples = param.sourceWidth * param.sourceHeight;
+-    uint32_t samplesPerSec = (uint32_t)(lumaSamples * ((double)param.fpsNum / param.fpsDenom));
++    uint64_t samplesPerSec = (uint64_t)(lumaSamples * ((double)param.fpsNum / param.fpsDenom));
+     uint32_t bitrate = param.rc.vbvMaxBitrate ? param.rc.vbvMaxBitrate : param.rc.bitrate;
+ 
+     const uint32_t MaxDpbPicBuf = param.bEnableSCC ? 7 : 6;
+@@ -164,9 +168,9 @@ void determineLevel(const x265_param &param, VPS& vps)
+     uint32_t i;
+     if (param.bLossless)
+     {
+-        i = 13;
++        i = NumLevels - 1;
+         vps.ptl.minCrForLevel = 1;
+-        vps.ptl.maxLumaSrForLevel = MAX_UINT;
++        vps.ptl.maxLumaSrForLevel = MAX_UINT64;
+         vps.ptl.levelIdc = Level::LEVEL8_5;
+         vps.ptl.tierFlag = Level::MAIN;
+     }
+@@ -401,7 +405,7 @@ bool enforceLevel(x265_param& param, VPS& vps)
+     bool allowHighTier = l.maxBitrateHigh < MAX_UINT && param.bHighTier;
+ 
+     uint32_t lumaSamples = param.sourceWidth * param.sourceHeight;
+-    uint32_t samplesPerSec = (uint32_t)(lumaSamples * ((double)param.fpsNum / param.fpsDenom));
++    uint64_t samplesPerSec = (uint64_t)(lumaSamples * ((double)param.fpsNum / param.fpsDenom));
+     bool ok = true;
+     if (lumaSamples > l.maxLumaSamples)
+         ok = false;
+diff --git a/source/encoder/ratecontrol.cpp b/source/encoder/ratecontrol.cpp
+index d1f335e30..b2db871ac 100644
+--- a/source/encoder/ratecontrol.cpp
++++ b/source/encoder/ratecontrol.cpp
+@@ -254,10 +254,10 @@ RateControl::RateControl(x265_param& p, Encoder *top)
+     m_relativeComplexity = NULL;
+ 
+     // vbv initialization
+-    m_param->rc.vbvBufferSize = x265_clip3(0, 2000000, m_param->rc.vbvBufferSize);
+-    m_param->rc.vbvMaxBitrate = x265_clip3(0, 2000000, m_param->rc.vbvMaxBitrate);
+-    m_param->rc.vbvBufferInit = x265_clip3(0.0, 2000000.0, m_param->rc.vbvBufferInit);
+-    m_param->vbvBufferEnd = x265_clip3(0.0, 2000000.0, m_param->vbvBufferEnd);
++    m_param->rc.vbvBufferSize = x265_clip3(0, 8000000, m_param->rc.vbvBufferSize);
++    m_param->rc.vbvMaxBitrate = x265_clip3(0, 8000000, m_param->rc.vbvMaxBitrate);
++    m_param->rc.vbvBufferInit = x265_clip3(0.0, 8000000.0, m_param->rc.vbvBufferInit);
++    m_param->vbvBufferEnd = x265_clip3(0.0, 8000000.0, m_param->vbvBufferEnd);
+     m_initVbv = false;
+     m_singleFrameVbv = 0;
+     m_rateTolerance = 1.0;
+@@ -828,8 +828,8 @@ void RateControl::reconfigureRC()
+ {
+     if (m_isVbv)
+     {
+-        m_param->rc.vbvBufferSize = x265_clip3(0, 2000000, m_param->rc.vbvBufferSize);
+-        m_param->rc.vbvMaxBitrate = x265_clip3(0, 2000000, m_param->rc.vbvMaxBitrate);
++        m_param->rc.vbvBufferSize = x265_clip3(0, 8000000, m_param->rc.vbvBufferSize);
++        m_param->rc.vbvMaxBitrate = x265_clip3(0, 8000000, m_param->rc.vbvMaxBitrate);
+         if (m_param->reconfigWindowSize)
+             m_param->rc.vbvMaxBitrate = (int)(m_param->rc.vbvMaxBitrate * (double)(m_fps / m_param->reconfigWindowSize));
+         if (m_param->rc.vbvMaxBitrate < m_param->rc.bitrate &&
+diff --git a/source/input/input.h b/source/input/input.h
+index 8836eb9bf..799bcbbec 100644
+--- a/source/input/input.h
++++ b/source/input/input.h
+@@ -25,9 +25,9 @@
+ #define X265_INPUT_H
+ 
+ #define MIN_FRAME_WIDTH 64
+-#define MAX_FRAME_WIDTH 8192
++#define MAX_FRAME_WIDTH 16384
+ #define MIN_FRAME_HEIGHT 64
+-#define MAX_FRAME_HEIGHT 4320
++#define MAX_FRAME_HEIGHT 8704
+ #define MIN_FRAME_RATE 1
+ #define MAX_FRAME_RATE 300
+ 
+-- 
+2.48.1
+

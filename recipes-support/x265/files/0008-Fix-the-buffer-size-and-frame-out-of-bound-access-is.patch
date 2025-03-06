@@ -1,0 +1,48 @@
+From 9d1a40d7c7a5919d15316388e4de5b5a825b4407 Mon Sep 17 00:00:00 2001
+From: Uthayakumar Muthu <uthayakumar.muthu@multicorewareinc.com>
+Date: Wed, 18 Dec 2024 11:29:55 +0530
+Subject: [PATCH 08/13] Fix the buffer size and frame out of bound access issue
+
+Upstream-Status: Backport
+---
+ source/encoder/encoder.cpp      | 4 ++--
+ source/encoder/frameencoder.cpp | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/source/encoder/encoder.cpp b/source/encoder/encoder.cpp
+index e3285bbae..5932d819f 100644
+--- a/source/encoder/encoder.cpp
++++ b/source/encoder/encoder.cpp
+@@ -2731,14 +2731,14 @@ char* Encoder::statsString(EncStats& stat, char* buffer, size_t bufferSize)
+ 
+     if (m_param->bEnablePsnr)
+     {
+-        len += snprintf(buffer + len, sizeof(buffer) - len,"  PSNR Mean: Y:%.3lf U:%.3lf V:%.3lf",
++        len += snprintf(buffer + len, bufferSize - len,"  PSNR Mean: Y:%.3lf U:%.3lf V:%.3lf",
+                        stat.m_psnrSumY / (double)stat.m_numPics,
+                        stat.m_psnrSumU / (double)stat.m_numPics,
+                        stat.m_psnrSumV / (double)stat.m_numPics);
+     }
+     if (m_param->bEnableSsim)
+     {
+-        snprintf(buffer + len, sizeof(buffer) - len, "  SSIM Mean: %.6lf (%.3lfdB)",
++        snprintf(buffer + len, bufferSize - len, "  SSIM Mean: %.6lf (%.3lfdB)",
+                 stat.m_globalSsim / (double)stat.m_numPics,
+                 x265_ssim2dB(stat.m_globalSsim / (double)stat.m_numPics));
+     }
+diff --git a/source/encoder/frameencoder.cpp b/source/encoder/frameencoder.cpp
+index 5749f994e..9188f4c8c 100644
+--- a/source/encoder/frameencoder.cpp
++++ b/source/encoder/frameencoder.cpp
+@@ -2435,7 +2435,7 @@ void FrameEncoder::vmafFrameLevelScore()
+ 
+ Frame** FrameEncoder::getEncodedPicture(NALList& output)
+ {
+-    if (m_frame[0] && (m_param->numLayers <= 1 || m_frame[1]))
++    if (m_frame[0] && (m_param->numLayers <= 1 || (MAX_LAYERS > 1 && m_frame[1])))
+     {
+         /* block here until worker thread completes */
+         m_done.wait();
+-- 
+2.48.1
+
