@@ -49,7 +49,9 @@ inherit autotools pkgconfig
 
 PACKAGECONFIG ??= "avdevice avfilter avcodec avformat swresample swscale postproc \
                    alsa bzlib lzma theora zlib \
-                   ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xv xcb', '', d)}"
+                   ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xv xcb', '', d)} \
+                   ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'libplacebo shaderc', '', d)} \
+"
 
 # libraries to build in addition to avutil
 PACKAGECONFIG[avdevice] = "--enable-avdevice,--disable-avdevice"
@@ -69,12 +71,14 @@ PACKAGECONFIG[gpl] = "--enable-gpl,--disable-gpl"
 PACKAGECONFIG[gsm] = "--enable-libgsm,--disable-libgsm,libgsm"
 PACKAGECONFIG[jack] = "--enable-indev=jack,--disable-indev=jack,jack"
 PACKAGECONFIG[libopus] = "--enable-libopus,--disable-libopus,libopus"
+PACKAGECONFIG[libplacebo] = "--enable-libplacebo,--disable-libplacebo,libplacebo vulkan-headers"
 PACKAGECONFIG[libvorbis] = "--enable-libvorbis,--disable-libvorbis,libvorbis"
 PACKAGECONFIG[lzma] = "--enable-lzma,--disable-lzma,xz"
 PACKAGECONFIG[mfx] = "--enable-libmfx,--disable-libmfx,intel-mediasdk"
 PACKAGECONFIG[mp3lame] = "--enable-libmp3lame,--disable-libmp3lame,lame"
 PACKAGECONFIG[openssl] = "--enable-openssl,--disable-openssl,openssl"
 PACKAGECONFIG[sdl2] = "--enable-sdl2,--disable-sdl2,virtual/libsdl2"
+PACKAGECONFIG[shaderc] = "--enable-libshaderc,--disable-libshaderc,shaderc"
 PACKAGECONFIG[speex] = "--enable-libspeex,--disable-libspeex,speex"
 PACKAGECONFIG[srt] = "--enable-libsrt,--disable-libsrt,srt"
 PACKAGECONFIG[theora] = "--enable-libtheora,--disable-libtheora,libtheora libogg"
