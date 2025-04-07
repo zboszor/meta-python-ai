@@ -12,7 +12,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=ad3fc5fe29791e832e8c969cd651eb4b"
 
 SRC_URI = "git://github.com/zboszor/rtsp-proxy.git;protocol=https;branch=main"
 
-SRCREV = "f8c4750c95779d9e5c1198e309123ba114099737"
+SRCREV = "4c57a63977d9f9f7ae2b14d48b9f2c0022a4bcb6"
 
 S = "${UNPACKDIR}/git"
 
