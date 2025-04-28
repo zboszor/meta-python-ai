@@ -246,7 +246,7 @@ EXTRA_OECMAKE:class-native = "\
 -DUSE_VULKAN=OFF \
 -DONNX_ML=OFF"
 
-export CMAKE_TOOLCHAIN_FILE="${WORKDIR}/toolchain.cmake"
+export CMAKE_TOOLCHAIN_FILE = "${WORKDIR}/toolchain.cmake"
 
 do_configure () {
 	export EXTRA_OECMAKE="${EXTRA_OECMAKE}"
