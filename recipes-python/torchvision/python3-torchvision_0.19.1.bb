@@ -22,8 +22,8 @@ S = "${UNPACKDIR}/git"
 
 B = "${S}/build"
 
-export CMAKE_TOOLCHAIN_FILE="${WORKDIR}/toolchain.cmake"
-export TORCHVISION_INCLUDE="${STAGING_INCDIR}"
+export CMAKE_TOOLCHAIN_FILE = "${WORKDIR}/toolchain.cmake"
+export TORCHVISION_INCLUDE = "${STAGING_INCDIR}"
 export TORCHVISION_USE_PNG = "1"
 export TORCHVISION_USE_JPEG = "1"
 export TORCHVISION_USE_FFMPEG = "1"
