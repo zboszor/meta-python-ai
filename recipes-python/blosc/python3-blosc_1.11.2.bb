@@ -15,7 +15,7 @@ PYPI_PACKAGE = "blosc"
 inherit cmake pypi python_setuptools_build_meta
 SRC_URI[sha256sum] = "ac5e7c1bfc1c7232b900be94cddb5ffcf9ea49f313c8ae98a7ca0dd87b872bf4"
 
-export CMAKE_TOOLCHAIN_FILE="${WORKDIR}/toolchain.cmake"
+export CMAKE_TOOLCHAIN_FILE = "${WORKDIR}/toolchain.cmake"
 
 export USE_SYSTEM_BLOSC = "1"
 export Blosc_INCLUDE_DIR = "${STAGING_INCDIR}"
