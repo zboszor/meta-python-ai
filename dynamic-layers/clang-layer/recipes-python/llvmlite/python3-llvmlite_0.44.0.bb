@@ -14,7 +14,7 @@ S:append = "${PYPI_SEMVER_SUFFIX}"
 
 inherit pypi cmake setuptools3
 
-SRC_URI[sha256sum] = "ae2b5b5c3ef67354824fb75517c8db5fbe93bc02cd9671f3c62271626bc041d5"
+SRC_URI[sha256sum] = "07667d66a5d150abed9157ab6c0b9393c9356f229784a4385c02f99e94fc94d4"
 
 CXXFLAGS += "-I${STAGING_INCDIR}/${PYTHON_DIR}"
 
