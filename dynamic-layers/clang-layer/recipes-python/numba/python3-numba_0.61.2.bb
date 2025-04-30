@@ -14,9 +14,7 @@ S:append = "${PYPI_SEMVER_SUFFIX}"
 
 inherit pypi cmake setuptools3
 
-SRC_URI[sha256sum] = "5df6158e5584eece5fc83294b949fd30b9f1125df7708862205217e068aabf16"
-
-SRC_URI += "file://reduce-numpy-build-requirements.patch"
+SRC_URI[sha256sum] = "8750ee147940a6637b80ecf7f95062185ad8726c8c28a2295b8ec1160a196f7d"
 
 export NUMBA_DISABLE_TBB = "1"
 
