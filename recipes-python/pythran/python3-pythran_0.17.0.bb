@@ -7,13 +7,12 @@ DEPENDS = "python3-gast"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "861748c0f9c7d422b32724b114b3817d818ed4eab86c09781aa0a3f7ceabb7f9"
-
-SRC_URI += "file://fix-gast-expectation.patch"
+SRC_URI[sha256sum] = "3b77d6d970a6cf5b448facc7d4f6229c3e73909ac27ea2480c843afdadbad0fb"
 
 RDEPENDS:${PN} = " \
 	python3-beniget \
 	python3-gast \
+	python3-ply \
 "
 
 BBCLASSEXTEND = "native"
