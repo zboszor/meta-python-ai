@@ -1,0 +1,14 @@
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+
+diff -durpN blosc2-3.3.1.orig/CMakeLists.txt blosc2-3.3.1/CMakeLists.txt
+--- blosc2-3.3.1.orig/CMakeLists.txt	2022-11-09 13:37:21.000000000 +0100
++++ blosc2-3.3.1/CMakeLists.txt	2025-05-05 09:36:38.823950090 +0200
+@@ -21,6 +21,7 @@ add_custom_command(
+   OUTPUT blosc2_ext.c
+   COMMAND Python::Interpreter -m cython
+           "${CMAKE_CURRENT_SOURCE_DIR}/src/blosc2/blosc2_ext.pyx" --output-file blosc2_ext.c
++  COMMAND sed -i "s:../../..${STAGING_DIR_NATIVE}::g" blosc2_ext.c
+   DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/blosc2/blosc2_ext.pyx"
+   VERBATIM)
+ # ...and add it to the target
