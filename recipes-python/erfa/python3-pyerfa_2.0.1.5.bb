@@ -11,7 +11,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "pyerfa"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "dbac74ef8d3d3b0f22ef0ad3bbbdb30b2a9e10570b1fa5a98be34c7be36c9a6b"
+SRC_URI[sha256sum] = "17d6b24fe4846c65d5e7d8c362dcb08199dc63b30a236aedd73875cc83e1f6c0"
 
 export PYERFA_USE_SYSTEM_LIBERFA = "1"
 
