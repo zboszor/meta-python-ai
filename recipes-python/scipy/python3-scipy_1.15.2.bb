@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = " \
 
 inherit pkgconfig pypi python3native python_mesonpy
 
-SRC_URI[sha256sum] = "033a75ddad1463970c96a88063a1df87ccfddd526437136b6ee81ff0312ebdf6"
+SRC_URI[sha256sum] = "cd58a314d92838f7e6f755c8a2167ead4f27e1fd5c1251fd54289569ef3495ec"
 
 SRC_URI += " \
 	file://0001-Assume-f2py-being-the-same-version-as-numpy.patch \
@@ -21,6 +21,7 @@ DEPENDS += " \
 	python3-gast-native \
 	python3-beniget-native \
 	python3-ply-native \
+	python3-pybind11 \
 	xsimd \
 "
 
