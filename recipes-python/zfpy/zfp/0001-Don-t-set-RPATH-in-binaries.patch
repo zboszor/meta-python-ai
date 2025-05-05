@@ -1,0 +1,32 @@
+From 645d1fbb7fc05c52bb23e8cb305d1e3e927a11df Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 5 May 2025 13:13:51 +0200
+Subject: [PATCH] Don't set RPATH in binaries
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+---
+ CMakeLists.txt | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 52ae158..bca99ac 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -51,9 +51,6 @@ if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
+   set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${ZFP_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+ endif()
+ 
+-# Setup RPath
+-set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_FULL_LIBDIR})
+-
+ #------------------------------------------------------------------------------#
+ # Top level options
+ #------------------------------------------------------------------------------#
+-- 
+2.49.0
+
