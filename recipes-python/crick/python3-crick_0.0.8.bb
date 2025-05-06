@@ -9,7 +9,7 @@ DEPENDS = " \
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "851bc0802cd4dfb17f8fe99934b224dc355c84de0174ea5d9723b25c7feeb516"
+SRC_URI[sha256sum] = "973b8315fdd72bdeb5fdf4d6b2f444753fc0ebd6380f38f8e1138f8ff8797d99"
 
 do_install:append () {
 	sed -i \
