@@ -6,13 +6,13 @@ DEPENDS = "ffmpeg iniparser nng"
 
 inherit autotools pkgconfig
 
-PR = "r2"
+PR = "r3"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=ad3fc5fe29791e832e8c969cd651eb4b"
 
 SRC_URI = "git://github.com/zboszor/rtsp-proxy.git;protocol=https;branch=main"
 
-SRCREV = "f59cb67d1ec68ad44ca16a78a9b7b95622c6ce6a"
+SRCREV = "0f9c59c1703e13315a0953dfc82a18bf084cace6"
 
 S = "${UNPACKDIR}/git"
 
