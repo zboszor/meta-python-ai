@@ -1,0 +1,37 @@
+From 37c42d0af781f3cfc40bec8bf3e9ce6918f4ae8d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 14 May 2025 10:28:19 +0200
+Subject: [PATCH] opentelemetry-cpp/tools/vcpkg: Use oneDNN using its new CMake
+ name
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+MKLDNN is the old name but oneDNN uses "dnnl" now.
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+---
+ ports/libtorch/vcpkg-dependencies.cmake | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/ports/libtorch/vcpkg-dependencies.cmake b/ports/libtorch/vcpkg-dependencies.cmake
+index bf6028b92..d04f23bbf 100644
+--- a/ports/libtorch/vcpkg-dependencies.cmake
++++ b/ports/libtorch/vcpkg-dependencies.cmake
+@@ -100,9 +100,9 @@ else()
+ endif()
+ 
+ if(USE_MKLDNN)
+-  find_package(MKLDNN REQUIRED) # BLAS::BLAS
++  find_package(dnnl REQUIRED) # BLAS::BLAS
+   include(cmake/public/mkldnn.cmake)
+-  include_directories(AFTER SYSTEM ${MKLDNN_INCLUDE_DIR})
++  include_directories(AFTER SYSTEM ${dnnl_INCLUDE_DIR})
+   list(APPEND Caffe2_PUBLIC_DEPENDENCY_LIBS caffe2::mkldnn)
+ endif()
+ 
+-- 
+2.49.0
+
