@@ -10,13 +10,13 @@ DEPENDS = " \
 inherit cmake pkgconfig python3native setuptools3_legacy
 
 SRC_URI = " \
-	git://github.com/pytorch/vision.git;protocol=https;branch=release/0.19 \
+	git://github.com/pytorch/vision.git;protocol=https;branch=release/0.22 \
 	file://0001-Use-pkg-config-to-detect-libpng.patch \
 	file://0002-Pass-presence-and-version-of-ffmpeg-via-envvar.patch \
 "
 
 #PR = "r0"
-SRCREV = "61943691d3390bd3148a7003b4a501f0e2b7ac6e"
+SRCREV = "59a3e1f9f78cfe44cb989877cc6f4ea77c8a75ca"
 
 S = "${UNPACKDIR}/git"
 
