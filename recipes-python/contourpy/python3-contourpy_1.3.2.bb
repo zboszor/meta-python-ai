@@ -9,6 +9,8 @@ PYPI_PACKAGE = "contourpy"
 inherit pypi python_mesonpy python3native pkgconfig
 SRC_URI[sha256sum] = "b6945942715a034c671b7fc54f9588126b0b8bf23db2696e3ca8328f3ff0ab54"
 
+SRC_URI += "file://fix-tmpdir-references.patch"
+
 export CONTOURPY_CXX11 = "1"
 
 PACKAGECONFIG ??= ""
