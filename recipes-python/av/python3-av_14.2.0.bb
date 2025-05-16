@@ -4,10 +4,12 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=a9c4cea4308c4521674ecd7c3255d8af"
 
 DEPENDS = "python3-cython-native ffmpeg"
 
-PYPI_PACKAGE = "av"
+inherit python_setuptools_build_meta pkgconfig
 
-inherit pypi python_setuptools_build_meta pkgconfig
+SRC_URI = "git://github.com/PyAV-Org/PyAV.git;protocol=https;branch=main"
 
-SRC_URI[sha256sum] = "d3da736c55847d8596eb8c26c60e036f193001db3bc5c10da8665622d906c17e"
+SRCREV = "bc0ca08670b2672fc7a7fc8c1c73f2803f5ff6ec"
+
+S = "${UNPACKDIR}/git"
 
 RDEPENDS:${PN} = "ffmpeg"
