@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = " \
 
 inherit pkgconfig pypi python3native python_mesonpy
 
-SRC_URI[sha256sum] = "cd58a314d92838f7e6f755c8a2167ead4f27e1fd5c1251fd54289569ef3495ec"
+SRC_URI[sha256sum] = "eae3cf522bc7df64b42cad3925c876e1b0b6c35c1337c93e12c0f366f55b0eaf"
 
 SRC_URI += " \
 	file://0001-Assume-f2py-being-the-same-version-as-numpy.patch \
