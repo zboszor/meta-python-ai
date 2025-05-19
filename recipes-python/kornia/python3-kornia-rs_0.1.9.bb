@@ -15,11 +15,18 @@ require ${BPN}-crates.inc
 
 inherit pypi cargo-update-recipe-crates python3native rust python_maturin
 
-SRC_URI[sha256sum] = "00520988740e9de1682f2f682caecb9b740d2489f3fbbb1ca0b6fc56af70d298"
+SRC_URI[sha256sum] = "c7e45e84eb3c2454055326f86329e48a68743507460fb7e39315397fa6eeb9a0"
 
-SRC_URI += "file://0009-Remove-built.patch;patchdir=${UNPACKDIR}/cargo_home/bitbake/rav1e-0.7.1"
+SRC_URI += " \
+	file://kornia-rs-src.tar.gz;destsuffix=${UNPACKDIR} \
+	file://0009-Remove-built.patch;patchdir=${UNPACKDIR}/cargo_home/bitbake/rav1e-0.7.1 \
+"
 
 export CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_DEBUG = "true"
+
+do_configure:prepend () {
+	ln -s ${UNPACKDIR}/kornia-py/src ${S}/kornia-py/src
+}
 
 RDEPENDS:${PN} = " \
 	python3-pytorch \
