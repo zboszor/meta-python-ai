@@ -1,0 +1,23 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+
+--- asdf_standard-1.2.0/pyproject.toml.old	2025-05-21 18:47:38.000000000 +0200
++++ asdf_standard-1.2.0/pyproject.toml	2025-05-26 11:13:23.408271064 +0200
+@@ -3,7 +3,7 @@
+ description = 'The ASDF Standard schemas'
+ readme = 'README.md'
+ requires-python = '>=3.9'
+-license-files = ['LICENSE']
++license = { file = 'LICENSE' }
+ authors = [{ name = 'The ASDF Developers', email = 'help@stsci.edu' }]
+ classifiers = [
+     'Programming Language :: Python',
+@@ -41,7 +41,7 @@
+ 
+ [build-system]
+ requires = [
+-    "setuptools >=77",
++    "setuptools >=76",
+     "setuptools_scm[toml] >=3.4",
+     "wheel",
+ ]

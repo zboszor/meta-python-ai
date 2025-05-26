@@ -7,4 +7,6 @@ DEPENDS = "python3-setuptools-scm-native"
 PYPI_PACKAGE = "asdf_standard"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "01535bc2b15bfc09ec8a62d4999f9cf32dc49dc71660c8425640228fd8776102"
+SRC_URI[sha256sum] = "e709912faf0be2f5843a23af2731e6f76ed6c279b29df5989e1520992fa3c5cf"
+
+SRC_URI += "file://fix-build.patch"
