@@ -1,13 +1,11 @@
 require arrow.inc
 
 S = "${UNPACKDIR}/git/python"
-LIC_FILES_CHKSUM = "file://../LICENSE.txt;md5=100c3e6324688e340080d7fd971b8c5e"
+LIC_FILES_CHKSUM = "file://../LICENSE.txt;md5=021a60277f9c3728811219d900377968"
 
 DEPENDS = " \
     apache-arrow \
     apache-arrow-native \
-    python3-cython \
-    python3-cython-native \
     python3-numpy \
     python3-numpy-native \
     python3-setuptools \
@@ -16,7 +14,7 @@ DEPENDS = " \
     python3-setuptools-scm-native \
     "
 
-inherit cmake python3native python_setuptools_build_meta
+inherit cmake python3native python_setuptools_build_meta cython
 
 OECMAKE_C_FLAGS += " -isystem ${UNPACKDIR}/git/cpp/src -DARROW_COMPUTE"
 OECMAKE_CXX_FLAGS += " -isystem ${UNPACKDIR}/git/cpp/src -DARROW_COMPUTE"
