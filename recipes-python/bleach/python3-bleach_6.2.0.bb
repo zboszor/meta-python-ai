@@ -5,11 +5,10 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=adea50d072dac455e5a50a518e2d01aa"
 PYPI_PACKAGE = "bleach"
 
 inherit pypi setuptools3
-SRC_URI[sha256sum] = "0a31f1837963c41d46bbf1331b8778e1308ea0791db03cc4e7357b97cf42a8fe"
+SRC_URI[sha256sum] = "123e894118b8a599fd80d3ec1a6d4cc7ce4e5882b1317a7e1ba69b56e95f991f"
 
 RDEPENDS:${PN} = " \
 	bash \
-	python3-six \
 	python3-webencodings \
 	python3-tinycss2 \
 "
