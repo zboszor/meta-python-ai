@@ -13,3 +13,5 @@ SRC_URI[sha256sum] = "aed4afdad55e856b9e737fe4b4673c77e47c2f887c3663a18baaa20040
 RDEPENDS:${PN} = "python3-numpy"
 
 RRECOMMENDS:${PN} = "python3-numba"
+
+BBCLASSEXTEND = "native"
