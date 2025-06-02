@@ -4,8 +4,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 PYPI_PACKAGE = "proto_plus"
 
-inherit pypi setuptools3
-SRC_URI[sha256sum] = "fbb17f57f7bd05a68b7707e745e26528b0b3c34e378db91eef93912c54982d91"
+inherit pypi python_setuptools_build_meta
+SRC_URI[sha256sum] = "21a515a4c4c0088a773899e23c7bbade3d18f9c66c73edd4c7ee3816bc96a012"
 
 RDEPENDS:${PN} = " \
 	python3-protobuf \
