@@ -4,9 +4,9 @@ LIC_FILES_CHKSUM = "file://LICENSE.rst;md5=a26ac0e503080444f213ad118cae910d"
 
 DEPENDS = "python3-setuptools-scm-native"
 
-PYPI_PACKAGE = "extension-helpers"
+PYPI_PACKAGE = "extension_helpers"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "f95dd304a523d4ff6680d9504fa1d68a4dd03bf3bfbbe0ade4d927ed9e693f00"
+SRC_URI[sha256sum] = "37701c2055bbdb5b5d157541239980300694e59c95e8caf9a6533b26378d1024"
 
 BBCLASSEXTEND = "native"
