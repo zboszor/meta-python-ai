@@ -1,0 +1,12 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+
+--- donfig-0.8.1.post1/pyproject.toml.old	2025-06-02 11:15:41.901974717 +0200
++++ donfig-0.8.1.post1/pyproject.toml	2025-06-02 11:15:52.176876992 +0200
+@@ -1,5 +1,5 @@
+ [build-system]
+-requires = ["setuptools>=62.6", "versioneer[toml]==0.28"]
++requires = ["setuptools>=62.6", "versioneer[toml]>=0.28"]
+ build-backend = "setuptools.build_meta"
+ 
+ [project]
