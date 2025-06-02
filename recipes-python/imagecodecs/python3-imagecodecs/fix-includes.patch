@@ -1,9 +1,10 @@
 Upstream-Status: Inappropriate [Yocto specific]
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
-diff -durpN imagecodecs-2024.6.1.old/setup.py imagecodecs-2024.6.1/setup.py
---- imagecodecs-2024.6.1.old/setup.py	2024-06-02 04:59:15.000000000 +0200
-+++ imagecodecs-2024.6.1/setup.py	2024-08-21 09:39:54.366252252 +0200
-@@ -259,14 +259,16 @@ def customize_build_default(EXTENSIONS,
+
+diff -durpN imagecodecs-2025.3.30.old/setup.py imagecodecs-2025.3.30/setup.py
+--- imagecodecs-2025.3.30.old/setup.py	2025-03-22 05:53:53.000000000 +0100
++++ imagecodecs-2025.3.30/setup.py	2025-06-02 16:21:27.399072257 +0200
+@@ -263,14 +263,16 @@ def customize_build_default(EXTENSIONS,
      Works on Ubuntu 24.04
  
      """
@@ -21,10 +22,23 @@ diff -durpN imagecodecs-2024.6.1.old/setup.py imagecodecs-2024.6.1/setup.py
      )
 -    EXTENSIONS['jpegxr']['include_dirs'].append('/usr/include/jxrlib')
 +    # EXTENSIONS['jpegxr']['include_dirs'].append('/usr/include/jxrlib')
-     # EXTENSIONS['jpeg8']['sources'] = []  # requires libjpeg-turbo v3
  
-     # these extensions are required by core dependent libraries
-@@ -279,8 +281,8 @@ def customize_build_default(EXTENSIONS,
+     if not os.environ.get('IMAGECODECS_JPEG8_LEGACY', False):
+         # use libjpeg-turbo 3 by default
+@@ -280,17 +282,25 @@ def customize_build_default(EXTENSIONS,
+     keep = {
+         'shared',
+         'imcd',
++        'aec',
++        'avif',
++        'blosc',
++        'blosc2',
+         'bmp',
++        'brotli',
++        'bz2',
+         'cms',
+         'deflate',
++        'heif',
          'jpeg2k',
          'jpeg8',
          # 'jpegxl',  # requires v0.10
@@ -35,3 +49,7 @@ diff -durpN imagecodecs-2024.6.1.old/setup.py imagecodecs-2024.6.1/setup.py
          'lz4',
          'lzma',
          'png',
++        'snappy',
+         'tiff',  # requires v4.6
+         'webp',
+         'zlib',
