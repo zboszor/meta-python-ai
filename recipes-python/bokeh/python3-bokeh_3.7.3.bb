@@ -7,7 +7,7 @@ DEPENDS = "python3-colorama-native python3-setuptools-git-versioning-native"
 PYPI_PACKAGE = "bokeh"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "80c21885cec276431acd4db92f831c71eb999ea995470ce777e0c577b0cfc1d8"
+SRC_URI[sha256sum] = "70a89a9f797b103d5ee6ad15fb7944adda115cf0da996ed0b75cfba61cb12f2b"
 
 RDEPENDS:${PN} = " \
 	python3-jinja2 \
