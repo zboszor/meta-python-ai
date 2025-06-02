@@ -22,3 +22,5 @@ RDEPENDS:${PN} = " \
 	python3-numpy \
 	python3-llvmlite \
 "
+
+BBCLASSEXTEND = "native"
