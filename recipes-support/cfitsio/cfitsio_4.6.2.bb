@@ -15,7 +15,7 @@ SRC_URI = " \
 	file://cfitsio-pkgconfig.patch \
 "
 
-SRCREV = "896abff8a64258007c56b28818571851715a3e4d"
+SRCREV = "01e55d22888f599785e6d2a4fce2048c496634cd"
 
 S = "${UNPACKDIR}/git"
 
