@@ -3,11 +3,12 @@ HOMEPAGE = "https://github.com/boto/botocore"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=2ee41112a44fe7014dce33e26468ba93"
 
-SRC_URI[sha256sum] = "354ec1b766f0029b5d6ff0c45d1a0f9e5007b7d2f3ec89bcdd755b208c5bc797"
+SRC_URI[sha256sum] = "63d5977a10a375c3fc11c8e15e1ae5a4daaf450af135d55c170cc537648edf25"
 
-inherit pypi setuptools3
+inherit pypi python_setuptools_build_meta
 
 RDEPENDS:${PN} += " \
+	python3-awscrt \
 	python3-jmespath \
 	python3-dateutil \
 	python3-urllib3 \
