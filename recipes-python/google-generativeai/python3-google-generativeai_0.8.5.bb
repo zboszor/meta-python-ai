@@ -6,7 +6,7 @@ DEPENDS = "python3-numpy-native"
 
 inherit python_setuptools_build_meta
 
-SRCREV = "7546026dcad2bed72b181845ed93451bbefd2120"
+SRCREV = "f5ac4edfb8ba67384e767b257079fb3038ac1ab2"
 
 S = "${UNPACKDIR}/git"
 
