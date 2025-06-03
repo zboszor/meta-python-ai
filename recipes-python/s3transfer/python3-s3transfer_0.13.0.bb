@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 PYPI_PACKAGE = "s3transfer"
 
-inherit pypi setuptools3
-SRC_URI[sha256sum] = "4f50ed74ab84d474ce614475e0b8d5047ff080810aac5d01ea25231cfc944b0c"
+inherit pypi python_setuptools_build_meta
+SRC_URI[sha256sum] = "f5e6db74eb7776a37208001113ea7aa97695368242b364d73e91c981ac522177"
 
 RDEPENDS:${PN} = "python3-botocore"
