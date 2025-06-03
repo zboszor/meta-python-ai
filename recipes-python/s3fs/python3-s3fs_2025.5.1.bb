@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=a74c5a31c7616cfe9c542d17c0e64981"
 PYPI_PACKAGE = "s3fs"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "6493705abb50374d6b7994f9616d27adbdd8a219c8635100bdc286382efd91f5"
+SRC_URI[sha256sum] = "84beffa231b8ed94f8d667e93387b38351e1c4447aedea5c2c19dd88b7fcb658"
 
 RDEPENDS:${PN} = " \
 	python3-aiobotocore \
