@@ -1,0 +1,14 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+
+--- openai-1.83.0/pyproject.toml.old	2025-06-03 12:36:39.968355948 +0200
++++ openai-1.83.0/pyproject.toml	2025-06-03 12:36:51.338811531 +0200
+@@ -100,7 +100,7 @@
+ "typecheck:mypy" = "mypy ."
+ 
+ [build-system]
+-requires = ["hatchling==1.26.3", "hatch-fancy-pypi-readme"]
++requires = ["hatchling", "hatch-fancy-pypi-readme"]
+ build-backend = "hatchling.build"
+ 
+ [tool.hatch.build]
