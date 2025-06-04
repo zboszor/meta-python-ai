@@ -12,7 +12,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "blosc2"
 
 inherit pypi pkgconfig cmake python_pep517 python3native python3-dir cython
-SRC_URI[sha256sum] = "b9b0751b6849eb56ccd2d78cf0dd8602ca6c07667c63c1b1615351fb702d593a"
+SRC_URI[sha256sum] = "ebc8c80852361e1ea4ea5048c8ff09d0b7b5ea3797e29c72caec59d990a4d3f2"
 
 SRC_URI += "file://fix-tmpdir-ref.patch"
 
