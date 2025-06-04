@@ -11,7 +11,7 @@ SRC_URI = " \
 	file://setup.py \
 "
 
-SRCREV = "33164fb51a06b9e909c4618e71ad2898957f73de"
+SRCREV = "2e2df94f95616f546946dcb4f71c95fe85ff9fd5"
 
 S = "${UNPACKDIR}/git"
 
