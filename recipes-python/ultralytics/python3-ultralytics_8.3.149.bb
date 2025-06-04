@@ -6,10 +6,11 @@ DEPENDS = "python3-numpy-native"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "f4310b1c0ab259afb45d9adb900864a506c2909d70ddc33568fd10b4f74fdd92"
+SRC_URI[sha256sum] = "87e4df2a16f5f00ab93fc2ab017e6a2ab2b1e68c20c08c0a234d65f347cde7eb"
 
 RDEPENDS:${PN} = " \
 	bash \
+	python3-numpy \
 	python3-matplotlib \
 	python3-opencv \
 	python3-pillow \
@@ -19,11 +20,8 @@ RDEPENDS:${PN} = " \
 	python3-pytorch \
 	python3-torchvision \
 	python3-tqdm \
-	python3-pandas \
-	python3-seaborn \
 	python3-psutil \
-	python3-ultralytics-thop \
-	python3-ipython \
-	python3-dill \
 	python3-py-cpuinfo \
+	python3-pandas \
+	python3-ultralytics-thop \
 "
