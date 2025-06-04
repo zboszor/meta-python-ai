@@ -6,13 +6,13 @@ DEPENDS = "lz4 zlib zstd"
 
 inherit cmake
 
-#PR = "r1"
+PR = "r1"
 
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=06e852077699178e4248d905b3846a4b"
 
 SRC_URI = "git://github.com/Blosc/c-blosc.git;protocol=https;branch=main"
 
-SRCREV = "616f4b7343a8479f7e71dd3d7025bd92c9a6bbd0"
+SRCREV = "051b9d2cb9437e375dead8574f66d80ebce47bee"
 
 S = "${UNPACKDIR}/git"
 
