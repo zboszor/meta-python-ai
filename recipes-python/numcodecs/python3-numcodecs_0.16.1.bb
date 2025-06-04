@@ -10,7 +10,9 @@ DEPENDS = " \
 PYPI_PACKAGE = "numcodecs"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "f71229a951c4991ab226df4147f3780c988d1cecf1309e388d9e57bcba827387"
+SRC_URI[sha256sum] = "c47f20d656454568c6b4697ce02081e6bbb512f198738c6a56fafe8029c97fb1"
+
+SRC_URI += "file://0001-Revert-Update-license-metadata-and-include-third-par.patch"
 
 do_install:prepend () {
 	sed -i 's:${RECIPE_SYSROOT_NATIVE}::g' ${S}/numcodecs/vlen.c
