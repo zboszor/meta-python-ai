@@ -1,6 +1,6 @@
 SUMMARY = "Open Neural Network Exchange"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=d273d63619c9aeaf15cdaf76422c4f87"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 DEPENDS = " \
 	python3-numpy-native python3-protobuf-native \
@@ -10,15 +10,19 @@ DEPENDS = " \
 
 PYPI_PACKAGE = "onnx"
 
-inherit pypi cmake python3native python_setuptools_build_meta
+inherit pypi cmake pkgconfig python3native python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "48ca1a91ff73c1d5e3ea2eef20ae5d0e709bb8a2355ed798ffc2169753013fd3"
+SRC_URI[sha256sum] = "3d8dbf9e996629131ba3aa1afd1d8239b660d1f830c6688dd7e03157cccd6b9c"
 
-SRC_URI += "file://0001-Fix-referencing-Protobuf-from-the-host.patch"
+SRC_URI += " \
+	file://0001-Fix-referencing-Protobuf-from-the-host.patch \
+	file://fix-cross-compiling.patch \
+"
 
 CXXFLAGS += "-I${STAGING_INCDIR}/${PYTHON_DIR}"
 
 export CMAKE_ARGS = "-DCMAKE_TOOLCHAIN_FILE=${WORKDIR}/toolchain.cmake \
+	-DONNX_BUILD_PYTHON=ON \
 	-DONNX_USE_PROTOBUF_SHARED_LIBS=ON \
 	-DProtobuf_INCLUDE_DIR=${STAGING_INCDIR} \
 	-DProtobuf_LIBRARIES=${STAGING_LIBDIR} \

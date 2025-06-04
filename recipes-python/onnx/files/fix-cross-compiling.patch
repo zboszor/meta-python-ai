@@ -1,0 +1,53 @@
+Subject: Fix cross-compiling
+
+When cross-compiling onnx, the python module is linked as:
+
+[100%] Linking CXX shared module onnx_cpp2py_export.so
+
+instead of
+
+[100%] Linking CXX shared module onnx_cpp2py_export.cpython-313-x86_64-linux-gnu.so
+
+Split the two conflicting usage of find_package(Python3 ...) so
+the interpreter and the linker packages can work independently.
+
+See https://gitlab.kitware.com/cmake/cmake/-/issues/25145
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Submitted [https://github.com/onnx/onnx/pull/7026]
+
+diff -durpN onnx-1.18.0.old/CMakeLists.txt onnx-1.18.0/CMakeLists.txt
+--- onnx-1.18.0.old/CMakeLists.txt	2025-05-09 06:02:40.000000000 +0200
++++ onnx-1.18.0/CMakeLists.txt	2025-06-04 14:36:35.359663655 +0200
+@@ -108,10 +108,6 @@ if(ONNX_DISABLE_EXCEPTIONS)
+   endif()
+ endif()
+ 
+-if(ONNX_BUILD_PYTHON)
+-  set(python_dev_component Development.Module)
+-endif()
+-
+ # explicitly configure FindPython3.cmake to find python3 in virtual environment first
+ if(NOT DEFINED Python3_FIND_VIRTUALENV)
+   set(Python3_FIND_VIRTUALENV FIRST)
+@@ -121,7 +117,10 @@ if(NOT DEFINED Python3_FIND_STRATEGY)
+   set(Python3_FIND_STRATEGY LOCATION)
+ endif()
+ 
+-find_package(Python3 REQUIRED COMPONENTS Interpreter ${python_dev_component})
++find_package(Python 3 REQUIRED COMPONENTS Interpreter)
++if(ONNX_BUILD_PYTHON)
++    find_package(Python3 REQUIRED COMPONENTS Development.Module)
++endif()
+ 
+ if(CMAKE_SYSTEM_NAME STREQUAL "AIX")
+   set(CMAKE_NO_SYSTEM_FROM_IMPORTED 1)
+@@ -382,7 +381,7 @@ function(RELATIVE_PROTOBUF_GENERATE_CPP
+     endif()
+ 
+     add_custom_command(OUTPUT "${GENERATED_PROTO}"
+-                       COMMAND Python3::Interpreter "${GEN_PROTO_PY}"
++                       COMMAND Python::Interpreter "${GEN_PROTO_PY}"
+                                ARGS ${GEN_PROTO_ARGS}
+                        DEPENDS ${INFILE}
+                        COMMENT "Running gen_proto.py on ${INFILE}"

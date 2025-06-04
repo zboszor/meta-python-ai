@@ -18,7 +18,7 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 7720ed9..89b80fb 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -166,11 +166,11 @@ else()
+@@ -182,11 +182,11 @@
      else()
        find_library(Protobuf_LIBRARY
          NAMES protobuf
@@ -30,8 +30,8 @@ index 7720ed9..89b80fb 100644
 -              PATHS ${_PROTOBUF_INSTALL_PREFIX}/include
 +              PATHS $ENV{STAGING_INCDIR}
                NO_DEFAULT_PATH)
-     find_package(Protobuf)
-     if (Protobuf_FOUND)
+     if(ONNX_USE_PROTOBUF_SHARED_LIBS)
+       set(Protobuf_USE_STATIC_LIBS OFF)
 -- 
 2.48.1
 
