@@ -10,7 +10,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "astropy"
 
 inherit pypi python_setuptools_build_meta cython
-SRC_URI[sha256sum] = "392feeb443b2437cd4c2e0641a65e0f15ba791e148e9b1e5ed7de7dfcb38e460"
+SRC_URI[sha256sum] = "11cd23037cfb3de460472078b88c8e942b0838ef6e79fca2ca24d9ccc434e969"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
