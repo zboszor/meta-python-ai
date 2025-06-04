@@ -16,7 +16,7 @@ SRC_URI[sha256sum] = "3d8dbf9e996629131ba3aa1afd1d8239b660d1f830c6688dd7e03157cc
 
 SRC_URI += " \
 	file://0001-Fix-referencing-Protobuf-from-the-host.patch \
-	file://fix-cross-compiling.patch \
+	file://0001-Fix-cross-compiling.patch \
 "
 
 CXXFLAGS += "-I${STAGING_INCDIR}/${PYTHON_DIR}"
