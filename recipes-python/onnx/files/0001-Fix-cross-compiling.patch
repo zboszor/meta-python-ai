@@ -53,7 +53,7 @@ index 367fd5ef..1106fe10 100644
 +  if(ONNX_BUILD_PYTHON)
 +    find_package(Python3 REQUIRED COMPONENTS Development.Module)
 +  endif()
-+  find_package(Python 3 REQUIRED COMPONENTS Interpreter)
++  find_package(Python REQUIRED COMPONENTS Interpreter)
 +  set(ONNX_PYTHON_INTERPRETER Python::Interpreter)
 +else()
 +  if(ONNX_BUILD_PYTHON)
