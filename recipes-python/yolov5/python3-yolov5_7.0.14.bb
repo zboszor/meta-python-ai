@@ -9,7 +9,6 @@ inherit setuptools3
 SRC_URI = "git://github.com/fcakyon/yolov5-pip.git;protocol=https;branch=main"
 SRCREV = "40a188792bca82b8285549edb2c318b9d73bcd47"
 
-S = "${UNPACKDIR}/git"
 
 RDEPENDS:${PN} = " \
 	bash \

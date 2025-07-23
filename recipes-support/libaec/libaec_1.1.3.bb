@@ -12,7 +12,6 @@ SRC_URI = "git://gitlab.dkrz.de/k202009/libaec.git;protocol=https;branch=master"
 
 SRCREV = "58677dbbf080bac17bbb8717d32e63feb4e20115"
 
-S = "${UNPACKDIR}/git"
 
 OECMAKE_GENERATOR = "Unix Makefiles"
 

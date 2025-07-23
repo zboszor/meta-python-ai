@@ -8,7 +8,6 @@ SRC_URI = "git://github.com/cheind/py-motmetrics.git;protocol=https;branch=maste
 
 SRCREV = "3dc05b475766509e04b2fa640b5ed38ee09e0d94"
 
-S = "${UNPACKDIR}/git"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
