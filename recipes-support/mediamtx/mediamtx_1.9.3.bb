@@ -13,7 +13,6 @@ SRC_URI = " \
 
 SRCREV = "6cd7487857dc6ee8b82cff1f45c900ad7e3d6362"
 
-S = "${UNPACKDIR}/git"
 
 GO_IMPORT = "mediamtx"
 GO_INSTALL = "${GO_IMPORT}"

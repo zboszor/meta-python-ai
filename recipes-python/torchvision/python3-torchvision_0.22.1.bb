@@ -18,7 +18,6 @@ SRC_URI = " \
 #PR = "r0"
 SRCREV = "59a3e1f9f78cfe44cb989877cc6f4ea77c8a75ca"
 
-S = "${UNPACKDIR}/git"
 
 B = "${S}/build"
 

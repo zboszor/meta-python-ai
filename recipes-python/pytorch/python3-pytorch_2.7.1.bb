@@ -154,7 +154,6 @@ SRCREV_peachpy = "f45429b087dd7d5bc78bb40dc7cf06425c252d67"
 SRCREV_sleef = "56e1f79cb140fb9326d612d0be06b5250565cade"
 SRCREV_tensorpipe = "52791a2fd214b2a9dc5759d36725909c1daa7f2e"
 
-S = "${UNPACKDIR}/git"
 B = "${S}/build"
 
 # -fpermissive is for const vs non-const declarations used from sleef

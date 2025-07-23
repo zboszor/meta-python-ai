@@ -11,7 +11,6 @@ SRC_URI = "git://github.com/Unidata/netcdf-c.git;protocol=https;branch=v${PV}-pr
 
 SRCREV = "3a6b1debf1557f07b606ce3653e44f0d711203be"
 
-S = "${UNPACKDIR}/git"
 
 do_install:append () {
 	rm -f ${D}${libdir}/libnetcdf.settings

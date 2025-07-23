@@ -9,7 +9,6 @@ inherit setuptools3 pkgconfig
 SRC_URI = "git://github.com/letmaik/rawpy.git;protocol=https;branch=main"
 SRCREV = "d3e258759fe3aa12aadf6f54726247fc9d5d0b46"
 
-S = "${UNPACKDIR}/git"
 
 do_compile:append () {
 	sed -i \

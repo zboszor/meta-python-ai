@@ -18,7 +18,6 @@ SRC_URI = " \
 
 SRCREV = "d1bf0191adff59bc8fcfeaa0b33d3d1642552a99"
 
-S = "${UNPACKDIR}/git"
 
 inherit setuptools3
 SRC_URI[sha256sum] = "6e796f5d05c9e1e1ccbbf9de5785d5db445784c71350799ca6473a14414fdc00"

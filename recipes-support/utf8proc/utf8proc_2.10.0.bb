@@ -12,7 +12,6 @@ SRC_URI = "git://github.com/JuliaStrings/utf8proc.git;protocol=https;branch=mast
 
 SRCREV = "a1b99daa2a3393884220264c927a48ba1251a9c6"
 
-S = "${UNPACKDIR}/git"
 
 EXTRA_OECMAKE = "-DBUILD_SHARED_LIBS=ON"
 

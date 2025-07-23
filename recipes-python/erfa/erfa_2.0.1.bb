@@ -11,4 +11,3 @@ SRC_URI = "git://github.com/liberfa/erfa.git;protocol=https;branch=master"
 
 SRCREV = "9915ba38c9365f8b0738269b8c2ac1fdd5f8dee3"
 
-S = "${UNPACKDIR}/git"

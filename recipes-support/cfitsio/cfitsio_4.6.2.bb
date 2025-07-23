@@ -17,7 +17,6 @@ SRC_URI = " \
 
 SRCREV = "01e55d22888f599785e6d2a4fce2048c496634cd"
 
-S = "${UNPACKDIR}/git"
 
 EXTRA_OECONF += "--without-fortran"
 
