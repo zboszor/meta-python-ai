@@ -14,7 +14,6 @@ SRC_URI = "git://github.com/zboszor/rtsp-proxy.git;protocol=https;branch=main"
 
 SRCREV = "0ad484e9d24ac3e35c6d121cb79119e6115b2124"
 
-S = "${UNPACKDIR}/git"
 
 PACKAGECONFIG[rtspsrv] = ",,,mediamtx"
 

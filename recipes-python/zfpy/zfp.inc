@@ -7,4 +7,3 @@ SRCREV = "7d1e3a21047a976599b562b3bbd53b1f34348f1a"
 
 SRC_URI = "git://github.com/LLNL/zfp.git;protocol=https;branch=develop"
 
-S = "${UNPACKDIR}/git"

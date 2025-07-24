@@ -11,7 +11,6 @@ SRC_URI = "git://github.com/PyImageSearch/imutils.git;protocol=https;branch=mast
 
 SRCREV = "9f740a53bcc2ed7eba2558afed8b4c17fd8a1d4c"
 
-S = "${UNPACKDIR}/git"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \

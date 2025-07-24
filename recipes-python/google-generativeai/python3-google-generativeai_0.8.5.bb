@@ -8,7 +8,6 @@ inherit python_setuptools_build_meta
 
 SRCREV = "f5ac4edfb8ba67384e767b257079fb3038ac1ab2"
 
-S = "${UNPACKDIR}/git"
 
 SRC_URI = " \
 	git://github.com/google-gemini/generative-ai-python.git;protocol=https;branch=main \

@@ -13,7 +13,6 @@ SRC_URI = " \
 
 SRCREV = "2e2df94f95616f546946dcb4f71c95fe85ff9fd5"
 
-S = "${UNPACKDIR}/git"
 
 do_configure:prepend () {
 	rm -f ${S}/setup.py

@@ -10,6 +10,5 @@ SRC_URI = "git://github.com/PyAV-Org/PyAV.git;protocol=https;branch=main"
 
 SRCREV = "bc0ca08670b2672fc7a7fc8c1c73f2803f5ff6ec"
 
-S = "${UNPACKDIR}/git"
 
 RDEPENDS:${PN} = "ffmpeg"
