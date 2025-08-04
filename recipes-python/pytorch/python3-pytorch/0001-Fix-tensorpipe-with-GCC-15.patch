@@ -1,0 +1,43 @@
+From f0c65511af516965ef14f0eb8649fe201c0a257a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 4 Aug 2025 11:21:47 +0200
+Subject: [PATCH] Fix tensorpipe with GCC 15
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+---
+ tensorpipe/common/allocator.h | 1 +
+ tensorpipe/common/memory.h    | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/tensorpipe/common/allocator.h b/tensorpipe/common/allocator.h
+index b7c9c27..49c24f7 100644
+--- a/tensorpipe/common/allocator.h
++++ b/tensorpipe/common/allocator.h
+@@ -9,6 +9,7 @@
+ #pragma once
+ 
+ #include <cstddef>
++#include <cstdint>
+ #include <deque>
+ #include <functional>
+ #include <memory>
+diff --git a/tensorpipe/common/memory.h b/tensorpipe/common/memory.h
+index ab6d22e..4899da3 100644
+--- a/tensorpipe/common/memory.h
++++ b/tensorpipe/common/memory.h
+@@ -8,6 +8,7 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
+ #include <sys/mman.h>
+ 
+ #include <memory>
+-- 
+2.50.1
+
