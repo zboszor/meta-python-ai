@@ -16,7 +16,10 @@ DEPENDS = "make libgfortran patchelf-native"
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=5adf4792c949a00013ce25d476a2abc0"
 
-SRC_URI = "git://github.com/xianyi/OpenBLAS.git;protocol=https;branch=develop"
+SRC_URI = "\
+	file://0001-fix-cblas-installation-ignores-the-value-of-NO_CBLAS.patch \
+	git://github.com/xianyi/OpenBLAS.git;protocol=https;branch=develop \
+	"
 
 SRCREV = "5ef8b1964658f9cb6a6324a06f6a1a022609b0c5"
 
