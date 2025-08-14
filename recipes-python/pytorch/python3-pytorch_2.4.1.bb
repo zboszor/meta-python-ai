@@ -86,6 +86,8 @@ SRC_URI = " \
 	file://pytorch-fix-vulkan-get_shader-return-type.patch \
 	file://fix-non-void-funcs-with-switch.patch \
 	file://0001-Use-CMAKE_INSTALL_PREFIX-to-install-python-files.patch \
+	file://0001-Fix-tensorpipe-with-GCC-15.patch;patchdir=third_party/tensorpipe \
+	file://0001-Fix-gloo-with-GCC-15.patch;patchdir=third_party/gloo \
 "
 
 #PR = "r1"
