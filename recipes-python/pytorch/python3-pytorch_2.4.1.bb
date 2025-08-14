@@ -89,6 +89,7 @@ SRC_URI = " \
 	file://0001-Delete-some-values-from-macros.h.in.patch \
 	file://0001-Fix-tensorpipe-with-GCC-15.patch;patchdir=third_party/tensorpipe \
 	file://0001-Fix-gloo-with-GCC-15.patch;patchdir=third_party/gloo \
+	file://0001-Porting-to-GCC-15-135188.patch \
 "
 
 #PR = "r1"
