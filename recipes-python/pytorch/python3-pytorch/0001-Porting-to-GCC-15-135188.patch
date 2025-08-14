@@ -1,0 +1,30 @@
+From 7074de43c017369ce7e44ce43f6c0a26a7a8ab5b Mon Sep 17 00:00:00 2001
+From: Alfredo Tupone <tupone@gentoo.org>
+Date: Fri, 6 Sep 2024 16:16:51 +0000
+Subject: [PATCH] Porting to GCC 15 (#135188)
+
+uint8_t is found on cstdint header
+
+Pull Request resolved: https://github.com/pytorch/pytorch/pull/135188
+Approved by: https://github.com/Skylion007
+
+Upstream-Status: Backport
+---
+ caffe2/utils/string_utils.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/caffe2/utils/string_utils.cc b/caffe2/utils/string_utils.cc
+index 640cac70edb..ba763738f7b 100644
+--- a/caffe2/utils/string_utils.cc
++++ b/caffe2/utils/string_utils.cc
+@@ -3,6 +3,7 @@
+ #include <algorithm>
+ #include <sstream>
+ #include <vector>
++#include <cstdint>
+ 
+ namespace caffe2 {
+ 
+-- 
+2.50.1
+
