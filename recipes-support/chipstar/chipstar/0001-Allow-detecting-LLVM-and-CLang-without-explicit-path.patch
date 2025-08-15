@@ -1,0 +1,46 @@
+From 4588e6b9f77e94211cdfedea095e2a7747c9b501 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Tue, 26 Nov 2024 13:36:31 +0100
+Subject: [PATCH 1/7] Allow detecting LLVM and CLang without explicit paths
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [cross compiler specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ cmake/FindLLVM.cmake | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/cmake/FindLLVM.cmake b/cmake/FindLLVM.cmake
+index a12bd476..ac04bab4 100644
+--- a/cmake/FindLLVM.cmake
++++ b/cmake/FindLLVM.cmake
+@@ -72,13 +72,13 @@ endif()
+ include_directories(${LLVM_INCLUDE_DIRS})
+ 
+ # Set the compilers
+-find_program(CMAKE_CXX_COMPILER_PATH NAMES clang++ NO_DEFAULT_PATH PATHS ${CLANG_ROOT_PATH_BIN})
++find_program(CMAKE_CXX_COMPILER_PATH NAMES ${TARGET_SYS}-clang++ clang++)
+ if(NOT CMAKE_CXX_COMPILER_PATH)
+   message(FATAL_ERROR "Could not find clang++ in ${CLANG_ROOT_PATH_BIN}. Please provide CMake argument -DCMAKE_CXX_COMPILER_PATH=/path/to/clang++<-version>")
+ endif()
+ message(STATUS "Using CMAKE_CXX_COMPILER_PATH: ${CMAKE_CXX_COMPILER_PATH}")
+ 
+-find_program(CMAKE_C_COMPILER_PATH NAMES clang NO_DEFAULT_PATH PATHS ${CLANG_ROOT_PATH_BIN})
++find_program(CMAKE_C_COMPILER_PATH NAMES ${TARGET_SYS}-clang clang)
+ if(NOT CMAKE_C_COMPILER_PATH)
+   message(FATAL_ERROR "Could not find clang in ${CLANG_ROOT_PATH_BIN}. Please provide CMake argument -DCMAKE_C_COMPILER_PATH=/path/to/clang<-version>")
+ endif()
+@@ -143,5 +143,5 @@ endif()
+ 
+ enable_language(C CXX)
+ # required by ROCm-Device-Libs, must be after project() call
+-find_package(LLVM REQUIRED CONFIG NO_DEFAULT_PATH PATHS ${CLANG_ROOT_PATH}/lib/cmake/llvm)
+-find_package(Clang REQUIRED CONFIG NO_DEFAULT_PATH PATHS ${CLANG_ROOT_PATH}/lib/cmake/clang)
++find_package(LLVM REQUIRED CONFIG)
++find_package(Clang REQUIRED CONFIG)
+-- 
+2.47.0
+
