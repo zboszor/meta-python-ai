@@ -108,3 +108,5 @@ FILES:${PN}-dev = "${includedir} ${libdir}/lib${PN}.a ${libdir}/libblas.a ${libd
 
 DEPENDS:remove:class-native = "libgfortran"
 BBCLASSEXTEND = "native"
+
+TOOLCHAIN = "gcc"
