@@ -1,6 +1,6 @@
 require arrow.inc
 
-S = "${UNPACKDIR}/git/python"
+S = "${UNPACKDIR}/${BB_GIT_DEFAULT_DESTSUFFIX}/python"
 LIC_FILES_CHKSUM = "file://../LICENSE.txt;md5=021a60277f9c3728811219d900377968"
 
 DEPENDS = " \
