@@ -10,9 +10,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "numcodecs"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "c47f20d656454568c6b4697ce02081e6bbb512f198738c6a56fafe8029c97fb1"
-
-SRC_URI += "file://0001-Revert-Update-license-metadata-and-include-third-par.patch"
+SRC_URI[sha256sum] = "9922dae0c3b01b5bed3b4bae239f4787e891daa3262c27971298669d029d10e9"
 
 do_install:prepend () {
 	sed -i 's:${RECIPE_SYSROOT_NATIVE}::g' ${S}/numcodecs/vlen.c
@@ -27,5 +25,6 @@ RDEPENDS:${PN} = " \
 	python3-crc32c \
 "
 
+CFLAGS:append = " -std=gnu17"
 CFLAGS:append:x86-64:class-target = " -mavx -mavx2 "
 BUILD_CFLAGS:append:x86-64:class-target = " -mavx -mavx2 "
