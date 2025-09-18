@@ -16,6 +16,8 @@ inherit pypi cmake setuptools3
 
 SRC_URI[sha256sum] = "8750ee147940a6637b80ecf7f95062185ad8726c8c28a2295b8ec1160a196f7d"
 
+SRC_URI += "file://numpy-version-fix.patch"
+
 export NUMBA_DISABLE_TBB = "1"
 
 RDEPENDS:${PN} = " \
