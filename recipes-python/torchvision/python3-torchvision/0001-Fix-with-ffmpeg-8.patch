@@ -1,0 +1,66 @@
+From 41eef291edd58fe77158fa796bcc923b55d5fa9b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Fri, 19 Sep 2025 07:31:33 +0200
+Subject: [PATCH] Fix with ffmpeg 8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+ffmpeg 8 removed FF_API_FRAME_KEY and all related AVFrame members
+(e.g. key_frame) and code setting or using it.
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+---
+ torchvision/csrc/io/decoder/defs.h           | 2 ++
+ torchvision/csrc/io/decoder/stream.cpp       | 2 ++
+ torchvision/csrc/io/decoder/video_stream.cpp | 2 ++
+ 3 files changed, 6 insertions(+)
+
+diff --git a/torchvision/csrc/io/decoder/defs.h b/torchvision/csrc/io/decoder/defs.h
+index 6be50f8abc..d016537611 100644
+--- a/torchvision/csrc/io/decoder/defs.h
++++ b/torchvision/csrc/io/decoder/defs.h
+@@ -227,8 +227,10 @@ struct DecoderHeader {
+   // decoded timestamp in microseconds from either beginning of the stream or
+   // from epoch time, see DecoderParameters::convertPtsToWallTime
+   long pts{0};
++#if FF_API_FRAME_KEY
+   // decoded key frame
+   size_t keyFrame{0};
++#endif
+   // frames per second, valid only for video streams
+   double fps{0};
+   // format specifies what kind frame is in a payload
+diff --git a/torchvision/csrc/io/decoder/stream.cpp b/torchvision/csrc/io/decoder/stream.cpp
+index 8c91405058..de8560cbfc 100644
+--- a/torchvision/csrc/io/decoder/stream.cpp
++++ b/torchvision/csrc/io/decoder/stream.cpp
+@@ -255,7 +255,9 @@ void Stream::setHeader(DecoderHeader* header, bool flush) {
+   }
+ 
+   header->format = format_;
++#if FF_API_FRAME_KEY
+   header->keyFrame = 0;
++#endif
+   header->fps = std::numeric_limits<double>::quiet_NaN();
+ }
+ 
+diff --git a/torchvision/csrc/io/decoder/video_stream.cpp b/torchvision/csrc/io/decoder/video_stream.cpp
+index fa08c65cac..79435fa819 100644
+--- a/torchvision/csrc/io/decoder/video_stream.cpp
++++ b/torchvision/csrc/io/decoder/video_stream.cpp
+@@ -122,7 +122,9 @@ int VideoStream::copyFrameBytes(ByteStorage* out, bool flush) {
+ void VideoStream::setHeader(DecoderHeader* header, bool flush) {
+   Stream::setHeader(header, flush);
+   if (!flush) { // no frames for video flush
++#if FF_API_FRAME_KEY
+     header->keyFrame = frame_->key_frame;
++#endif
+     header->fps = av_q2d(av_guess_frame_rate(
+         inputCtx_, inputCtx_->streams[format_.stream], nullptr));
+   }
+-- 
+2.51.0
+

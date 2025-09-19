@@ -13,6 +13,7 @@ SRC_URI = " \
 	git://github.com/pytorch/vision.git;protocol=https;branch=release/0.22 \
 	file://0001-Use-pkg-config-to-detect-libpng.patch \
 	file://0002-Pass-presence-and-version-of-ffmpeg-via-envvar.patch \
+	file://0001-Fix-with-ffmpeg-8.patch \
 "
 
 #PR = "r0"
