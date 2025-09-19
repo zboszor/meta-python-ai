@@ -8,7 +8,6 @@ inherit python_setuptools_build_meta pkgconfig
 
 SRC_URI = "git://github.com/PyAV-Org/PyAV.git;protocol=https;branch=main"
 
-SRCREV = "bc0ca08670b2672fc7a7fc8c1c73f2803f5ff6ec"
-
+SRCREV = "e3f2efd85e8c36c1f7b1a14660e05b5c7909a6e6"
 
 RDEPENDS:${PN} = "ffmpeg"
