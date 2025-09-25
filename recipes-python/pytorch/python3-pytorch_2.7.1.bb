@@ -15,7 +15,7 @@ DEPENDS = " \
 
 DEPENDS:append:class-target = " \
 	zstd-native numactl opencv \
-	opencl-headers virtual/opencl-icd \
+	opencl-headers virtual/libopencl1 \
 	shaderc spirv-tools mesa \
 	${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-headers vulkan-loader', '', d)} \
 	python3-numpy python3-typing-extensions python3-pyyaml \
