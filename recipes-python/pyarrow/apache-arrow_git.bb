@@ -7,7 +7,7 @@ DEPENDS = " \
 	snappy orc glog gflags utf8proc re2 rapidjson xsimd \
 "
 
-DEPENDS:append:class-target = "thrift-native"
+DEPENDS:append:class-target = " thrift-native"
 
 inherit cmake python3native
 
