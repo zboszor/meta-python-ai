@@ -11,3 +11,5 @@ RDEPENDS:${PN} = " \
 	python3-protobuf \
 	python3-google-api-core \
 "
+
+BBCLASSEXTEND = "native nativesdk"
