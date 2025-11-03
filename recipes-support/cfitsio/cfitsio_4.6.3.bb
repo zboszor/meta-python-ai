@@ -15,8 +15,7 @@ SRC_URI = " \
 	file://cfitsio-pkgconfig.patch \
 "
 
-SRCREV = "01e55d22888f599785e6d2a4fce2048c496634cd"
-
+SRCREV = "4bb107ddbc70e7f4dc274ca6332751072a0ebc05"
 
 EXTRA_OECONF += "--without-fortran"
 
