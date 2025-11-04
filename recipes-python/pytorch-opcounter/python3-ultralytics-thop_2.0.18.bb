@@ -7,7 +7,7 @@ DEPENDS = "python3-numpy-native"
 inherit pypi python_setuptools_build_meta
 
 PYPI_PACKAGE = "ultralytics_thop"
-SRC_URI[sha256sum] = "38ebfdbd3cd8dafdc3d26ec3a7d4f604fbeed5e69a74e61a48060b39736c945c"
+SRC_URI[sha256sum] = "21103bcd39cc9928477dc3d9374561749b66a1781b35f46256c8d8c4ac01d9cf"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
