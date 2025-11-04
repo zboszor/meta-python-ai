@@ -5,10 +5,8 @@ DEPENDS = "python3-setuptools-rust-native"
 
 PYPI_PACKAGE = "tiktoken"
 
-S = "${WORKDIR}/${PYPI_PACKAGE}-${PV}"
-
-inherit pypi cargo-update-recipe-crates python_setuptools3_rust
-SRC_URI[sha256sum] = "d02a5ca6a938e0490e1ff957bc48c8b078c88cb83977be1625b1fd8aac792c5d"
+inherit pypi cargo-update-recipe-crates python_pyo3 python_setuptools3_rust
+SRC_URI[sha256sum] = "b18ba7ee2b093863978fcb14f74b3707cdc8d4d4d3836853ce7ec60772139931"
 
 SRC_URI += "file://Cargo.lock.patch"
 
