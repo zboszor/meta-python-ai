@@ -10,7 +10,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "numcodecs"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "9922dae0c3b01b5bed3b4bae239f4787e891daa3262c27971298669d029d10e9"
+SRC_URI[sha256sum] = "53d705865faaf0a7927c973af3777532001c8fbb653de119c1e844608614d799"
 
 do_install:prepend () {
 	sed -i 's:${RECIPE_SYSROOT_NATIVE}::g' ${S}/numcodecs/vlen.c
