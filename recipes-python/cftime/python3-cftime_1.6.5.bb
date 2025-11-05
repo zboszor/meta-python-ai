@@ -7,6 +7,13 @@ DEPENDS = "python3-setuptools-scm-native python3-numpy-native python3-numpy"
 PYPI_PACKAGE = "cftime"
 
 inherit pypi python_setuptools_build_meta cython
-SRC_URI[sha256sum] = "50ac76cc9f10ab7bd46e44a71c51a6927051b499b4407df4f29ab13d741b942f"
+SRC_URI[sha256sum] = "8225fed6b9b43fb87683ebab52130450fc1730011150d3092096a90e54d1e81e"
+
+do_install:append() {
+	sed -i \
+		-e 's:${STAGING_DIR_NATIVE}::g' \
+		-e 's:../../recipe-sysroot-native::g' \
+		${D}${PYTHON_SITEPACKAGES_DIR}/cftime/_cftime.c
+}
 
 RDEPENDS:${PN} = "python3-numpy"
