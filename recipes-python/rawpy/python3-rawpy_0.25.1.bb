@@ -7,8 +7,7 @@ DEPENDS = "libraw python3-numpy-native python3-numpy"
 inherit setuptools3 pkgconfig
 
 SRC_URI = "git://github.com/letmaik/rawpy.git;protocol=https;branch=main"
-SRCREV = "d3e258759fe3aa12aadf6f54726247fc9d5d0b46"
-
+SRCREV = "4ed3417f5ab63627038ebbb2616ba46b3ec7e130"
 
 do_compile:append () {
 	sed -i \
