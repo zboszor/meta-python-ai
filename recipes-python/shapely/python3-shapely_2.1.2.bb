@@ -9,7 +9,7 @@ DEPENDS = "python3-numpy-native python3-numpy geos"
 PYPI_PACKAGE = "shapely"
 
 inherit pypi python_setuptools_build_meta cython
-SRC_URI[sha256sum] = "500621967f2ffe9642454808009044c21e5b35db89ce69f8a2042c2ffd0e2772"
+SRC_URI[sha256sum] = "2ed4ecb28320a433db18a5bf029986aa8afcfd740745e78847e330d5d94922a9"
 
 export GEOS_INCLUDE_PATH = "${STAGING_INCDIR}"
 export GEOS_LIBRARY_PATH = "${STAGING_LIBDIR}"
