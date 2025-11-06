@@ -1,0 +1,45 @@
+From 30517fbea94e9a6ee2a059bc12dd4a2093fb01e3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Thu, 6 Nov 2025 06:49:04 +0100
+Subject: [PATCH] Add -fallow-argument-mismatch fortran flag unconditionally
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe / gcc 15 specific]
+---
+ CMakeLists.txt         | 2 +-
+ fortran/CMakeLists.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2a27d59e1..7a0e44451 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -397,7 +397,7 @@ endif()
+ 
+ # gfortran 10 has become stricter with argument matching
+ if( HAVE_FORTRAN AND CMAKE_Fortran_COMPILER_ID MATCHES "GNU" AND NOT CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 10 )
+-    ecbuild_add_fortran_flags("-fallow-argument-mismatch")
++  set( CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch" PARENT_SCOPE )
+ endif()
+ 
+ if(GIT_FOUND AND NOT ${GIT_EXECUTABLE} STREQUAL "")
+diff --git a/fortran/CMakeLists.txt b/fortran/CMakeLists.txt
+index 298d3965f..3f68ef5a5 100644
+--- a/fortran/CMakeLists.txt
++++ b/fortran/CMakeLists.txt
+@@ -31,7 +31,7 @@ if( HAVE_FORTRAN )
+             grib_types.f90
+             grib_f90.f90
+             PROPERTIES
+-                COMPILE_FLAGS "-w"
++                COMPILE_FLAGS "-w -fallow-argument-mismatch"
+         )
+     endif()
+ 
+-- 
+2.51.1
+

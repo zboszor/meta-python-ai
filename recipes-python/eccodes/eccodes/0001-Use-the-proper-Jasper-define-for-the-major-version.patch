@@ -1,0 +1,67 @@
+From e7488df5848bb58d80f6077e4411f9d70ef626fd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 5 Nov 2025 15:46:00 +0100
+Subject: [PATCH] Use the proper Jasper define for the major version
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ src/eccodes/grib_jasper_encoding.cc | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/eccodes/grib_jasper_encoding.cc b/src/eccodes/grib_jasper_encoding.cc
+index e3fc5fb77..329b54d68 100644
+--- a/src/eccodes/grib_jasper_encoding.cc
++++ b/src/eccodes/grib_jasper_encoding.cc
+@@ -52,7 +52,7 @@ static void init()
+ 
+ static int ecc_jasper_initialise()
+ {
+-#if JASPER_VERSION_MAJOR >= 3
++#if JAS_VERSION_MAJOR >= 3
+     int jaserr = 0;
+     if (ecc_jasper_active_inits == 0) {
+         jas_conf_clear();
+@@ -76,7 +76,7 @@ static int ecc_jasper_initialise()
+ 
+ static jas_image_t* ecc_jasper_decode(jas_stream_t *in)
+ {
+-#if JASPER_VERSION_MAJOR >= 3
++#if JAS_VERSION_MAJOR >= 3
+     /* Second argument (=fmt) < 0 means "If possible, try to determine the format of the input data" */
+     return jas_image_decode(in, -1, 0);
+ #else
+@@ -86,7 +86,7 @@ static jas_image_t* ecc_jasper_decode(jas_stream_t *in)
+ 
+ static int ecc_jasper_encode(jas_image_t *image, jas_stream_t *jpcstream, char *optstr)
+ {
+-#if JASPER_VERSION_MAJOR >= 3
++#if JAS_VERSION_MAJOR >= 3
+     const int fmt = jas_image_strtofmt("jpc");
+     return jas_image_encode(image, jpcstream, fmt, optstr);
+ #else
+@@ -96,7 +96,7 @@ static int ecc_jasper_encode(jas_image_t *image, jas_stream_t *jpcstream, char *
+ 
+ static void ecc_jasper_cleanup()
+ {
+-#if JASPER_VERSION_MAJOR >= 3
++#if JAS_VERSION_MAJOR >= 3
+     jas_cleanup_thread();
+     // Cleaned up a thread, so remove from the count
+     ecc_jasper_active_inits -= 1;
+@@ -220,7 +220,7 @@ int grib_jasper_encode(grib_context* c, j2k_encode_helper* helper)
+     image.clrspc_   = JAS_CLRSPC_SGRAY;
+     image.cmprof_   = 0;
+ 
+-#if JASPER_VERSION_MAJOR == 1
++#if JAS_VERSION_MAJOR == 1
+     /* ECC-396: Support for Jasper 2.0
+      * Jasper version 1 had the 'inmem_' data member but
+      * version 2 removed it from the interface */
+-- 
+2.51.1
+
