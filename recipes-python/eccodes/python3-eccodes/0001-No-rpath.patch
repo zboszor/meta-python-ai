@@ -1,0 +1,30 @@
+From 330a6fc97d1c7fff5190ccde82b08b5652018b45 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Thu, 6 Nov 2025 09:44:28 +0100
+Subject: [PATCH] No rpath
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ setup.py | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index 105dd3e..d4ae954 100644
+--- a/setup.py
++++ b/setup.py
+@@ -53,7 +53,6 @@ if "--binary-wheel" in sys.argv:
+             libraries=libs,
+             library_dirs=[libdir],
+             include_dirs=[incdir],
+-            extra_link_args=["-Wl,-rpath," + libdir],
+         )
+     ]
+ 
+-- 
+2.51.1
+
