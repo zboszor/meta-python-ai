@@ -2,9 +2,9 @@ SUMMARY = "IERS Earth Rotation and Leap Second tables for the astropy core packa
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE.rst;md5=ce7f91bf4cd109fcba43fb6c697980b1"
 
-DEPENDS = "python3-setuptools-scm-native"
+DEPENDS = "python3-hatch-vcs-native"
 
 PYPI_PACKAGE = "astropy_iers_data"
 
-inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "a910ed22a46e5b1961aaabfa085da77c9772284a5b982379623f441f8b9856fc"
+inherit pypi python_hatchling
+SRC_URI[sha256sum] = "487dc974b9a5114ac75ff4fd96244e8fa7d07e1504092f7c2b8138c2b9c842e9"
