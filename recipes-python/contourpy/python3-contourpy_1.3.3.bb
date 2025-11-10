@@ -7,7 +7,7 @@ DEPENDS = "python3-pybind11-native python3-pybind11"
 PYPI_PACKAGE = "contourpy"
 
 inherit pypi python_mesonpy python3native pkgconfig
-SRC_URI[sha256sum] = "b6945942715a034c671b7fc54f9588126b0b8bf23db2696e3ca8328f3ff0ab54"
+SRC_URI[sha256sum] = "083e12155b210502d0bca491432bb04d56dc3432f95a979b429f2848c3dbe880"
 
 SRC_URI += "file://fix-tmpdir-references.patch"
 
