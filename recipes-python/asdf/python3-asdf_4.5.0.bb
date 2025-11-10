@@ -7,7 +7,7 @@ DEPENDS = "python3-setuptools-scm-native"
 PYPI_PACKAGE = "asdf"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "0ff44992c85fd768bd9a9512ab7f012afb52ddcee390e9caf67e30d404122da1"
+SRC_URI[sha256sum] = "1f37979263cac53b8f7b078c521fda8aa9a08cd5d2badb9aacec34d6badd2dc1"
 
 RDEPENDS:${PN} = " \
 	python3-asdf-standard \
@@ -19,4 +19,5 @@ RDEPENDS:${PN} = " \
 	python3-semantic-version \
 	python3-attrs \
 	python3-lz4 \
+	python3-fsspec \
 "
