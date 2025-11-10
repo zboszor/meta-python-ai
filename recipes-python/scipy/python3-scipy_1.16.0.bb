@@ -56,10 +56,10 @@ PKG_CONFIG_PATH:append = ":${RECIPE_SYSROOT}${PYTHON_SITEPACKAGES_DIR}/numpy/_co
 
 do_install:append:class-target () {
 	sed -i \
-		-e 's|, --sysroot=[^"]*||g' \
-		-e 's|, -ffile-prefix-map=[^,]*||g' \
-		-e 's|, -fdebug-prefix-map=[^,]*||g' \
-		-e 's|, -fmacro-prefix-map=[^,]*||g' \
+		-e 's|, --sysroot=[^,"]*||g' \
+		-e 's|, -ffile-prefix-map=[^,"]*||g' \
+		-e 's|, -fdebug-prefix-map=[^,"]*||g' \
+		-e 's|, -fmacro-prefix-map=[^,"]*||g' \
 		-e 's|nativepython3|python3|g' \
 		-e 's|r"${STAGING_DIR_NATIVE}|r"|g' \
 		-e 's|r"${STAGING_DIR_TARGET}|r"|g' \
