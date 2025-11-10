@@ -7,7 +7,7 @@ DEPENDS = "python3-setuptools-scm-native"
 PYPI_PACKAGE = "asdf_astropy"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "5aa5a448ee0945bd834a9ba8fb86cf43b39e85d24260e1339b734173ab6024c7"
+SRC_URI[sha256sum] = "ce081f17f2cbcf28d7ba1362d4197772fc5cd55c15960652aebf61a712ec9e97"
 
 RDEPENDS:${PN} = " \
 	python3-asdf \
