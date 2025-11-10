@@ -7,6 +7,6 @@ DEPENDS = "python3-setuptools-scm-native"
 PYPI_PACKAGE = "xyzservices"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "6fe764713648fac53450fbc61a3c366cb6ae5335a1b2ae0c3796b495de3709d8"
+SRC_URI[sha256sum] = "c6b7648276c98e8222fbec84d9c763128cf3653705017a4d6c4c3652480ee144"
 
 FILES:${PN} += "${datadir}/${PYPI_PACKAGE}/"
