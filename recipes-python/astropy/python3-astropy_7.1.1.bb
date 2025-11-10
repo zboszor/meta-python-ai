@@ -10,7 +10,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "astropy"
 
 inherit pypi python_setuptools_build_meta cython
-SRC_URI[sha256sum] = "11cd23037cfb3de460472078b88c8e942b0838ef6e79fca2ca24d9ccc434e969"
+SRC_URI[sha256sum] = "6d128f0005e2c34f70113484468bf9d0e4ca1ee15a279cfd08bdd979d38db0f8"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
@@ -37,4 +37,5 @@ RDEPENDS:${PN} = " \
 	python3-bottleneck \
 	python3-fsspec \
 	python3-s3fs \
+	python3-uncompresspy \
 "
