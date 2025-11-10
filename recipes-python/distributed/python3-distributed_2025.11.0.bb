@@ -2,12 +2,12 @@ SUMMARY = "Distributed scheduler for Dask"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=4bcc9811041b932eff9964fc8693aa4d"
 
-DEPENDS = "python3-versioneer-native"
+DEPENDS = "python3-versioneer-native python3-setuptools-scm-native"
 
 PYPI_PACKAGE = "distributed"
 
 inherit pypi python_setuptools_build_meta cython
-SRC_URI[sha256sum] = "cf1d62a2c17a0a9fc1544bd10bb7afd39f22f24aaa9e3df3209c44d2cfb16703"
+SRC_URI[sha256sum] = "372c2f0c2faa890fc42188349969ba468161a9b356df49c4ca7d9a8d551a7ace"
 
 # dask and distributed must be the same version
 RDEPENDS:${PN} = " \
