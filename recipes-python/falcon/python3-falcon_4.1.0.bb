@@ -6,4 +6,4 @@ PYPI_PACKAGE = "falcon"
 
 inherit pypi python_setuptools_build_meta cython
 
-SRC_URI[sha256sum] = "58f4b9c9da4c9b1e2c9f396ad7ef897701b3c7c7c87227f0bd1aee40c7fbc525"
+SRC_URI[sha256sum] = "dbc3fa642b43e7662f121d0a7b5d7ea42a1a31fb22ae63572c42ee3ecd1f79d0"
