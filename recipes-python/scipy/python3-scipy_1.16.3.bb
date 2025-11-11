@@ -3,12 +3,12 @@ HOMEPAGE = "https://www.scipy.org"
 LICENSE = "BSD-3-Clause & BSD-2-Clause & MIT & BSL-1.0 & Qhull & BSD-3-Clause-LBNL & Apache-2.0-with-LLVM-exception"
 LIC_FILES_CHKSUM = " \
 	file://LICENSE.txt;md5=6506a2e1578b1a1161d9bda0b896c647 \
-	file://LICENSES_bundled.txt;md5=71c17261dd955a387d4f91f7fb0e006c \
+	file://LICENSES_bundled.txt;md5=fe404c65e4219a0cdab47990643296c6 \
 "
 
 inherit pkgconfig pypi python3native python_mesonpy
 
-SRC_URI[sha256sum] = "b5ef54021e832869c8cfb03bc3bf20366cbcd426e02a58e8a58d7584dfbb8f62"
+SRC_URI[sha256sum] = "01e87659402762f43bd2fee13370553a17ada367d42e7487800bf2916535aecb"
 
 SRC_URI += " \
 	file://0001-Assume-f2py-being-the-same-version-as-numpy.patch \
