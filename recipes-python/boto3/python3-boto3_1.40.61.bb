@@ -11,7 +11,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "69395075d54be4552719ccadad9f65a3dee5bb3751701e8851d65d71974a791d"
+SRC_URI[sha256sum] = "d6c56277251adf6c2bdd25249feae625abe4966831676689ff23b4694dea5b12"
 
 RDEPENDS:${PN} += " \
 	python3-botocore \
