@@ -3,7 +3,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e23fadd6ceef8c618fc1c65191d846fa"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "9ce5a54a11df661794934a293f89f8b8d49e83dd09b0b9419f6082ab07afe433"
+SRC_URI[sha256sum] = "5411b2ce0dd909d1608016308cd68faeef90f88c47f47e8ecd40553fd4d8b937"
 
 DEPENDS += "python3-pytorch-native"
 
