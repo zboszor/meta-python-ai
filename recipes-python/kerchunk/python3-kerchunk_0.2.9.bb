@@ -7,7 +7,7 @@ DEPENDS = "python3-setuptools-scm-native"
 PYPI_PACKAGE = "kerchunk"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "85a932ffb6a26a38bebc45d5f978c962263704e34dd99f66008b402cded316af"
+SRC_URI[sha256sum] = "86a54da9a57a94fd6fb97be786e2d83182d3d8e4fd7c0ea2b67cde3d0641df7d"
 
 RDEPENDS:${PN} = " \
 	python3-fsspec \
