@@ -7,6 +7,6 @@ DEPENDS = "python3-setuptools-scm-native"
 PYPI_PACKAGE = "extension_helpers"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "37701c2055bbdb5b5d157541239980300694e59c95e8caf9a6533b26378d1024"
+SRC_URI[sha256sum] = "78d04185f196e3e0bc5fd8418ce298b014c46f7ac609f6a8c10bf70e8c978324"
 
 BBCLASSEXTEND = "native"
