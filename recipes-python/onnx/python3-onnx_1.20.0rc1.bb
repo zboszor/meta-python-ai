@@ -36,3 +36,5 @@ RDEPENDS:${PN} = " \
 	python3-pybind11 \
 	python3-nanobind \
 "
+
+INSANE_SKIP:${PN} = "already-stripped"
