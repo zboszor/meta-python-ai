@@ -1,0 +1,38 @@
+From 0cd7f676d604f98b9acea6e4a9290d40f1b406ec Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Sat, 15 Nov 2025 10:28:33 +0100
+Subject: [PATCH 2/2] Disable limited api
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Otherwise the build framework gets confused and throws an error
+about the non-existing onnx_cpp2py_export.abi3.so. The name of
+the shared object module that is built is
+onnx_cpp2py_export.cpython-313-x86_64-linux-gnu.so
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ setup.py | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 2b60ff6..fbe11f9 100644
+--- a/setup.py
++++ b/setup.py
+@@ -320,9 +320,7 @@ CMD_CLASS = {
+ # 2. py_limited_api in Extension tags the extension as abi3
+ # 3. bdist_wheel_options tags the wheel as abi3
+ 
+-NO_GIL = hasattr(sys, "_is_gil_enabled") and not sys._is_gil_enabled()
+-PY_312_OR_NEWER = sys.version_info >= (3, 12)
+-USE_LIMITED_API = not NO_GIL and PY_312_OR_NEWER
++USE_LIMITED_API = False
+ 
+ macros = []
+ if USE_LIMITED_API:
+-- 
+2.51.1
+
