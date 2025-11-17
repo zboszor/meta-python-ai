@@ -10,7 +10,7 @@ PYPI_PACKAGE = "selenium"
 S = "${WORKDIR}/${PYPI_PACKAGE}-${PV}"
 
 inherit pypi cargo-update-recipe-crates python_setuptools3_rust
-SRC_URI[sha256sum] = "b9509bef4056f4083772abb1ae19ff57247d617a29255384b26be6956615b206"
+SRC_URI[sha256sum] = "c117af6727859d50f622d6d0785b945c5db3e28a45ec12ad85cee2e7cc84fc4c"
 
 SRC_URI += "file://disable-abort-panic.patch"
 
