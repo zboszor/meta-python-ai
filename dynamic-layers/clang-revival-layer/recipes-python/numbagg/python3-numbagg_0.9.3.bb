@@ -8,7 +8,7 @@ PYPI_PACKAGE = "numbagg"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "7c3107d9fa10de999d17640bedb835669005008b16eb0aa308d6854b1ce49d2b"
+SRC_URI[sha256sum] = "8d96a7c627f0a1692e2a2304e6de2d89d53c3fa2e1adef7dcb5f1541e95c1752"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
