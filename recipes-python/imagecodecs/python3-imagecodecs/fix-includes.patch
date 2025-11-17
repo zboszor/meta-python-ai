@@ -1,15 +1,17 @@
 Upstream-Status: Inappropriate [Yocto specific]
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
 
-diff -durpN imagecodecs-2025.3.30.old/setup.py imagecodecs-2025.3.30/setup.py
---- imagecodecs-2025.3.30.old/setup.py	2025-03-22 05:53:53.000000000 +0100
-+++ imagecodecs-2025.3.30/setup.py	2025-06-02 16:21:27.399072257 +0200
-@@ -263,14 +263,16 @@ def customize_build_default(EXTENSIONS,
+diff -durpN imagecodecs-2025.11.11.old/setup.py imagecodecs-2025.11.11/setup.py
+--- imagecodecs-2025.11.11.old/setup.py	2025-11-10 00:09:01.000000000 +0100
++++ imagecodecs-2025.11.11/setup.py	2025-11-17 13:53:33.283004114 +0100
+@@ -279,16 +279,18 @@ def customize_build_default(EXTENSIONS,
      Works on Ubuntu 24.04
  
      """
 +    INCLIB = os.environ.get('INCLIB', '.')
 +
+     del OPTIONS['shared_utility_qualified_name']
+ 
      EXTENSIONS['jpeg2k']['include_dirs'].extend(
          (
 -            '/usr/include/openjpeg-2.3',
@@ -25,7 +27,7 @@ diff -durpN imagecodecs-2025.3.30.old/setup.py imagecodecs-2025.3.30/setup.py
  
      if not os.environ.get('IMAGECODECS_JPEG8_LEGACY', False):
          # use libjpeg-turbo 3 by default
-@@ -280,17 +282,25 @@ def customize_build_default(EXTENSIONS,
+@@ -298,17 +300,25 @@ def customize_build_default(EXTENSIONS,
      keep = {
          'shared',
          'imcd',
