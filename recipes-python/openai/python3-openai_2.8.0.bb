@@ -6,7 +6,7 @@ DEPENDS = "python3-hatch-fancy-pypi-readme-native"
 PYPI_PACKAGE = "openai"
 
 inherit pypi python_hatchling
-SRC_URI[sha256sum] = "4caa43bdab262cc75680ce1a2322cfc01626204074f7e8d9939ab372acf61698"
+SRC_URI[sha256sum] = "4851908f6d6fcacbd47ba659c5ac084f7725b752b6bfa1e948b6fbfc111a6bad"
 
 SRC_URI += "file://unversioned-hatchling.patch"
 
@@ -19,6 +19,8 @@ RDEPENDS:${PN} = " \
 	python3-sniffio \
 	python3-tqdm \
 	python3-jiter \
+	python3-aiohttp \
+	python3-httpx-aiohttp \
 	python3-websockets \
 	python3-numpy \
 	python3-pandas \
