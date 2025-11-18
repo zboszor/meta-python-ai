@@ -6,7 +6,7 @@ DEPENDS = "python3-pip-native"
 
 PYPI_PACKAGE = "imageio_ffmpeg"
 
-inherit pypi setuptools3
+inherit pypi python_setuptools_build_meta
 SRC_URI[sha256sum] = "e2556bed8e005564a9f925bb7afa4002d82770d6b08825078b7697ab88ba1755"
 
 RDEPENDS:${PN} = "ffmpeg"
