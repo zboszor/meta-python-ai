@@ -1,7 +1,7 @@
 require arrow.inc
 
 S = "${UNPACKDIR}/${BB_GIT_DEFAULT_DESTSUFFIX}/python"
-LIC_FILES_CHKSUM = "file://../LICENSE.txt;md5=021a60277f9c3728811219d900377968"
+LIC_FILES_CHKSUM = "file://../LICENSE.txt;md5=457249e5c7a629554dd41d2ecbc53725"
 
 DEPENDS = " \
     apache-arrow \
