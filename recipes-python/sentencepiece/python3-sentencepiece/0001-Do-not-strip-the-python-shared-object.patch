@@ -1,0 +1,36 @@
+From 35ef1c782bf039c2028a46267a586a05711f17f1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Tue, 18 Nov 2025 07:54:21 +0100
+Subject: [PATCH] Do not strip the python shared object
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ python/setup.py | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/python/setup.py b/python/setup.py
+index da68e71..a795307 100755
+--- a/python/setup.py
++++ b/python/setup.py
+@@ -99,13 +99,6 @@ class build_ext(_build_ext):
+     # See: https://github.com/neulab/xnmt/issues/199
+     if sys.platform == 'darwin':
+       cflags.append('-mmacosx-version-min=10.9')
+-    else:
+-      if sys.platform == 'aix':
+-        cflags.append('-Wl,-s')
+-        libs.append('-Wl,-s')
+-      else:
+-        cflags.append('-Wl,-strip-all')
+-        libs.append('-Wl,-strip-all')
+     if sys.platform == 'linux':
+       libs.append('-Wl,-Bsymbolic')
+     if is_gil_disabled():
+-- 
+2.51.1
+
