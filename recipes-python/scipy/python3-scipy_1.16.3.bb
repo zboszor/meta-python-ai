@@ -54,6 +54,12 @@ export F77 = "${TARGET_PREFIX}gfortran"
 
 PKG_CONFIG_PATH:append = ":${RECIPE_SYSROOT}${PYTHON_SITEPACKAGES_DIR}/numpy/_core/lib/pkgconfig"
 
+do_configure:append:class-target() {
+	if ! grep -q "numpy-include-dir" "${WORKDIR}/meson.cross" ; then
+		sed -i "s,\[properties\],\[properties\]\nnumpy-include-dir = \'${RECIPE_SYSROOT}${PYTHON_SITEPACKAGES_DIR}/numpy/_core/include/\' ,g" "${WORKDIR}/meson.cross"
+	fi
+}
+
 do_install:append:class-target () {
 	sed -i \
 		-e 's|, --sysroot=[^,"]*||g' \
