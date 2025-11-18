@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = " \
 	file://LICENSES.third-party;md5=4c703a4b0c75b96efc0303df04b235a7 \
 "
 
-DEPENDS = "clang15-native clang15 python3-numpy-native"
+DEPENDS = "python3-numpy-native"
 
 PYPI_PACKAGE = "numba"
 
