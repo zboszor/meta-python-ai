@@ -1,0 +1,26 @@
+From ea58a4d94b6171a874d5ba63f83863210e61b1c7 Mon Sep 17 00:00:00 2001
+From: xiweny <13230610+VALLIS-NERIA@users.noreply.github.com>
+Date: Wed, 13 Aug 2025 12:01:56 +0800
+Subject: [PATCH] Bump cmake_minimum_required to satisfy CMake 4.0
+
+Upstream-Status: Backport
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5795fb5..c5b0487 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -12,7 +12,7 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.!
+ 
+-cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+ file(STRINGS "VERSION.txt" SPM_VERSION)
+ message(STATUS "VERSION: ${SPM_VERSION}")
+ 
+-- 
+2.51.1
+
