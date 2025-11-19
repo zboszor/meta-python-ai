@@ -6,6 +6,7 @@ PACKAGECONFIG[libplacebo] = "--enable-libplacebo,--disable-libplacebo,libplacebo
 PACKAGECONFIG[shaderc] = "--enable-libshaderc,--disable-libshaderc,shaderc"
 
 do_configure:append () {
-	# Needed if the above PACKAGECONFIG settings are enabled
+	# Fix race conditions during the build
 	mkdir -p ${B}/libavfilter/vulkan
+	mkdir -p ${B}/fftools/resources
 }
