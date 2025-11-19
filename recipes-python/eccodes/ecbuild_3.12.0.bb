@@ -9,4 +9,10 @@ SRC_URI = "git://github.com/ecmwf/ecbuild.git;protocol=https;branch=master"
 
 inherit cmake
 
+do_install:append () {
+	sed -i 's:${S}:${TARGET_DBGSRC_DIR}:' ${D}${libdir}/cmake/ecbuild/ecbuild-post-import.cmake
+}
+
+RDEPENDS:${PN} += "bash"
+
 BBCLASSEXTEND = "native"
