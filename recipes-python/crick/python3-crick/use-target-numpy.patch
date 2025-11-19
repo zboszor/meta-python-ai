@@ -1,0 +1,17 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+
+--- crick-0.0.8.old/setup.py	2024-12-23 16:34:21.000000000 +0100
++++ crick-0.0.8/setup.py	2025-11-19 06:11:57.884700714 +0100
+@@ -11,9 +11,9 @@
+ 
+ compile_args = dict(
+     library_dirs=[
+-        os.path.abspath(os.path.join(np.get_include(), "..", "lib")),
++        os.path.abspath(os.path.join(os.getenv('NPY_INCLUDE'), "..", "lib")),
+     ],
+-    include_dirs=[np.get_include(), "crick/klib"],
++    include_dirs=[os.getenv('NPY_INCLUDE'), "crick/klib"],
+     libraries=["npymath"],
+ )
+ 
