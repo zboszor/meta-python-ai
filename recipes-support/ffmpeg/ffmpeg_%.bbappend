@@ -4,3 +4,8 @@ PACKAGECONFIG:append:class-target = " \
 
 PACKAGECONFIG[libplacebo] = "--enable-libplacebo,--disable-libplacebo,libplacebo vulkan-headers"
 PACKAGECONFIG[shaderc] = "--enable-libshaderc,--disable-libshaderc,shaderc"
+
+do_configure:append () {
+	# Needed if the above PACKAGECONFIG settings are enabled
+	mkdir -p ${B}/libavfilter/vulkan
+}
