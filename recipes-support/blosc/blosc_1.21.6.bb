@@ -10,10 +10,12 @@ PR = "r1"
 
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=06e852077699178e4248d905b3846a4b"
 
-SRC_URI = "git://github.com/Blosc/c-blosc.git;protocol=https;branch=main"
+SRC_URI = " \
+	git://github.com/Blosc/c-blosc.git;protocol=https;branch=main \
+	file://0001-Drop-a-slightly-outdated-type-def-for-boolean-type.patch \
+"
 
 SRCREV = "051b9d2cb9437e375dead8574f66d80ebce47bee"
-
 
 #OECMAKE_GENERATOR = "Unix Makefiles"
 
