@@ -3,14 +3,13 @@ HOMEPAGE = "https://github.com/Unidata/netcdf-c"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://COPYRIGHT;md5=17c864f08a4445fe9c41226785e9ed10"
 
-DEPENDS = "hdf5 curl"
+DEPENDS = "hdf5 curl bzip2 libzip zlib zstd libxml2"
 
-inherit cmake
+inherit pkgconfig cmake
 
 SRC_URI = "git://github.com/Unidata/netcdf-c.git;protocol=https;branch=v${PV}-prep.wif"
 
 SRCREV = "3a6b1debf1557f07b606ce3653e44f0d711203be"
-
 
 do_install:append () {
 	rm -f ${D}${libdir}/libnetcdf.settings
