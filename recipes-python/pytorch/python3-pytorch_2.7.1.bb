@@ -22,7 +22,7 @@ DEPENDS:append:class-target = " \
 	python3-pybind11 python3-pytorch-native \
 "
 
-inherit cmake python3native setuptools3_legacy
+inherit cmake python_setuptools_build_meta
 
 # Some gitsm:// has to be git:// due to errors in their upstream
 # declaration:
@@ -256,20 +256,19 @@ EXTRA_OECMAKE:class-native = "\
 
 export CMAKE_TOOLCHAIN_FILE = "${WORKDIR}/toolchain.cmake"
 
-do_configure () {
+do_configure:prepend () {
 	export EXTRA_OECMAKE="${EXTRA_OECMAKE}"
-	setuptools3_legacy_do_configure
 }
 
-do_compile() {
+do_compile:prepend () {
 	export EXTRA_OECMAKE="${EXTRA_OECMAKE}"
-	setuptools3_legacy_do_compile
 }
 
-do_install () {
+do_install:prepend () {
 	export EXTRA_OECMAKE="${EXTRA_OECMAKE}"
-	setuptools3_legacy_do_install
+}
 
+do_install:append () {
 	( cd ${D}${libdir} ; ln -s ${PYTHON_DIR}/site-packages/torch/lib/lib*.so . )
 
 	sed -i 's:set(ATEN_INCLUDE_DIR "${S}/torch/include"):set(ATEN_INCLUDE_DIR "${PYTHON_SITEPACKAGES_DIR}/torch/include"):' ${D}${PYTHON_SITEPACKAGES_DIR}/torch/share/cmake/ATen/ATenConfig.cmake
