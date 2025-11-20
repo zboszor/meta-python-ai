@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e3d0d8afca6872e02b102c0776327a07"
 
 DEPENDS = " \
 	python3-pytorch-native python3-numpy-native \
-	python3-sympy-native python3-pybind11 \
+	python3-sympy-native python3-pybind11 python3-pytorch \
 "
 
 PR = "r1"
