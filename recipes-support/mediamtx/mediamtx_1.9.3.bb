@@ -24,6 +24,8 @@ do_configure:prepend () {
 	# Make the source directory available in path expected by go-mod.bbclass
 	mkdir -p ${S}/src
 	ln -snf ${S} ${S}/src/${GO_IMPORT}
+
+	find ${S} -type d -exec chmod u+wx {} \;
 }
 
 do_compile[network] = "1"
