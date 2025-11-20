@@ -1,0 +1,751 @@
+From c06b79933bf89c0e2860b1c6f22c5a21d9b9d44b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Thu, 20 Nov 2025 11:05:55 +0100
+Subject: [PATCH] Fix -Wincompatible-pointer-types issues
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Add type casts where needed.
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ .../f16-avgpool-9p8x-minmax-neonfp16arith-c8.c            | 8 ++++----
+ src/f16-avgpool/f16-avgpool-9x-minmax-neonfp16arith-c8.c  | 8 ++++----
+ .../f16-conv-hwc2chw-3x3s2p1c3x4-neonfp16arith-2x2.c      | 4 ++--
+ .../f16-maxpool-9p8x-minmax-neonfp16arith-c8.c            | 4 ++--
+ .../f16-pavgpool-9p8x-minmax-neonfp16arith-c8.c           | 6 +++---
+ .../f16-pavgpool-9x-minmax-neonfp16arith-c8.c             | 6 +++---
+ src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u16.c     | 2 +-
+ src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u24.c     | 2 +-
+ src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u32.c     | 2 +-
+ src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u64.c     | 2 +-
+ src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u8.c      | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32-acc2.c | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32-acc4.c | 2 +-
+ .../f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32.c   | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40-acc2.c | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40-acc5.c | 2 +-
+ .../f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40.c   | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48-acc2.c | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48-acc3.c | 2 +-
+ .../f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48.c   | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64-acc2.c | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64-acc4.c | 2 +-
+ .../f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64.c   | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u72-acc3.c | 2 +-
+ .../f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u72.c   | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80-acc2.c | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80-acc5.c | 2 +-
+ .../f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80.c   | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc2.c | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc3.c | 2 +-
+ ...6-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc6.c | 2 +-
+ .../f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96.c   | 2 +-
+ src/f16-rsum/gen/f16-rsum-neonfp16arith-u16-acc2.c        | 2 +-
+ src/f16-rsum/gen/f16-rsum-neonfp16arith-u24-acc3.c        | 2 +-
+ src/f16-rsum/gen/f16-rsum-neonfp16arith-u32-acc2.c        | 2 +-
+ src/f16-rsum/gen/f16-rsum-neonfp16arith-u32-acc4.c        | 2 +-
+ src/f16-rsum/gen/f16-rsum-neonfp16arith-u8.c              | 2 +-
+ src/qs8-vlrelu/gen/qs8-vlrelu-neon-u16.c                  | 4 ++--
+ src/qs8-vlrelu/gen/qs8-vlrelu-neon-u32.c                  | 4 ++--
+ src/qs8-vlrelu/gen/qs8-vlrelu-neon-u8.c                   | 4 ++--
+ src/qu8-vlrelu/gen/qu8-vlrelu-neon-u16.c                  | 4 ++--
+ src/qu8-vlrelu/gen/qu8-vlrelu-neon-u32.c                  | 4 ++--
+ src/qu8-vlrelu/gen/qu8-vlrelu-neon-u8.c                   | 4 ++--
+ src/s8-maxpool/s8-maxpool-2p2x-minmax-neon-c16.c          | 4 ++--
+ src/s8-maxpool/s8-maxpool-4p3x-minmax-neon-c16.c          | 4 ++--
+ src/s8-maxpool/s8-maxpool-9p8x-minmax-neon-c16.c          | 4 ++--
+ src/s8-vclamp/s8-vclamp-neon-u64.c                        | 4 ++--
+ src/u8-maxpool/u8-maxpool-9p8x-minmax-neon-c16.c          | 4 ++--
+ src/u8-vclamp/u8-vclamp-neon-u64.c                        | 4 ++--
+ 49 files changed, 73 insertions(+), 73 deletions(-)
+
+diff --git a/src/f16-avgpool/f16-avgpool-9p8x-minmax-neonfp16arith-c8.c b/src/f16-avgpool/f16-avgpool-9p8x-minmax-neonfp16arith-c8.c
+index d166f669fe..c44823153a 100644
+--- a/src/f16-avgpool/f16-avgpool-9p8x-minmax-neonfp16arith-c8.c
++++ b/src/f16-avgpool/f16-avgpool-9p8x-minmax-neonfp16arith-c8.c
+@@ -27,9 +27,9 @@ void xnn_f16_avgpool_minmax_ukernel_9p8x__neonfp16arith_c8(
+   assert(kernel_elements > 9);
+   assert(channels != 0);
+ 
+-  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.scale));
+-  const float16x8_t vmin = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.min));
+-  const float16x8_t vmax = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.max));
++  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.scale));
++  const float16x8_t vmin = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.min));
++  const float16x8_t vmax = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.max));
+ 
+   do {
+     {
+@@ -297,7 +297,7 @@ void xnn_f16_avgpool_minmax_ukernel_9p8x__neonfp16arith_c8(
+           vout_lo = vget_high_f16(vout);
+         }
+         if (c & 2) {
+-          vst1_lane_u32((uint16_t*) output, vreinterpret_u32_f16(vout_lo), 0); output = (xnn_float16*) output + 2;
++          vst1_lane_u32((uint32_t*) output, vreinterpret_u32_f16(vout_lo), 0); output = (xnn_float16*) output + 2;
+           vout_lo = vext_f16(vout_lo, vout_lo, 2);
+         }
+         if (c & 1) {
+diff --git a/src/f16-avgpool/f16-avgpool-9x-minmax-neonfp16arith-c8.c b/src/f16-avgpool/f16-avgpool-9x-minmax-neonfp16arith-c8.c
+index f6108ce52a..9467bb9dc7 100644
+--- a/src/f16-avgpool/f16-avgpool-9x-minmax-neonfp16arith-c8.c
++++ b/src/f16-avgpool/f16-avgpool-9x-minmax-neonfp16arith-c8.c
+@@ -27,9 +27,9 @@ void xnn_f16_avgpool_minmax_ukernel_9x__neonfp16arith_c8(
+   assert(kernel_elements <= 9);
+   assert(channels != 0);
+ 
+-  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.scale));
+-  const float16x8_t vmin = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.min));
+-  const float16x8_t vmax = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.max));
++  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.scale));
++  const float16x8_t vmin = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.min));
++  const float16x8_t vmax = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.max));
+ 
+   do {
+     const uint16_t* i0 = (const uint16_t*) input[0];
+@@ -162,7 +162,7 @@ void xnn_f16_avgpool_minmax_ukernel_9x__neonfp16arith_c8(
+         vout_lo = vget_high_f16(vout);
+       }
+       if (c & 2) {
+-        vst1_lane_u32((uint16_t*) output, vreinterpret_u32_f16(vout_lo), 0); output = (xnn_float16*) output + 2;
++        vst1_lane_u32((uint32_t*) output, vreinterpret_u32_f16(vout_lo), 0); output = (xnn_float16*) output + 2;
+         vout_lo = vext_f16(vout_lo, vout_lo, 2);
+       }
+       if (c & 1) {
+diff --git a/src/f16-conv-hwc2chw/f16-conv-hwc2chw-3x3s2p1c3x4-neonfp16arith-2x2.c b/src/f16-conv-hwc2chw/f16-conv-hwc2chw-3x3s2p1c3x4-neonfp16arith-2x2.c
+index 8f649de71c..d0309be139 100644
+--- a/src/f16-conv-hwc2chw/f16-conv-hwc2chw-3x3s2p1c3x4-neonfp16arith-2x2.c
++++ b/src/f16-conv-hwc2chw/f16-conv-hwc2chw-3x3s2p1c3x4-neonfp16arith-2x2.c
+@@ -50,8 +50,8 @@ void xnn_f16_conv_hwc2chw_ukernel_3x3s2p1c3x4__neonfp16arith_2x2(
+     i0 = (const uint16_t*) zero;
+   }
+ 
+-  const float16x4_t vmax = vreinterpret_f16_u16(vld1_dup_u16(&params->scalar.max));
+-  const float16x4_t vmin = vreinterpret_f16_u16(vld1_dup_u16(&params->scalar.min));
++  const float16x4_t vmax = vreinterpret_f16_u16(vld1_dup_u16((uint16_t *)&params->scalar.max));
++  const float16x4_t vmin = vreinterpret_f16_u16(vld1_dup_u16((uint16_t *)&params->scalar.min));
+ 
+   for (size_t output_y = output_y_start; output_y < output_y_end; output_y += 2) {
+     const size_t input_y2 = output_y * 2 + 2 - input_padding_top;
+diff --git a/src/f16-maxpool/f16-maxpool-9p8x-minmax-neonfp16arith-c8.c b/src/f16-maxpool/f16-maxpool-9p8x-minmax-neonfp16arith-c8.c
+index f4ce992bb7..abfc8e96d3 100644
+--- a/src/f16-maxpool/f16-maxpool-9p8x-minmax-neonfp16arith-c8.c
++++ b/src/f16-maxpool/f16-maxpool-9p8x-minmax-neonfp16arith-c8.c
+@@ -25,8 +25,8 @@ void xnn_f16_maxpool_minmax_ukernel_9p8x__neonfp16arith_c8(
+   assert(kernel_elements != 0);
+   assert(channels != 0);
+ 
+-  const float16x8_t voutput_min = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.min));
+-  const float16x8_t voutput_max = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.max));
++  const float16x8_t voutput_min = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.min));
++  const float16x8_t voutput_max = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.max));
+   do {
+     uint16_t* o = (uint16_t*) output;
+     {
+diff --git a/src/f16-pavgpool/f16-pavgpool-9p8x-minmax-neonfp16arith-c8.c b/src/f16-pavgpool/f16-pavgpool-9p8x-minmax-neonfp16arith-c8.c
+index 29b6fa82f2..84c312fa9a 100644
+--- a/src/f16-pavgpool/f16-pavgpool-9p8x-minmax-neonfp16arith-c8.c
++++ b/src/f16-pavgpool/f16-pavgpool-9p8x-minmax-neonfp16arith-c8.c
+@@ -28,8 +28,8 @@ void xnn_f16_pavgpool_minmax_ukernel_9p8x__neonfp16arith_c8(
+   assert(kernel_elements > 9);
+   assert(channels != 0);
+ 
+-  const float16x8_t voutput_min = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.min));
+-  const float16x8_t voutput_max = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.max));
++  const float16x8_t voutput_min = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.min));
++  const float16x8_t voutput_max = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.max));
+ 
+   do {
+     {
+@@ -236,7 +236,7 @@ void xnn_f16_pavgpool_minmax_ukernel_9p8x__neonfp16arith_c8(
+         i7 = (const uint16_t*) ((uintptr_t) i7 + input_offset);
+       }
+ 
+-      const float16x8_t vmultiplier = vreinterpretq_f16_u16(vld1q_dup_u16(multiplier)); multiplier = (const xnn_float16*) multiplier + 1;
++      const float16x8_t vmultiplier = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)multiplier)); multiplier = (const xnn_float16*) multiplier + 1;
+ 
+       size_t c = channels;
+       const uint16_t* b = (const uint16_t*) buffer;
+diff --git a/src/f16-pavgpool/f16-pavgpool-9x-minmax-neonfp16arith-c8.c b/src/f16-pavgpool/f16-pavgpool-9x-minmax-neonfp16arith-c8.c
+index 79206c0c16..fd55ae0839 100644
+--- a/src/f16-pavgpool/f16-pavgpool-9x-minmax-neonfp16arith-c8.c
++++ b/src/f16-pavgpool/f16-pavgpool-9x-minmax-neonfp16arith-c8.c
+@@ -28,8 +28,8 @@ void xnn_f16_pavgpool_minmax_ukernel_9x__neonfp16arith_c8(
+   assert(kernel_elements <= 9);
+   assert(channels != 0);
+ 
+-  const float16x8_t voutput_min = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.min));
+-  const float16x8_t voutput_max = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.max));
++  const float16x8_t voutput_min = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.min));
++  const float16x8_t voutput_max = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.max));
+ 
+   do {
+     const uint16_t* i0 = (const uint16_t*) input[0];
+@@ -103,7 +103,7 @@ void xnn_f16_pavgpool_minmax_ukernel_9x__neonfp16arith_c8(
+       i8 = (const uint16_t*) ((uintptr_t) i8 + input_offset);
+     }
+ 
+-    const float16x8_t vmultiplier = vreinterpretq_f16_u16(vld1q_dup_u16(multiplier)); multiplier = (const xnn_float16*) multiplier + 1;
++    const float16x8_t vmultiplier = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)multiplier)); multiplier = (const xnn_float16*) multiplier + 1;
+ 
+     size_t c = channels;
+     while (c >= 8) {
+diff --git a/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u16.c b/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u16.c
+index b039b2c555..4bb331b6ae 100644
+--- a/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u16.c
++++ b/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u16.c
+@@ -29,7 +29,7 @@ void xnn_f16_qs8_vcvt_ukernel__neonfp16arith_u16(
+ 
+   const uint16_t* i = (const uint16_t*) input;
+ 
+-  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.scale));
++  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.scale));
+   const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
+   for (; batch >= 16 * sizeof(uint16_t); batch -= 16 * sizeof(uint16_t)) {
+     float16x8_t vx0 = vreinterpretq_f16_u16(vld1q_u16(i)); i += 8;
+diff --git a/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u24.c b/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u24.c
+index d3eb2ca8e4..b3ac283b9c 100644
+--- a/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u24.c
++++ b/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u24.c
+@@ -29,7 +29,7 @@ void xnn_f16_qs8_vcvt_ukernel__neonfp16arith_u24(
+ 
+   const uint16_t* i = (const uint16_t*) input;
+ 
+-  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.scale));
++  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.scale));
+   const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
+   for (; batch >= 24 * sizeof(uint16_t); batch -= 24 * sizeof(uint16_t)) {
+     float16x8_t vx0 = vreinterpretq_f16_u16(vld1q_u16(i)); i += 8;
+diff --git a/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u32.c b/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u32.c
+index 8e035ffe87..fc08743e27 100644
+--- a/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u32.c
++++ b/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u32.c
+@@ -29,7 +29,7 @@ void xnn_f16_qs8_vcvt_ukernel__neonfp16arith_u32(
+ 
+   const uint16_t* i = (const uint16_t*) input;
+ 
+-  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.scale));
++  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.scale));
+   const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
+   for (; batch >= 32 * sizeof(uint16_t); batch -= 32 * sizeof(uint16_t)) {
+     float16x8_t vx0 = vreinterpretq_f16_u16(vld1q_u16(i)); i += 8;
+diff --git a/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u64.c b/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u64.c
+index ebc4fb5f66..9e63ede8cf 100644
+--- a/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u64.c
++++ b/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u64.c
+@@ -29,7 +29,7 @@ void xnn_f16_qs8_vcvt_ukernel__neonfp16arith_u64(
+ 
+   const uint16_t* i = (const uint16_t*) input;
+ 
+-  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.scale));
++  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.scale));
+   const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
+   for (; batch >= 64 * sizeof(uint16_t); batch -= 64 * sizeof(uint16_t)) {
+     float16x8_t vx0 = vreinterpretq_f16_u16(vld1q_u16(i)); i += 8;
+diff --git a/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u8.c b/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u8.c
+index 81839e9e30..0d8c8032d2 100644
+--- a/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u8.c
++++ b/src/f16-qs8-vcvt/gen/f16-qs8-vcvt-neonfp16arith-u8.c
+@@ -29,7 +29,7 @@ void xnn_f16_qs8_vcvt_ukernel__neonfp16arith_u8(
+ 
+   const uint16_t* i = (const uint16_t*) input;
+ 
+-  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16(&params->scalar.scale));
++  const float16x8_t vscale = vreinterpretq_f16_u16(vld1q_dup_u16((uint16_t *)&params->scalar.scale));
+   const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
+   for (; batch >= 8 * sizeof(uint16_t); batch -= 8 * sizeof(uint16_t)) {
+     float16x8_t vx = vreinterpretq_f16_u16(vld1q_u16(i)); i += 8;
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32-acc2.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32-acc2.c
+index 0510794c3a..b9bcb42067 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32-acc2.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32-acc2.c
+@@ -188,5 +188,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u32_acc2(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32-acc4.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32-acc4.c
+index 230bdf9b04..0c8ceb1381 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32-acc4.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32-acc4.c
+@@ -192,5 +192,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u32_acc4(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32.c
+index 07ea8cc93d..e9e20d7138 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u32.c
+@@ -186,5 +186,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u32(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40-acc2.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40-acc2.c
+index afd7e5b93f..240fbc6848 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40-acc2.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40-acc2.c
+@@ -202,5 +202,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u40_acc2(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40-acc5.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40-acc5.c
+index 9e66b7ffee..9919a3e1ae 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40-acc5.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40-acc5.c
+@@ -208,5 +208,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u40_acc5(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40.c
+index cced3be28b..15c1b8201e 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u40.c
+@@ -200,5 +200,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u40(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48-acc2.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48-acc2.c
+index 433c23cc0b..ec3d390053 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48-acc2.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48-acc2.c
+@@ -216,5 +216,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u48_acc2(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48-acc3.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48-acc3.c
+index d26a6f834b..c2925b8fbf 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48-acc3.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48-acc3.c
+@@ -218,5 +218,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u48_acc3(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48.c
+index c49c63a460..03799699e5 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u48.c
+@@ -214,5 +214,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u48(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64-acc2.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64-acc2.c
+index cc7f01f60f..6076aa334e 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64-acc2.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64-acc2.c
+@@ -244,5 +244,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u64_acc2(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64-acc4.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64-acc4.c
+index e235ece9d8..da6a5127ac 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64-acc4.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64-acc4.c
+@@ -248,5 +248,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u64_acc4(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64.c
+index 118f2969e5..2eb0092dca 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u64.c
+@@ -242,5 +242,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u64(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u72-acc3.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u72-acc3.c
+index 3658c32421..a2c058d364 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u72-acc3.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u72-acc3.c
+@@ -260,5 +260,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u72_acc3(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u72.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u72.c
+index 3519b81664..2b462b3195 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u72.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u72.c
+@@ -256,5 +256,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u72(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80-acc2.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80-acc2.c
+index f29ab2e10b..b864db1dea 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80-acc2.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80-acc2.c
+@@ -272,5 +272,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u80_acc2(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80-acc5.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80-acc5.c
+index 95959accdc..36d9667019 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80-acc5.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80-acc5.c
+@@ -278,5 +278,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u80_acc5(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80.c
+index cea563af86..aac0b5e228 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u80.c
+@@ -270,5 +270,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u80(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc2.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc2.c
+index 494e2fe95e..14b0942143 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc2.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc2.c
+@@ -300,5 +300,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u96_acc2(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc3.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc3.c
+index 5eb5bcc6e4..7ee4bcf441 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc3.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc3.c
+@@ -302,5 +302,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u96_acc3(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc6.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc6.c
+index ac002e864f..d619b37552 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc6.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96-acc6.c
+@@ -308,5 +308,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u96_acc6(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96.c b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96.c
+index 40cbcdf8af..b0ad86bc12 100644
+--- a/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96.c
++++ b/src/f16-raddstoreexpminusmax/gen/f16-raddstoreexpminusmax-neonfp16arith-rr2-p2-u96.c
+@@ -298,5 +298,5 @@ void xnn_f16_raddstoreexpminusmax_ukernel__neonfp16arith_rr2_p2_u96(
+   }
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+   vacc_lo = vpadd_f16(vacc_lo, vacc_lo);
+-  vst1_lane_u16(sum, vreinterpret_u16_f16(vacc_lo), 0);
++  vst1_lane_u16((uint16_t *)sum, vreinterpret_u16_f16(vacc_lo), 0);
+ }
+diff --git a/src/f16-rsum/gen/f16-rsum-neonfp16arith-u16-acc2.c b/src/f16-rsum/gen/f16-rsum-neonfp16arith-u16-acc2.c
+index 73de6d7f87..5479d2cdcc 100644
+--- a/src/f16-rsum/gen/f16-rsum-neonfp16arith-u16-acc2.c
++++ b/src/f16-rsum/gen/f16-rsum-neonfp16arith-u16-acc2.c
+@@ -42,7 +42,7 @@ void xnn_f16_rsum_ukernel__neonfp16arith_u16_acc2(
+     const float16x8_t vt = vreinterpretq_f16_u16(vld1q_u16(i)); i += 8;
+     vacc0 = vaddq_f16(vacc0, vt);
+   }
+-  const float16x4_t vscale = vreinterpret_f16_u16(vld1_dup_u16(&params->scalar.scale));
++  const float16x4_t vscale = vreinterpret_f16_u16(vld1_dup_u16((uint16_t *)&params->scalar.scale));
+   float16x4_t vacc = vadd_f16(vget_low_f16(vacc0), vget_high_f16(vacc0));
+   if XNN_UNLIKELY(batch & (4 * sizeof(uint16_t))) {
+     const float16x4_t vt = vreinterpret_f16_u16(vld1_u16(i)); i += 4;
+diff --git a/src/f16-rsum/gen/f16-rsum-neonfp16arith-u24-acc3.c b/src/f16-rsum/gen/f16-rsum-neonfp16arith-u24-acc3.c
+index 7465d61cfa..3359bc9d9e 100644
+--- a/src/f16-rsum/gen/f16-rsum-neonfp16arith-u24-acc3.c
++++ b/src/f16-rsum/gen/f16-rsum-neonfp16arith-u24-acc3.c
+@@ -46,7 +46,7 @@ void xnn_f16_rsum_ukernel__neonfp16arith_u24_acc3(
+     const float16x8_t vt = vreinterpretq_f16_u16(vld1q_u16(i)); i += 8;
+     vacc0 = vaddq_f16(vacc0, vt);
+   }
+-  const float16x4_t vscale = vreinterpret_f16_u16(vld1_dup_u16(&params->scalar.scale));
++  const float16x4_t vscale = vreinterpret_f16_u16(vld1_dup_u16((uint16_t *)&params->scalar.scale));
+   float16x4_t vacc = vadd_f16(vget_low_f16(vacc0), vget_high_f16(vacc0));
+   if XNN_UNLIKELY(batch & (4 * sizeof(uint16_t))) {
+     const float16x4_t vt = vreinterpret_f16_u16(vld1_u16(i)); i += 4;
+diff --git a/src/f16-rsum/gen/f16-rsum-neonfp16arith-u32-acc2.c b/src/f16-rsum/gen/f16-rsum-neonfp16arith-u32-acc2.c
+index 2fe2074be6..537a86d339 100644
+--- a/src/f16-rsum/gen/f16-rsum-neonfp16arith-u32-acc2.c
++++ b/src/f16-rsum/gen/f16-rsum-neonfp16arith-u32-acc2.c
+@@ -46,7 +46,7 @@ void xnn_f16_rsum_ukernel__neonfp16arith_u32_acc2(
+     const float16x8_t vt = vreinterpretq_f16_u16(vld1q_u16(i)); i += 8;
+     vacc0 = vaddq_f16(vacc0, vt);
+   }
+-  const float16x4_t vscale = vreinterpret_f16_u16(vld1_dup_u16(&params->scalar.scale));
++  const float16x4_t vscale = vreinterpret_f16_u16(vld1_dup_u16((uint16_t *)&params->scalar.scale));
+   float16x4_t vacc = vadd_f16(vget_low_f16(vacc0), vget_high_f16(vacc0));
+   if XNN_UNLIKELY(batch & (4 * sizeof(uint16_t))) {
+     const float16x4_t vt = vreinterpret_f16_u16(vld1_u16(i)); i += 4;
+diff --git a/src/f16-rsum/gen/f16-rsum-neonfp16arith-u32-acc4.c b/src/f16-rsum/gen/f16-rsum-neonfp16arith-u32-acc4.c
+index f326d168f7..f2316daf08 100644
+--- a/src/f16-rsum/gen/f16-rsum-neonfp16arith-u32-acc4.c
++++ b/src/f16-rsum/gen/f16-rsum-neonfp16arith-u32-acc4.c
+@@ -50,7 +50,7 @@ void xnn_f16_rsum_ukernel__neonfp16arith_u32_acc4(
+     const float16x8_t vt = vreinterpretq_f16_u16(vld1q_u16(i)); i += 8;
+     vacc0 = vaddq_f16(vacc0, vt);
+   }
+-  const float16x4_t vscale = vreinterpret_f16_u16(vld1_dup_u16(&params->scalar.scale));
++  const float16x4_t vscale = vreinterpret_f16_u16(vld1_dup_u16((uint16_t *)&params->scalar.scale));
+   float16x4_t vacc = vadd_f16(vget_low_f16(vacc0), vget_high_f16(vacc0));
+   if XNN_UNLIKELY(batch & (4 * sizeof(uint16_t))) {
+     const float16x4_t vt = vreinterpret_f16_u16(vld1_u16(i)); i += 4;
+diff --git a/src/f16-rsum/gen/f16-rsum-neonfp16arith-u8.c b/src/f16-rsum/gen/f16-rsum-neonfp16arith-u8.c
+index 7bfd7f86b8..8421ad0cbd 100644
+--- a/src/f16-rsum/gen/f16-rsum-neonfp16arith-u8.c
++++ b/src/f16-rsum/gen/f16-rsum-neonfp16arith-u8.c
+@@ -33,7 +33,7 @@ void xnn_f16_rsum_ukernel__neonfp16arith_u8(
+     const float16x8_t vt = vreinterpretq_f16_u16(vld1q_u16(i)); i += 8;
+     vacc0 = vaddq_f16(vacc0, vt);
+   }
+-  const float16x4_t vscale = vreinterpret_f16_u16(vld1_dup_u16(&params->scalar.scale));
++  const float16x4_t vscale = vreinterpret_f16_u16(vld1_dup_u16((uint16_t *)&params->scalar.scale));
+   float16x4_t vacc = vadd_f16(vget_low_f16(vacc0), vget_high_f16(vacc0));
+   if XNN_UNLIKELY(batch & (4 * sizeof(uint16_t))) {
+     const float16x4_t vt = vreinterpret_f16_u16(vld1_u16(i)); i += 4;
+diff --git a/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u16.c b/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u16.c
+index 8ddd5a73ad..b911bc4a05 100644
+--- a/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u16.c
++++ b/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u16.c
+@@ -26,10 +26,10 @@ void xnn_qs8_vlrelu_ukernel__neon_u16(
+   assert(input != NULL);
+   assert(output != NULL);
+ 
+-  const int16x8_t vinput_zero_point = vld1q_dup_s16(&params->scalar.input_zero_point);
++  const int16x8_t vinput_zero_point = vld1q_dup_s16((int16_t *)&params->scalar.input_zero_point);
+   const int16x8_t vpositive_multiplier = vdupq_n_s16(-params->scalar.positive_multiplier);
+   const int16x8_t vnegative_multiplier = vdupq_n_s16(-params->scalar.negative_multiplier);
+-  const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
++  const int16x8_t voutput_zero_point = vld1q_dup_s16((int16_t *)&params->scalar.output_zero_point);
+   for (; batch >= 16 * sizeof(int8_t); batch -= 16 * sizeof(int8_t)) {
+     const int8x16_t vx0 = vld1q_s8(input); input += 16;
+ 
+diff --git a/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u32.c b/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u32.c
+index 2d001633e9..6eff1ff848 100644
+--- a/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u32.c
++++ b/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u32.c
+@@ -26,10 +26,10 @@ void xnn_qs8_vlrelu_ukernel__neon_u32(
+   assert(input != NULL);
+   assert(output != NULL);
+ 
+-  const int16x8_t vinput_zero_point = vld1q_dup_s16(&params->scalar.input_zero_point);
++  const int16x8_t vinput_zero_point = vld1q_dup_s16((int16_t *)&params->scalar.input_zero_point);
+   const int16x8_t vpositive_multiplier = vdupq_n_s16(-params->scalar.positive_multiplier);
+   const int16x8_t vnegative_multiplier = vdupq_n_s16(-params->scalar.negative_multiplier);
+-  const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
++  const int16x8_t voutput_zero_point = vld1q_dup_s16((int16_t *)&params->scalar.output_zero_point);
+   for (; batch >= 32 * sizeof(int8_t); batch -= 32 * sizeof(int8_t)) {
+     const int8x16_t vx0 = vld1q_s8(input); input += 16;
+     const int8x16_t vx1 = vld1q_s8(input); input += 16;
+diff --git a/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u8.c b/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u8.c
+index bd2035afcd..93165d5591 100644
+--- a/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u8.c
++++ b/src/qs8-vlrelu/gen/qs8-vlrelu-neon-u8.c
+@@ -26,10 +26,10 @@ void xnn_qs8_vlrelu_ukernel__neon_u8(
+   assert(input != NULL);
+   assert(output != NULL);
+ 
+-  const int16x8_t vinput_zero_point = vld1q_dup_s16(&params->scalar.input_zero_point);
++  const int16x8_t vinput_zero_point = vld1q_dup_s16((int16_t *)&params->scalar.input_zero_point);
+   const int16x8_t vpositive_multiplier = vdupq_n_s16(-params->scalar.positive_multiplier);
+   const int16x8_t vnegative_multiplier = vdupq_n_s16(-params->scalar.negative_multiplier);
+-  const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
++  const int16x8_t voutput_zero_point = vld1q_dup_s16((int16_t *)&params->scalar.output_zero_point);
+   for (; batch >= 8 * sizeof(int8_t); batch -= 8 * sizeof(int8_t)) {
+     const int8x8_t vx = vld1_s8(input); input += 8;
+     int16x8_t vacc = vsubw_s8(vinput_zero_point, vx);
+diff --git a/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u16.c b/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u16.c
+index ee89ae561b..5a5f906345 100644
+--- a/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u16.c
++++ b/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u16.c
+@@ -26,10 +26,10 @@ void xnn_qu8_vlrelu_ukernel__neon_u16(
+   assert(input != NULL);
+   assert(output != NULL);
+ 
+-  const uint16x8_t vinput_zero_point = vld1q_dup_u16(&params->scalar.input_zero_point);
++  const uint16x8_t vinput_zero_point = vld1q_dup_u16((uint16_t *)&params->scalar.input_zero_point);
+   const int16x8_t vpositive_multiplier = vdupq_n_s16(-params->scalar.positive_multiplier);
+   const int16x8_t vnegative_multiplier = vdupq_n_s16(-params->scalar.negative_multiplier);
+-  const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
++  const int16x8_t voutput_zero_point = vld1q_dup_s16((uint16_t *)&params->scalar.output_zero_point);
+   for (; batch >= 16 * sizeof(uint8_t); batch -= 16 * sizeof(uint8_t)) {
+     const uint8x16_t vx0 = vld1q_u8(input); input += 16;
+ 
+diff --git a/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u32.c b/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u32.c
+index 7408580379..0074ce9eb9 100644
+--- a/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u32.c
++++ b/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u32.c
+@@ -26,10 +26,10 @@ void xnn_qu8_vlrelu_ukernel__neon_u32(
+   assert(input != NULL);
+   assert(output != NULL);
+ 
+-  const uint16x8_t vinput_zero_point = vld1q_dup_u16(&params->scalar.input_zero_point);
++  const uint16x8_t vinput_zero_point = vld1q_dup_u16((uint16_t *)&params->scalar.input_zero_point);
+   const int16x8_t vpositive_multiplier = vdupq_n_s16(-params->scalar.positive_multiplier);
+   const int16x8_t vnegative_multiplier = vdupq_n_s16(-params->scalar.negative_multiplier);
+-  const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
++  const int16x8_t voutput_zero_point = vld1q_dup_s16((uint16_t *)&params->scalar.output_zero_point);
+   for (; batch >= 32 * sizeof(uint8_t); batch -= 32 * sizeof(uint8_t)) {
+     const uint8x16_t vx0 = vld1q_u8(input); input += 16;
+     const uint8x16_t vx1 = vld1q_u8(input); input += 16;
+diff --git a/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u8.c b/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u8.c
+index a5f21080e7..ee88700cbf 100644
+--- a/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u8.c
++++ b/src/qu8-vlrelu/gen/qu8-vlrelu-neon-u8.c
+@@ -26,10 +26,10 @@ void xnn_qu8_vlrelu_ukernel__neon_u8(
+   assert(input != NULL);
+   assert(output != NULL);
+ 
+-  const uint16x8_t vinput_zero_point = vld1q_dup_u16(&params->scalar.input_zero_point);
++  const uint16x8_t vinput_zero_point = vld1q_dup_u16((uint16_t *)&params->scalar.input_zero_point);
+   const int16x8_t vpositive_multiplier = vdupq_n_s16(-params->scalar.positive_multiplier);
+   const int16x8_t vnegative_multiplier = vdupq_n_s16(-params->scalar.negative_multiplier);
+-  const int16x8_t voutput_zero_point = vld1q_dup_s16(&params->scalar.output_zero_point);
++  const int16x8_t voutput_zero_point = vld1q_dup_s16((uint16_t *)&params->scalar.output_zero_point);
+   for (; batch >= 8 * sizeof(uint8_t); batch -= 8 * sizeof(uint8_t)) {
+     const uint8x8_t vx = vld1_u8(input); input += 8;
+     int16x8_t vacc = vreinterpretq_s16_u16(vsubw_u8(vinput_zero_point, vx));
+diff --git a/src/s8-maxpool/s8-maxpool-2p2x-minmax-neon-c16.c b/src/s8-maxpool/s8-maxpool-2p2x-minmax-neon-c16.c
+index 77614068c2..685bc04fc5 100644
+--- a/src/s8-maxpool/s8-maxpool-2p2x-minmax-neon-c16.c
++++ b/src/s8-maxpool/s8-maxpool-2p2x-minmax-neon-c16.c
+@@ -25,8 +25,8 @@ void xnn_s8_maxpool_minmax_ukernel_2p2x__neon_c16(
+   assert(kernel_elements != 0);
+   assert(channels != 0);
+ 
+-  const int8x16_t voutput_max = vld1q_dup_s8(&params->scalar.max);
+-  const int8x16_t voutput_min = vld1q_dup_s8(&params->scalar.min);
++  const int8x16_t voutput_max = vld1q_dup_s8((int8_t *)&params->scalar.max);
++  const int8x16_t voutput_min = vld1q_dup_s8((int8_t *)&params->scalar.min);
+   do {
+     int8_t* o = output;
+     {
+diff --git a/src/s8-maxpool/s8-maxpool-4p3x-minmax-neon-c16.c b/src/s8-maxpool/s8-maxpool-4p3x-minmax-neon-c16.c
+index 3cd3117efe..3297bbdfe8 100644
+--- a/src/s8-maxpool/s8-maxpool-4p3x-minmax-neon-c16.c
++++ b/src/s8-maxpool/s8-maxpool-4p3x-minmax-neon-c16.c
+@@ -25,8 +25,8 @@ void xnn_s8_maxpool_minmax_ukernel_4p3x__neon_c16(
+   assert(kernel_elements != 0);
+   assert(channels != 0);
+ 
+-  const int8x16_t voutput_max = vld1q_dup_s8(&params->scalar.max);
+-  const int8x16_t voutput_min = vld1q_dup_s8(&params->scalar.min);
++  const int8x16_t voutput_max = vld1q_dup_s8((int8_t *)&params->scalar.max);
++  const int8x16_t voutput_min = vld1q_dup_s8((int8_t *)&params->scalar.min);
+   do {
+     int8_t* o = output;
+     {
+diff --git a/src/s8-maxpool/s8-maxpool-9p8x-minmax-neon-c16.c b/src/s8-maxpool/s8-maxpool-9p8x-minmax-neon-c16.c
+index 01b1315c68..caff3d2ebc 100644
+--- a/src/s8-maxpool/s8-maxpool-9p8x-minmax-neon-c16.c
++++ b/src/s8-maxpool/s8-maxpool-9p8x-minmax-neon-c16.c
+@@ -25,8 +25,8 @@ void xnn_s8_maxpool_minmax_ukernel_9p8x__neon_c16(
+   assert(kernel_elements != 0);
+   assert(channels != 0);
+ 
+-  const int8x16_t voutput_max = vld1q_dup_s8(&params->scalar.max);
+-  const int8x16_t voutput_min = vld1q_dup_s8(&params->scalar.min);
++  const int8x16_t voutput_max = vld1q_dup_s8((int8_t *)&params->scalar.max);
++  const int8x16_t voutput_min = vld1q_dup_s8((int8_t *)&params->scalar.min);
+   do {
+     int8_t* o = output;
+     {
+diff --git a/src/s8-vclamp/s8-vclamp-neon-u64.c b/src/s8-vclamp/s8-vclamp-neon-u64.c
+index 998d91b9bd..4aff307d72 100644
+--- a/src/s8-vclamp/s8-vclamp-neon-u64.c
++++ b/src/s8-vclamp/s8-vclamp-neon-u64.c
+@@ -21,8 +21,8 @@ void xnn_s8_vclamp_ukernel__neon_u64(
+   assert(input != NULL);
+   assert(output != NULL);
+ 
+-  const int8x16_t voutput_max = vld1q_dup_s8(&params->scalar.max);
+-  const int8x16_t voutput_min = vld1q_dup_s8(&params->scalar.min);
++  const int8x16_t voutput_max = vld1q_dup_s8((int8_t *)&params->scalar.max);
++  const int8x16_t voutput_min = vld1q_dup_s8((int8_t *)&params->scalar.min);
+ 
+   for (; batch >= 64; batch -= 64) {
+     int8x16_t vacc0 = vld1q_s8(input); input += 16;
+diff --git a/src/u8-maxpool/u8-maxpool-9p8x-minmax-neon-c16.c b/src/u8-maxpool/u8-maxpool-9p8x-minmax-neon-c16.c
+index 2fb7c3f435..657a80bf93 100644
+--- a/src/u8-maxpool/u8-maxpool-9p8x-minmax-neon-c16.c
++++ b/src/u8-maxpool/u8-maxpool-9p8x-minmax-neon-c16.c
+@@ -28,8 +28,8 @@ void xnn_u8_maxpool_minmax_ukernel_9p8x__neon_c16(
+   assert(kernel_elements != 0);
+   assert(channels != 0);
+ 
+-  const uint8x16_t voutput_max = vld1q_dup_u8(&params->scalar.max);
+-  const uint8x16_t voutput_min = vld1q_dup_u8(&params->scalar.min);
++  const uint8x16_t voutput_max = vld1q_dup_u8((uint8_t *)&params->scalar.max);
++  const uint8x16_t voutput_min = vld1q_dup_u8((uint8_t *)&params->scalar.min);
+   do {
+     uint8_t* o = output;
+     {
+diff --git a/src/u8-vclamp/u8-vclamp-neon-u64.c b/src/u8-vclamp/u8-vclamp-neon-u64.c
+index c75f8d6de6..91e0568942 100644
+--- a/src/u8-vclamp/u8-vclamp-neon-u64.c
++++ b/src/u8-vclamp/u8-vclamp-neon-u64.c
+@@ -21,8 +21,8 @@ void xnn_u8_vclamp_ukernel__neon_u64(
+   assert(input != NULL);
+   assert(output != NULL);
+ 
+-  const uint8x16_t voutput_max = vld1q_dup_u8(&params->scalar.max);
+-  const uint8x16_t voutput_min = vld1q_dup_u8(&params->scalar.min);
++  const uint8x16_t voutput_max = vld1q_dup_u8((uint8_t *)&params->scalar.max);
++  const uint8x16_t voutput_min = vld1q_dup_u8((uint8_t *)&params->scalar.min);
+ 
+   for (; batch >= 64; batch -= 64) {
+     uint8x16_t vacc0 = vld1q_u8(input); input += 16;
+-- 
+2.51.1
+
