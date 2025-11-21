@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://${S}/LICENSE.txt;md5=e4224ccaecb14d942c71d31bef20d78c
 #PR = "r1"
 
 
-SRCREV = "56e1f79cb140fb9326d612d0be06b5250565cade"
+SRCREV = "5a1d179df9cf652951b59010a2d2075372d67f68"
 
 SRC_URI = " \
 	git://github.com/shibatch/sleef.git;protocol=https;nobranch=1 \
