@@ -271,6 +271,7 @@ do_install:append () {
 	( cd ${D}${libdir} ; ln -s ${PYTHON_DIR}/site-packages/torch/lib/lib*.so . )
 
 	sed -i 's:set(ATEN_INCLUDE_DIR "${S}/torch/include"):set(ATEN_INCLUDE_DIR "${PYTHON_SITEPACKAGES_DIR}/torch/include"):' ${D}${PYTHON_SITEPACKAGES_DIR}/torch/share/cmake/ATen/ATenConfig.cmake
+	sed -i 's:${S}:${TARGET_DBGSRC_DIR}:' ${D}${PYTHON_SITEPACKAGES_DIR}/*.dist-info/licenses/LICENSE
 }
 
 PRIVATE_LIBS = " \
