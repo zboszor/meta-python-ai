@@ -22,14 +22,14 @@ DEPENDS:append:class-target = " \
 	python3-pybind11 python3-pytorch-native \
 "
 
-inherit cmake python_setuptools_build_meta
+inherit cmake python_setuptools_build_meta python3native
 
 # Some gitsm:// has to be git:// due to errors in their upstream
 # declaration:
 # ERROR: python3-pytorch do_fetch: Fetcher failure: Submodule refers to the parent repository. This will cause deadlock situation in current version of Bitbake.Consider using git fetcher instead.
 
 SRC_URI = " \
-	git://github.com/pytorch/pytorch.git;protocol=https;name=pytorch;branch=release/2.7 \
+	git://github.com/pytorch/pytorch.git;protocol=https;name=pytorch;branch=release/2.9 \
 	gitsm://github.com/facebookincubator/fbjni.git;protocol=https;name=fbjni;nobranch=1;destsuffix=${S}/android/libs/fbjni \
 	gitsm://github.com/Maratyszcza/FP16.git;protocol=https;name=fp16;nobranch=1;destsuffix=${S}/third_party/FP16 \
 	gitsm://github.com/Maratyszcza/FXdiv.git;protocol=https;name=fxdiv;nobranch=1;destsuffix=${S}/third_party/FXdiv \
@@ -37,13 +37,13 @@ SRC_URI = " \
 	gitsm://github.com/NVIDIA/NVTX.git;protocol=https;name=nvtx;nobranch=1;destsuffix=${S}/third_party/NVTX \
 	gitsm://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git;protocol=https;name=vulkanmemalloc;nobranch=1;destsuffix=${S}/third_party/VulkanMemoryAllocator \
 	gitsm://github.com/google/XNNPACK.git;protocol=https;name=xnnpack;nobranch=1;destsuffix=${S}/third_party/XNNPACK \
+	gitsm://github.com/ROCm/aiter.git;protocol=https;name=aiter;nobranch=1;destsuffix=${S}/third_party/aiter \
 	gitsm://github.com/google/benchmark.git;protocol=https;name=benchmark;nobranch=1;destsuffix=${S}/third_party/benchmark \
 	gitsm://github.com/ROCm/composable_kernel.git;protocol=https;name=composable_kernel;nobranch=1;destsuffix=${S}/third_party/composable_kernel \
 	gitsm://github.com/yhirose/cpp-httplib.git;protocol=https;name=cpphttplib;nobranch=1;destsuffix=${S}/third_party/cpp-httplib \
 	gitsm://github.com/pytorch/cpuinfo.git;protocol=https;name=cpuinfo;nobranch=1;destsuffix=${S}/third_party/cpuinfo \
 	gitsm://github.com/NVIDIA/cudnn-frontend.git;protocol=https;name=cudnnfe;nobranch=1;destsuffix=${S}/third_party/cudnn_frontend \
 	gitsm://github.com/NVIDIA/cutlass.git;protocol=https;name=cutlass;nobranch=1;destsuffix=${S}/third_party/cutlass \
-	gitsm://gitlab.com/libeigen/eigen.git;protocol=https;name=eigen;nobranch=1;destsuffix=${S}/third_party/eigen \
 	gitsm://github.com/pytorch/FBGEMM.git;protocol=https;name=fbgemm;nobranch=1;destsuffix=${S}/third_party/fbgemm \
 	gitsm://github.com/Dao-AILab/flash-attention.git;protocol=https;name=flash_attention;nobranch=1;destsuffix=${S}/third_party/flash-attention \
 	gitsm://github.com/google/flatbuffers.git;protocol=https;name=flatbuffers;nobranch=1;destsuffix=${S}/third_party/flatbuffers \
@@ -89,43 +89,42 @@ SRC_URI = " \
 	file://0001-Pass-through-EXTRA_OECMAKE.patch \
 	file://pytorch-fix-vulkan-get_shader-return-type.patch \
 	file://fix-non-void-funcs-with-switch.patch \
+	file://0001-Don-t-specify-maximum-setuptools-version.patch \
 	file://0001-Delete-some-values-from-macros.h.in.patch \
-	file://0001-Fix-tensorpipe-with-GCC-15.patch;patchdir=third_party/tensorpipe \
-	file://0001-Fix-gloo-with-GCC-15.patch;patchdir=third_party/gloo \
 	file://0001-Fix-Wincompatible-pointer-types-issues.patch;patchdir=third_party/XNNPACK \
 "
 
 #PR = "r1"
 
 SRCREV_FORMAT = "pytorch"
-SRCREV_pytorch = "e2d141dbde55c2a4370fac5165b0561b6af4798b"
+SRCREV_pytorch = "d38164a545b4a4e4e0cf73ce67173f70574890b6"
 
 # These are the git submodule commit IDs
 SRCREV_fbjni = "7e1e1fe3858c63c251c637ae41a20de425dde96f"
 SRCREV_fp16 = "4dfe081cf6bcd15db339cf2680b9281b8451eeb3"
 SRCREV_fxdiv = "b408327ac2a15ec3e43352421954f5b1967701d1"
 SRCREV_nnpack = "c07e3a0400713d546e0dea2d5466dd22ea389c73"
-SRCREV_nvtx = "e170594ac7cf1dac584da473d4ca9301087090c1"
-SRCREV_vulkanmemalloc = "a6bfc237255a6bac1513f7c1ebde6d8aed6b5191"
+SRCREV_nvtx = "2942f167cc30c5e3a44a2aecd5b0d9c07ff61a07"
+SRCREV_vulkanmemalloc = "1d8f600fd424278486eade7ed3e877c99f0846b1"
 SRCREV_xnnpack = "51a0103656eff6fc9bfd39a4597923c4b542c883"
-SRCREV_benchmark = "0d98dba29d66e93259db7daa53a9327df767a415"
-SRCREV_composable_kernel = "8086bbe3a78d931eb96fe12fdc014082e18d18d3"
-SRCREV_cpphttplib = "3b6597bba913d51161383657829b7e644e59c006"
-SRCREV_cpuinfo = "1e83a2fdd3102f65c6f1fb602c1b320486218a99"
-SRCREV_cudnnfe = "91b7532f3386768bba4f444ee7672b497f34da8a"
-SRCREV_cutlass = "afa1772203677c5118fcd82537a9c8fefbcc7008"
-SRCREV_eigen = "3147391d946bb4b6c68edd901f2add6ac1f31f8c"
-SRCREV_fbgemm = "dbc3157bf256f1339b3fa1fef2be89ac4078be0e"
+SRCREV_aiter = "01aae101b9e5e94d6c16a9514c9fb8df99c93150"
+SRCREV_benchmark = "299e5928955cc62af9968370293b916f5130916f"
+SRCREV_composable_kernel = "7fe50dc3da2069d6645d9deb8c017a876472a977"
+SRCREV_cpphttplib = "89c932f313c6437c38f2982869beacc89c2f2246"
+SRCREV_cpuinfo = "5e3d2445e6a84d9599bee2bf78edbb4d80865e1d"
+SRCREV_cudnnfe = "243c7ff63be1ce6dd5bf9047668b5d4de83f55f6"
+SRCREV_cutlass = "e51efbfe18fe4f4cbb66ab814c55bf4aa0185491"
+SRCREV_fbgemm = "4b39c551efe15e6bbade20565b0ceb2d8ce3352d"
 SRCREV_flash_attention = "979702c87a8713a8e0a5e9fee122b90d2ef13be5"
-SRCREV_flatbuffers = "01834de25e4bf3975a9a00e816292b1ad0fe184b"
-SRCREV_fmt = "123913715afeb8a437e6388b4473fcc4753e1c9a"
+SRCREV_flatbuffers = "a2cd1ea3b6d3fee220106b5fed3f7ce8da9eb757"
+SRCREV_fmt = "40626af88bd7df9a5fb80be7b25ac85b122d6c21"
 SRCREV_gemmlowp = "3fb5c176c17c765a3492cd2f0321b0dab712f350"
-SRCREV_gloo = "5354032ea08eadd7fc4456477f7f7c6308818509"
-SRCREV_gtest = "b514bdc898e2951020cbdca1304b75f5950d1f59"
+SRCREV_gloo = "54cbae0d3a67fa890b4c3d9ee162b7860315e341"
+SRCREV_gtest = "52eb8108c5bdec04579160ae17225d66034bd723"
 SRCREV_ideep = "719d8e6cd7f7a0e01b155657526d693acf97c2b3"
 SRCREV_ideep_onednn = "8d263e693366ef8db40acc569cc7d8edf644556d"
-SRCREV_ittapi = "5b8a7d7422611c3a0d799fb5fc5dd4abfae35b42"
-SRCREV_kineto = "a054a4be0db117c579a21747debf19c863631f26"
+SRCREV_ittapi = "dec1d23ca65ab069d225dfe40dea14f455170959"
+SRCREV_kineto = "5e7501833f1021ce6f618572d3baf657b6319658"
 SRCREV_kineto_dynolog = "7d04a0053a845370ae06ce317a22a48e9edcc74e"
 SRCREV_kineto_dynolog_dcgm = "ffde4e54bc7249a6039a5e6b45b395141e1217f9"
 SRCREV_kineto_dynolog_cpr = "871ed52d350214a034f6ef8a3b8f51c5ce1bd400"
@@ -138,22 +137,22 @@ SRCREV_kineto_dynolog_json = "4f8fba14066156b73f1189a2b8bd568bde5284c5"
 SRCREV_kineto_dynolog_pfs = "f68a2fa8ea36c783bdd760371411fcb495aa3150"
 SRCREV_kineto_fmt = "0041a40c1350ba702d475b9c4ad62da77caea164"
 SRCREV_kineto_gtest = "7aca84427f224eeed3144123d5230d5871e93347"
-SRCREV_kleidiai = "ef685a13cfbe8d418aa2ed34350e21e4938358b6"
-SRCREV_mimalloc = "b66e3214d8a104669c2ec05ae91ebc26a8f5ab78"
-SRCREV_nccl = "ab2b89c4c339bd7f816fbc114a4b05d386b66290"
-SRCREV_nlohmann = "87cda1d6646592ac5866dc703c8e1839046a6806"
-SRCREV_onnx = "b8baa8446686496da4cc8fda09f2b6fe65c2a02c"
+SRCREV_kleidiai = "cca02c2f69dd18e1f12647c1c0bdc8cf90e680c7"
+SRCREV_mimalloc = "fbd8b99c2b828428947d70fdc046bb55609be93e"
+SRCREV_nccl = "3ea7eedf3b9b94f1d9f99f4e55536dfcbd23c1ca"
+SRCREV_nlohmann = "55f93686c01528224f448c19128836e7df245f72"
+SRCREV_onnx = "e709452ef2bbc1d113faf678c24e6d3467696e83"
 SRCREV_otmcpp = "a799f4aed9c94b765dcdaabaeab7d5e7e2310878"
-SRCREV_pocketfft = "9d3ab05a7fffbc71a492bc6a17be034e83e8f0fe"
+SRCREV_pocketfft = "0fa0ef591e38c2758e3184c6c23e497b9f732ffa"
 SRCREV_protobuf = "d1eca4e4b421cd2997495c4b4e65cea6be4e9b8a"
 SRCREV_protobuf_benchmark = "5b7683f49e1e9223cf9927b24f6fd3d6bd82e3f8"
 SRCREV_protobuf_gtest = "5ec7f0c4a113e2f18ac2c6cc7df51ad6afc24081"
 SRCREV_psimd = "072586a71b55b7f8c584153d223e95687148a900"
 SRCREV_pthreadpool = "4fe0e1e183925bf8cfa6aae24237e724a96479b8"
-SRCREV_pybind11 = "a2e59f0e7065404b44dfe92a28aca47ba1378dc4"
+SRCREV_pybind11 = "f5fbe867d2d26e4a0a9177a51f6e568868ad3dc8"
 SRCREV_peachpy = "f45429b087dd7d5bc78bb40dc7cf06425c252d67"
-SRCREV_sleef = "56e1f79cb140fb9326d612d0be06b5250565cade"
-SRCREV_tensorpipe = "52791a2fd214b2a9dc5759d36725909c1daa7f2e"
+SRCREV_sleef = "5a1d179df9cf652951b59010a2d2075372d67f68"
+SRCREV_tensorpipe = "af0118d13e52f5a08841464a768e01a0bf3e3075"
 
 B = "${S}/build"
 

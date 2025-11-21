@@ -1,0 +1,31 @@
+From 040b16f520ca75a610f397120c2379105155cfec Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Fri, 21 Nov 2025 13:27:53 +0100
+Subject: [PATCH] Don't specify maximum setuptools version
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ pyproject.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index 925742b4c33..6c4c0a44140 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -4,7 +4,7 @@
+ requires = [
+     # 70.1.0: min version for integrated bdist_wheel command from wheel package
+     # 77.0.0: min version for SPDX expression support for project.license
+-    "setuptools>=70.1.0,<80.0",
++    "setuptools>=70.1.0",
+     "cmake>=3.27",
+     "ninja",
+     "numpy",
+-- 
+2.51.1
+

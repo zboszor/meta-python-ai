@@ -16,10 +16,10 @@ diff --git a/tools/setup_helpers/cmake.py b/tools/setup_helpers/cmake.py
 index 21943619329..44812e18eca 100644
 --- a/tools/setup_helpers/cmake.py
 +++ b/tools/setup_helpers/cmake.py
-@@ -414,6 +414,11 @@ class CMake:
-                         file=sys.stderr,
-                     )
-                     print(e, file=sys.stderr)
+@@ -412,6 +412,11 @@
+                     shex = ":".join(f"{ord(c):02x}" for c in my_env[env_var_name])
+                     eprint(f"Invalid ENV[{env_var_name}] = {shex}")
+                     eprint(e)
 +
 +        # Add Yocto specific configuration
 +        for arg in os.getenv("EXTRA_OECMAKE", "").split():
