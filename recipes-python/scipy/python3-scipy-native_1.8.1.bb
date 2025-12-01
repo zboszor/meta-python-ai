@@ -45,6 +45,6 @@ export LDSHARED := "${@d.getVar('LDSHARED', True).split()[0]}"
 LDFLAGS:append = " -L${STAGING_LIBDIR}/${PYTHON_DIR}/site-packages/numpy/core/lib"
 
 # GCC 14 chokes on some of the Cython generated sources
-CFLAGS:append = " -Wno-incompatible-pointer-types"
+CFLAGS:append = " -std=gnu17 -Wno-incompatible-pointer-types"
 
 INSANE_SKIP:${PN} = "already-stripped"
