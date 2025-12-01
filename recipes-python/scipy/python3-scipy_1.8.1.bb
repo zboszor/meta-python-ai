@@ -8,6 +8,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=27ca2e35416b6316570bf126e08b7062"
 SRC_URI += " \
 	file://0001-Allow-passing-flags-via-FARCH-for-mach.patch \
 	file://static-lib.patch \
+	file://0001-When-forward-declaring-print_soln-give-it-the-correc.patch \
 "
 SRC_URI[md5sum] = "df5ce79288fc457238aeef18e8f70dfc"
 SRC_URI[sha256sum] = "9e3fb1b0e896f14a85aa9a28d5f755daaeeb54c897b746df7a55ccb02b340f33"
