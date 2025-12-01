@@ -5,6 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=27ca2e35416b6316570bf126e08b7062"
 
 SRC_URI = "https://pypi.python.org/packages/source/s/scipy/scipy-${PV}.tar.gz \
            file://0001-Allow-passing-flags-via-FARCH-for-mach.patch \
+           file://0001-When-forward-declaring-print_soln-give-it-the-correc.patch \
            "
 
 SRC_URI[md5sum] = "df5ce79288fc457238aeef18e8f70dfc"
