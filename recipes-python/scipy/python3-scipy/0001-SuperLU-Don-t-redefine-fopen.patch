@@ -1,0 +1,33 @@
+From d9dd46992d909615a6ad6db5ed6620d1155533f8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 1 Dec 2025 13:36:58 +0100
+Subject: [PATCH] SuperLU: Don't redefine fopen()
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<stdio.h> is included via slu_zdefs.h.
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Backport
+---
+ scipy/sparse/linalg/_dsolve/SuperLU/SRC/zreadtriple.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/zreadtriple.c b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/zreadtriple.c
+index c4b9cda047..eb2285b6ac 100644
+--- a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/zreadtriple.c
++++ b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/zreadtriple.c
+@@ -135,7 +135,7 @@ zreadtriple(int *m, int *n, int *nonz,
+ 
+ void zreadrhs(int m, doublecomplex *b)
+ {
+-    FILE *fp, *fopen();
++    FILE *fp;
+     int i, f_count = 0;
+     /*int j;*/
+ 
+-- 
+2.52.0
+
