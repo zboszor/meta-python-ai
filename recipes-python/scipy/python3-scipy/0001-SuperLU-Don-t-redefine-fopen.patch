@@ -1,4 +1,4 @@
-From 2ac7ddcd34d9f50bea6fcc1bcc3a275b744420e7 Mon Sep 17 00:00:00 2001
+From 285562e7004fdc1605ecbffd0646909f06dce351 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
  <zboszor@gmail.com>
 Date: Mon, 1 Dec 2025 13:36:58 +0100
@@ -12,10 +12,38 @@ Content-Transfer-Encoding: 8bit
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
 Upstream-Status: Backport
 ---
+ scipy/sparse/linalg/_dsolve/SuperLU/SRC/creadtriple.c | 2 +-
+ scipy/sparse/linalg/_dsolve/SuperLU/SRC/dreadtriple.c | 2 +-
  scipy/sparse/linalg/_dsolve/SuperLU/SRC/sreadtriple.c | 2 +-
  scipy/sparse/linalg/_dsolve/SuperLU/SRC/zreadtriple.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/creadtriple.c b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/creadtriple.c
+index 47b3157375..107f15ae99 100644
+--- a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/creadtriple.c
++++ b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/creadtriple.c
+@@ -135,7 +135,7 @@ creadtriple(int *m, int *n, int *nonz,
+ 
+ void creadrhs(int m, complex *b)
+ {
+-    FILE *fp, *fopen();
++    FILE *fp;
+     int i, f_count = 0;
+     /*int j;*/
+ 
+diff --git a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/dreadtriple.c b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/dreadtriple.c
+index 527dcf7f03..b5628b1412 100644
+--- a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/dreadtriple.c
++++ b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/dreadtriple.c
+@@ -135,7 +135,7 @@ dreadtriple(int *m, int *n, int *nonz,
+ 
+ void dreadrhs(int m, double *b)
+ {
+-    FILE *fp, *fopen();
++    FILE *fp;
+     int i, f_count = 0;
+     /*int j;*/
+ 
 diff --git a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/sreadtriple.c b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/sreadtriple.c
 index 782bf2418f..5667a4ad96 100644
 --- a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/sreadtriple.c
