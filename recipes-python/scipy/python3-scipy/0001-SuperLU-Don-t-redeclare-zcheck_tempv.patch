@@ -1,0 +1,32 @@
+From c6a3caf83d1ac52bb8b57b5c7e14c2b99ba6c538 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 1 Dec 2025 13:55:44 +0100
+Subject: [PATCH] SuperLU: Don't redeclare zcheck_tempv()
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+It's declared in slu_zdefs.h
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Backport
+---
+ scipy/sparse/linalg/_dsolve/SuperLU/SRC/zpanel_bmod.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/zpanel_bmod.c b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/zpanel_bmod.c
+index 16932b0471..ee5fbece53 100644
+--- a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/zpanel_bmod.c
++++ b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/zpanel_bmod.c
+@@ -43,7 +43,6 @@ at the top-level directory.
+  */
+ void zlsolve(int, int, doublecomplex *, doublecomplex *);
+ void zmatvec(int, int, int, doublecomplex *, doublecomplex *, doublecomplex *);
+-extern void zcheck_tempv();
+ 
+ /*! \brief
+  *
+-- 
+2.52.0
+
