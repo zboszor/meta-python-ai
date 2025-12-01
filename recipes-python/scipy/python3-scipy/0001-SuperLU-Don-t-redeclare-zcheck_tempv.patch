@@ -1,4 +1,4 @@
-From 562e7e4ba53a52e4ef7c663c078be080c49acb05 Mon Sep 17 00:00:00 2001
+From ea928145f64dc060f7a6d0c3331bbe68328e266b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
  <zboszor@gmail.com>
 Date: Mon, 1 Dec 2025 13:55:44 +0100
@@ -7,17 +7,43 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-and neither scheck_tempv().
+and some other *check_tempv() functions.
 
-These are declared in slu_zdefs.h
+These are declared in the relevant headers.
 
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
 Upstream-Status: Backport
 ---
+ scipy/sparse/linalg/_dsolve/SuperLU/SRC/cpanel_bmod.c | 1 -
+ scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c | 1 -
  scipy/sparse/linalg/_dsolve/SuperLU/SRC/spanel_bmod.c | 1 -
  scipy/sparse/linalg/_dsolve/SuperLU/SRC/zpanel_bmod.c | 1 -
- 2 files changed, 2 deletions(-)
+ 4 files changed, 4 deletions(-)
 
+diff --git a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/cpanel_bmod.c b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/cpanel_bmod.c
+index fc6af454d3..3450ca93ce 100644
+--- a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/cpanel_bmod.c
++++ b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/cpanel_bmod.c
+@@ -43,7 +43,6 @@ at the top-level directory.
+  */
+ void clsolve(int, int, complex *, complex *);
+ void cmatvec(int, int, int, complex *, complex *, complex *);
+-extern void ccheck_tempv();
+ 
+ /*! \brief
+  *
+diff --git a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+index 0e785a57b5..cf04d65c34 100644
+--- a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
++++ b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+@@ -43,7 +43,6 @@ at the top-level directory.
+  */
+ void dlsolve(int, int, double *, double *);
+ void dmatvec(int, int, int, double *, double *, double *);
+-extern void dcheck_tempv();
+ 
+ /*! \brief
+  *
 diff --git a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/spanel_bmod.c b/scipy/sparse/linalg/_dsolve/SuperLU/SRC/spanel_bmod.c
 index 8f18fb80b4..dd002bc9e8 100644
 --- a/scipy/sparse/linalg/_dsolve/SuperLU/SRC/spanel_bmod.c
