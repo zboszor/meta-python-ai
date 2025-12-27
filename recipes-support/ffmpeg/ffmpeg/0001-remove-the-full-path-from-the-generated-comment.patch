@@ -1,0 +1,32 @@
+From 4114d075f3ecf980a10661e252ac50dcb1bf23b9 Mon Sep 17 00:00:00 2001
+From: Jan Vermaete <jan.vermaete@gmail.com>
+Date: Sat, 27 Dec 2025 18:42:21 +0100
+Subject: [PATCH] remove the full path from the generated comment.
+
+To fix a QA error:
+  do_package_qa: QA Issue: File /usr/src/debug/ffmpeg/8.0.1/libavcodec/vulkan/ffv1_dec_setup.c in package ffmpeg-src contains reference to TMPDIR [buildpaths]
+And make the package reproducable
+
+Upstream-Status: Pending
+
+Signed-off-by: Jan Vermaete <jan.vermaete@gmail.com>
+---
+ tools/source2c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/source2c b/tools/source2c
+index 6e5f123..85fe018 100755
+--- a/tools/source2c
++++ b/tools/source2c
+@@ -24,7 +24,7 @@ output="$2"
+ name=$(basename "$input" | sed 's/\./_/')
+ 
+ cat >$output <<EOF
+-// Generated from $input
++// Generated from $(basename "$input")
+ const char *ff_source_$name =
+ EOF
+ 
+-- 
+2.47.3
+
