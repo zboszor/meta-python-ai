@@ -6,13 +6,13 @@ LIC_FILES_CHKSUM = " \
 	file://LICENSES_bundled.txt;md5=fe404c65e4219a0cdab47990643296c6 \
 "
 
-inherit pkgconfig pypi python3native python_mesonpy
+inherit pkgconfig pypi python3native python_mesonpy cython
 
 SRC_URI[sha256sum] = "01e87659402762f43bd2fee13370553a17ada367d42e7487800bf2916535aecb"
 
-SRC_URI += " \
-	file://0001-Assume-f2py-being-the-same-version-as-numpy.patch \
-"
+SRC_URI += "file://0001-Assume-f2py-being-the-same-version-as-numpy.patch \
+           file://0001-relax-cython-version-maximum.patch \
+           "
 
 DEPENDS += " \
 	python3-numpy-native \
