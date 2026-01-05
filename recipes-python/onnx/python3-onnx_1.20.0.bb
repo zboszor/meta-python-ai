@@ -15,7 +15,7 @@ PYPI_PACKAGE = "onnx"
 
 inherit pypi pkgconfig cmake python_setuptools_build_meta python3native
 
-SRC_URI[sha256sum] = "151e7e564b1fbafaedf0f53345ea22b085c998646c7c0915365202a6ed50d278"
+SRC_URI[sha256sum] = "1a93ec69996b4556062d552ed1aa0671978cfd3c17a40bf4c89a1ae169c6a4ad"
 
 SRC_URI += " \
 	file://0001-Use-find_package-Python-for-nanobind.patch \
