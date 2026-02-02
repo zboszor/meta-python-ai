@@ -1,0 +1,31 @@
+From 697d77ad82e373ffdceaff600dc14a35f3d4a53e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 2 Feb 2026 12:28:24 +0100
+Subject: [PATCH] polars-runtime-64: Don't use nightly build
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ py-polars/runtime/polars-runtime-64/Cargo.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/py-polars/runtime/polars-runtime-64/Cargo.toml b/py-polars/runtime/polars-runtime-64/Cargo.toml
+index edc5c13..186007e 100644
+--- a/py-polars/runtime/polars-runtime-64/Cargo.toml
++++ b/py-polars/runtime/polars-runtime-64/Cargo.toml
+@@ -105,7 +105,7 @@ full = [
+ ]
+ 
+ default_alloc = ["polars-python/default_alloc"]
+-default = ["full", "nightly"]
++default = ["full"]
+ 
+ [lints]
+ workspace = true
+-- 
+2.52.0
+
