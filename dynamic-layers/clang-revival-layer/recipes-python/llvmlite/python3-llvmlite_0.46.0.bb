@@ -10,7 +10,7 @@ PYPI_PACKAGE = "llvmlite"
 
 inherit pypi cmake setuptools3
 
-SRC_URI[sha256sum] = "fc84f9124ccbc0985461fd8ac489388b146dfa6d9faa8ed41013ad9b01ac0152"
+SRC_URI[sha256sum] = "227c9fd6d09dce2783c18b754b7cd9d9b3b3515210c46acc2d3c5badd9870ceb"
 
 CXXFLAGS += "-I${STAGING_INCDIR}/${PYTHON_DIR}"
 
