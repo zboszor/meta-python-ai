@@ -15,7 +15,7 @@ PYPI_PACKAGE = "onnx"
 
 inherit pypi pkgconfig cmake python_setuptools_build_meta python3native
 
-SRC_URI[sha256sum] = "1a93ec69996b4556062d552ed1aa0671978cfd3c17a40bf4c89a1ae169c6a4ad"
+SRC_URI[sha256sum] = "ded16de1df563d51fbc1ad885f2a426f814039d8b5f4feb77febe09c0295ad67"
 
 SRC_URI += " \
 	file://0001-Use-find_package-Python-for-nanobind.patch \
@@ -49,6 +49,9 @@ RDEPENDS:${PN} = " \
 	python3-numpy \
 	python3-pybind11 \
 	python3-nanobind \
+	python3-protobuf \
+	python3-typing-extensions \
+	python3-ml-dtypes \
 "
 
 INSANE_SKIP:${PN} = "already-stripped"
