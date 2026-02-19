@@ -6,9 +6,7 @@ DEPENDS = "python3-numpy-native"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "7fedde080f415acbe42afb1db569a887b829e79e0ba5f104a2be2f75bb2e8833"
-
-SRC_URI += "file://0001-Fix-autobackend.py-when-using-OpenVINO-23505.patch"
+SRC_URI[sha256sum] = "360dff28ecb6cc7bf561aadf5bfe208c3900380bf1d4b2b190cb8db60e7b7626"
 
 RDEPENDS:${PN} = " \
 	bash \
