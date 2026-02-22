@@ -5,13 +5,13 @@ LIC_FILES_CHKSUM = " \
 	file://LICENSES.third-party;md5=b5c6e034c796a55e98027b6bd95e1a56 \
 "
 
-DEPENDS = "python3-numpy-native"
+DEPENDS = "python3-numpy-native openmp"
 
 PYPI_PACKAGE = "numba"
 
 inherit pypi cmake setuptools3
 
-SRC_URI[sha256sum] = "b320aa675d0e3b17b40364935ea52a7b1c670c9037c39cf92c49502a75902f4b"
+SRC_URI[sha256sum] = "95e7300af648baa3308127b1955b52ce6d11889d16e8cfe637b4f85d2fca52b1"
 
 export NUMBA_DISABLE_TBB = "1"
 
