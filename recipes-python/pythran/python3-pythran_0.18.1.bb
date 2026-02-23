@@ -8,6 +8,7 @@ DEPENDS = "python3-gast"
 inherit pypi python_setuptools_build_meta
 
 SRC_URI[sha256sum] = "8803ed948bf841a11bbbb10472a8ff6ea24ebd70e67c3f77b77be3db900eccfe"
+SRC_URI += "file://updates-deps.patch"
 
 RDEPENDS:${PN} = " \
 	python3-beniget \

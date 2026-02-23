@@ -1,0 +1,29 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+
+diff -durpN pythran-0.18.1.old/PKG-INFO pythran-0.18.1/PKG-INFO
+--- pythran-0.18.1.old/PKG-INFO	2025-11-15 16:35:48.451930800 +0100
++++ pythran-0.18.1/PKG-INFO	2026-02-23 14:19:05.695426210 +0100
+@@ -53,9 +53,9 @@ License-File: LICENSE
+ License-File: AUTHORS
+ Requires-Dist: ply>=3.4
+ Requires-Dist: setuptools
+-Requires-Dist: gast~=0.6.0
++Requires-Dist: gast>=0.6.0
+ Requires-Dist: numpy
+-Requires-Dist: beniget~=0.4.0
++Requires-Dist: beniget>=0.4.0
+ Provides-Extra: doc
+ Requires-Dist: numpy; extra == "doc"
+ Requires-Dist: nbsphinx; extra == "doc"
+diff -durpN pythran-0.18.1.old/requirements.txt pythran-0.18.1/requirements.txt
+--- pythran-0.18.1.old/requirements.txt	2025-02-04 15:55:34.000000000 +0100
++++ pythran-0.18.1/requirements.txt	2026-02-23 14:18:37.696296404 +0100
+@@ -1,5 +1,5 @@
+ ply>=3.4
+ setuptools
+-gast~=0.6.0
++gast>=0.6.0
+ numpy
+-beniget~=0.4.0
++beniget>=0.4.0
