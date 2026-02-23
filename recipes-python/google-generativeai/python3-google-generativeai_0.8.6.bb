@@ -6,8 +6,7 @@ DEPENDS = "python3-numpy-native"
 
 inherit python_setuptools_build_meta
 
-SRCREV = "f5ac4edfb8ba67384e767b257079fb3038ac1ab2"
-
+SRCREV = "7a7cc5474ddaa0255a4410e05361028a24400abd"
 
 SRC_URI = " \
 	git://github.com/google-gemini/generative-ai-python.git;protocol=https;branch=main \
