@@ -12,7 +12,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=06e852077699178e4248d905b3846a4b"
 
 SRC_URI = "git://github.com/Blosc/c-blosc2.git;protocol=https;branch=main"
 
-SRCREV = "cb44a44122947c38d41da1edaa1e84dd72f852ab"
+SRCREV = "133bd503d7f968e45bc4af39f24b71ee22b7dd1b"
 
 #OECMAKE_GENERATOR = "Unix Makefiles"
 
