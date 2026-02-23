@@ -1,10 +1,10 @@
 SUMMARY = "A static analyzer for Python2 and Python3 code"
 HOMEPAGE = "https://github.com/serge-sans-paille/beniget/"
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=02550c296a72ab0b70961eb70a5a7242"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=3fa25649b59601013383ef6b92fd2f59"
 
 inherit pypi setuptools3
 
-SRC_URI[sha256sum] = "a0258537e65e7e14ec33a86802f865a667f949bb6c73646d55e42f7c45a052ae"
+SRC_URI[sha256sum] = "e7af11fa8ec7de3d3eb3d98b1e722d15d44017d8b35d8aa11d54f6719b312f22"
 
 BBCLASSEXTEND = "native"
