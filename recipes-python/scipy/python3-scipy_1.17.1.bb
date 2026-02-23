@@ -3,16 +3,14 @@ HOMEPAGE = "https://www.scipy.org"
 LICENSE = "BSD-3-Clause & BSD-2-Clause & MIT & BSL-1.0 & Qhull & BSD-3-Clause-LBNL & Apache-2.0-with-LLVM-exception"
 LIC_FILES_CHKSUM = " \
 	file://LICENSE.txt;md5=6506a2e1578b1a1161d9bda0b896c647 \
-	file://LICENSES_bundled.txt;md5=fe404c65e4219a0cdab47990643296c6 \
+	file://LICENSES_bundled.txt;md5=7bb7625ea6d801cd9de63572db6f0aa2 \
 "
 
 inherit pkgconfig pypi python3native python_mesonpy cython
 
-SRC_URI[sha256sum] = "01e87659402762f43bd2fee13370553a17ada367d42e7487800bf2916535aecb"
+SRC_URI[sha256sum] = "95d8e012d8cb8816c226aef832200b1d45109ed4464303e997c5b13122b297c0"
 
-SRC_URI += "file://0001-Assume-f2py-being-the-same-version-as-numpy.patch \
-           file://0001-relax-cython-version-maximum.patch \
-           "
+SRC_URI += "file://0001-Assume-f2py-being-the-same-version-as-numpy.patch"
 
 DEPENDS += " \
 	python3-numpy-native \
