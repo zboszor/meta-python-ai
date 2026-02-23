@@ -10,7 +10,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "netcdf4"
 
 inherit pypi python_setuptools_build_meta pkgconfig cython
-SRC_URI[sha256sum] = "83f122fc3415e92b1d4904fd6a0898468b5404c09432c34beb6b16c533884673"
+SRC_URI[sha256sum] = "cdbfdc92d6f4d7192ca8506c9b3d4c1d9892969ff28d8e8e1fc97ca08bf12164"
 
 SRC_URI += "file://fix-tmpdir-refs.patch"
 
