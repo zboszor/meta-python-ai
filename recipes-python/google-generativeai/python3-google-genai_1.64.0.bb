@@ -8,7 +8,7 @@ PYPI_PACKAGE = "google_genai"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "8f0d95b1b165df71e6a7e1c0d0cadb5fad30f913f42c6b131b9ebb504eec0e5f"
+SRC_URI[sha256sum] = "8db94ab031f745d08c45c69674d1892f7447c74ed21542abe599f7888e28b924"
 
 RDEPENDS:${PN} = " \
 	python3-anyio \
@@ -19,6 +19,8 @@ RDEPENDS:${PN} = " \
 	python3-tenacity \
 	python3-websockets \
 	python3-typing-extensions \
+	python3-distro \
+	python3-sniffio \
 	python3-aiohttp \
 	python3-sentencepiece \
 	python3-protobuf \
