@@ -1,0 +1,40 @@
+From cf095c623963552a571b1c7fc46a2af69be071e2 Mon Sep 17 00:00:00 2001
+From: Scot Breitenfeld <brtnfld@hdfgroup.org>
+Date: Fri, 13 Jun 2025 19:22:01 -0500
+Subject: [PATCH 2/2] fix H5Dread_chunck call
+
+Upstream-Status: Backport
+---
+ nc_test4/tst_alignment.c   | 2 +-
+ nczarr_test/ncdumpchunks.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/nc_test4/tst_alignment.c b/nc_test4/tst_alignment.c
+index 452a2ebc5..3c2b56223 100644
+--- a/nc_test4/tst_alignment.c
++++ b/nc_test4/tst_alignment.c
+@@ -77,7 +77,7 @@ main(int argc, char **argv)
+ 
+ #if H5_VERSION_GE(2,0,0)
+     size_t data_size = sizeof(data);
+-    if(H5Dread_chunk2(datasetid, dxpl_id, hoffset, &filter_mask, data, data_size) < 0) ERR;
++    if(H5Dread_chunk2(datasetid, dxpl_id, hoffset, &filter_mask, data, &data_size) < 0) ERR;
+ #else
+     if(H5Dread_chunk(datasetid, dxpl_id, hoffset, &filter_mask, data) < 0) ERR;
+ #endif
+diff --git a/nczarr_test/ncdumpchunks.c b/nczarr_test/ncdumpchunks.c
+index a29a37c8f..51c5b2a95 100644
+--- a/nczarr_test/ncdumpchunks.c
++++ b/nczarr_test/ncdumpchunks.c
+@@ -414,7 +414,7 @@ dump(Format* format)
+             for(i=0;i<format->rank;i++) hoffset[i] = (hsize_t)offset[i];
+ #if H5_VERSION_GE(2,0,0)
+             size_t chunkdata_size = sizeof(chunkdata);
+-            if(H5Dread_chunk2(datasetid, dxpl_id, hoffset, &filter_mask, chunkdata, chunkdata_size) < 0)
++            if(H5Dread_chunk2(datasetid, dxpl_id, hoffset, &filter_mask, chunkdata, &chunkdata_size) < 0)
+                 holechunk = 1;
+ #else
+ 	    if(H5Dread_chunk(datasetid, dxpl_id, hoffset, &filter_mask, chunkdata) < 0)
+-- 
+2.53.0
+
