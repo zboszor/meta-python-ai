@@ -6,11 +6,11 @@ inherit cmake
 
 #PR = "r1"
 
-LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=da01d14dfd146abb3fcf65147345c266"
+LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=128305912d075b470880a190ed3e8c53"
 
 SRC_URI = "git://gitlab.dkrz.de/k202009/libaec.git;protocol=https;branch=master"
 
-SRCREV = "7204505af7d6635734fc12a38d6bd0a6253c9c6d"
+SRCREV = "d84ea9c83097a0806f73fc48b69ae7eb9a94525e"
 
 OECMAKE_GENERATOR = "Unix Makefiles"
 
