@@ -10,7 +10,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=fdd4d7dc8bdd9ae7181dd0bca68007a2"
 
 SRC_URI = "git://github.com/xtensor-stack/xsimd.git;protocol=https;branch=master"
 
-SRCREV = "1f8dd9c8e162968d9b4ff0251c56d431b8777f36"
-
+# This is a post-14.0.0 commit with AVX and SVE fixes
+SRCREV = "548b05f0c91bf9e205c1638967e45fa1c7c23c7a"
 
 BBCLASSEXTEND = "native nativesdk"
