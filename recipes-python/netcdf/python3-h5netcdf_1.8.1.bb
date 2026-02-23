@@ -7,6 +7,6 @@ DEPENDS = "python3-setuptools-scm-native"
 PYPI_PACKAGE = "h5netcdf"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "f62a0e77d1e2a6cd8b9d8120d5b62b6a015dc7c6185768a01e983c77c0b794e3"
+SRC_URI[sha256sum] = "9b396a4cc346050fc1a4df8523bc1853681ec3544e0449027ae397cb953c7a16"
 
 RDEPENDS:${PN} = "python3-h5py"
