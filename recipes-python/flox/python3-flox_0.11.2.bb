@@ -11,7 +11,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "flox"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "d5e208ddb248f62987938070dc755911d400d3cc53957692714df1a1a77823f4"
+SRC_URI[sha256sum] = "ca48d391e4a06cdf1c24368bf73114191851149611a5b318d82436fa713efdf0"
 
 RDEPENDS:${PN} = " \
 	python3-pandas \
