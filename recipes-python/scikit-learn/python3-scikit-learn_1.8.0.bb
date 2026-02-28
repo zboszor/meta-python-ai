@@ -6,7 +6,9 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=c0c49304a5cb997fd012292beee4ddce"
 DEPENDS = "python3-numpy-native python3-scipy-native"
 
 PYPI_PACKAGE = "scikit_learn"
-SRC_URI[sha256sum] = "20e9e49ecd130598f1ca38a1d85090e1a600147b9c02fa6f15d69cb53d968fda"
+SRC_URI[sha256sum] = "9bccbb3b40e3de10351f8f5068e105d0f4083b1a65fa07b6634fbc401a6287fd"
+
+SRC_URI += "file://accept-newer-scipy.patch"
 
 inherit pypi python_mesonpy pkgconfig python3native cython
 

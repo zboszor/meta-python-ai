@@ -1,0 +1,15 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+
+diff -durpN scikit_learn-1.8.0.old/pyproject.toml scikit_learn-1.8.0/pyproject.toml
+--- scikit_learn-1.8.0.old/pyproject.toml	2025-12-09 17:13:35.000000000 +0100
++++ scikit_learn-1.8.0/pyproject.toml	2026-02-28 06:11:23.690288768 +0100
+@@ -98,7 +98,7 @@ requires = [
+     "meson-python>=0.17.1,<0.19.0",
+     "cython>=3.1.2,<3.3.0",
+     "numpy>=2,<2.4.0",
+-    "scipy>=1.10.0,<1.17.0",
++    "scipy>=1.10.0",
+ ]
+ 
+ [tool.pytest.ini_options]
