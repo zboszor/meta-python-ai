@@ -5,6 +5,6 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=059eed55dbfd3fea022510ea62c95dc1"
 PYPI_PACKAGE = "dunamai"
 
 inherit pypi python_poetry_core
-SRC_URI[sha256sum] = "a7f8360ea286d3dbaf0b6a1473f9253280ac93d619836ad4514facb70c0719d1"
+SRC_URI[sha256sum] = "5396ac43aa20ed059040034e9f9798c7464cf4334c6fc3da3732e29273a2f97d"
 
 BBCLASSEXTEND = "native nativesdk"
