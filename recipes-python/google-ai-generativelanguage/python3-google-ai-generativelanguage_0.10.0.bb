@@ -8,7 +8,7 @@ PYPI_PACKAGE = "google_ai_generativelanguage"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "2524748f413917446febc8e0879dc0d4f026a064f89f17c42b81bea77ab76c84"
+SRC_URI[sha256sum] = "17e998094003a566e0fa52249fdd49e8f4c030cebe7fe0c521b40d605aba783e"
 
 RDEPENDS:${PN} = " \
 	python3-google-api-core \
