@@ -9,9 +9,12 @@ DEPENDS = " \
 "
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "60165f34bdf501885e0acceaeed79bc35a57f3ca3c913cb38c14919b9bd3656f"
+SRC_URI[sha256sum] = "fcd839abf82a2934fa8c27ff57b574b41810458e35895bac6288814defa8fb4e"
 
-SRC_URI += "file://pynng-0.8.1-use-shared-nng.patch"
+SRC_URI += " \
+	file://pynng-0.9.0-use-shared-nng.patch \
+	file://unversioned-setuptools.patch \
+"
 
 RDEPENDS:${PN} = " \
 	python3-cffi \
