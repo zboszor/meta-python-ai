@@ -6,7 +6,7 @@ DEPENDS = "python3-hatch-fancy-pypi-readme-native"
 PYPI_PACKAGE = "httpx_aiohttp"
 
 inherit pypi python_hatchling
-SRC_URI[sha256sum] = "4ee8b22e6f2e7c80cd03be29eff98bfe7d89bd77f021ce0b578ee76b73b4bfe6"
+SRC_URI[sha256sum] = "81feec51fd82c0ecfa0e9aaf1b1a6c2591260d5e2bcbeb7eb0277a78e610df2c"
 
 RDEPENDS:${PN} = " \
 	python3-aiohttp \
