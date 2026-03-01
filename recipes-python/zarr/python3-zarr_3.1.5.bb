@@ -7,11 +7,12 @@ DEPENDS = "python3-hatch-vcs-native"
 PYPI_PACKAGE = "zarr"
 
 inherit pypi python_hatchling
-SRC_URI[sha256sum] = "01342f3e26a02ed5670db608a5576fbdb8d76acb5c280bd2d0082454b1ba6f79"
+SRC_URI[sha256sum] = "fbe0c79675a40c996de7ca08e80a1c0a20537bd4a9f43418b6d101395c0bba2b"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
 	python3-numcodecs \
+	python3-google-crc32c \
 	python3-typing-extensions \
 	python3-donfig \
 	python3-fsspec \
