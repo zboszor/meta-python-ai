@@ -7,7 +7,7 @@ DEPENDS = "python3-hatch-vcs-native"
 PYPI_PACKAGE = "cattrs"
 
 inherit pypi python_hatchling
-SRC_URI[sha256sum] = "f46c918e955db0177be6aa559068390f71988e877c603ae2e56c71827165cc06"
+SRC_URI[sha256sum] = "fa239e0f0ec0715ba34852ce813986dfed1e12117e209b816ab87401271cdd40"
 
 RDEPENDS:${PN} = " \
 	python3-attrs \
@@ -19,6 +19,5 @@ RDEPENDS:${PN} = " \
 	python3-tomlkit \
 	python3-cbor2 \
 	python3-pymongo \
-	python3-bson \
 	python3-msgspec \
 "
