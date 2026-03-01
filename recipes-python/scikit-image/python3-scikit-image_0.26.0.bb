@@ -10,7 +10,7 @@ inherit pypi python_mesonpy pkgconfig python3native cython
 
 SRC_URI += "file://0001-Use-cython3-executable.patch"
 
-SRC_URI[sha256sum] = "e5a37e6cd4d0c018a7a55b9d601357e3382826d3888c10d0213fc63bff977dde"
+SRC_URI[sha256sum] = "f5f970ab04efad85c24714321fcc91613fcb64ef2a892a13167df2f3e59199fa"
 
 do_configure:prepend () {
 	find ${S} -name "*.py" -exec sed -i 's:^#!/usr/bin/env python$:#!/usr/bin/env python3:' {} \;
@@ -30,4 +30,5 @@ RDEPENDS:${PN} = " \
 	python3-cloudpickle \
 	python3-astropy \
 	python3-dask \
+	python3-pooch \
 "

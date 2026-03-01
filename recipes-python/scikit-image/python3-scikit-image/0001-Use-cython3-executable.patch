@@ -21,19 +21,19 @@ diff --git a/meson.build b/meson.build
 index 72462c8d5..ff81e5dab 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -56,7 +56,7 @@ if not cc.links('', name: '-Wl,--version-script', args: ['-shared', version_link
+@@ -56,7 +56,7 @@ if not cc.links('', name: '-Wl,--version
    version_link_args = []
  endif
  
 -cython = find_program('cython')
 +cython = find_program('cython3')
  pythran = find_program('pythran')
- tempita = files('skimage/_build_utils/tempita.py')
- copier = find_program(['cp', 'skimage/_build_utils/copyfiles.py'])
-diff --git a/skimage/_build_utils/cythoner.py b/skimage/_build_utils/cythoner.py
+ tempita = files('src/skimage/_build_utils/tempita.py')
+ copier = find_program(['cp', 'src/skimage/_build_utils/copyfiles.py'])
+diff --git a/src/skimage/_build_utils/cythoner.py b/src/skimage/_build_utils/cythoner.py
 index 249c990ef..46c5c08f7 100755
---- a/skimage/_build_utils/cythoner.py
-+++ b/skimage/_build_utils/cythoner.py
+--- a/src/skimage/_build_utils/cythoner.py
++++ b/src/skimage/_build_utils/cythoner.py
 @@ -19,7 +19,7 @@ def main():
  
      sbp.run(
