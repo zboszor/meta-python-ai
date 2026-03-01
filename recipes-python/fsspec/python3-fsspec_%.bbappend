@@ -1,5 +1,5 @@
-PV = "2025.10.0"
-SRC_URI[sha256sum] = "b6789427626f068f9a83ca4e8a3cc050850b6c0f71f99ddb4f542b8266a26a59"
+PV = "2026.2.0"
+SRC_URI[sha256sum] = "6544e34b16869f5aacd5b90bdf1a71acb37792ea3ddf6125ee69a22a53fb8bff"
 
 RDEPENDS:${PN} += " \
 	python3-dask \
