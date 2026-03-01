@@ -4,8 +4,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=66ca615c6f22205d5254d6c230305c92"
 
 PYPI_PACKAGE = "requests_cache"
 
-inherit pypi python_poetry_core
-SRC_URI[sha256sum] = "68abc986fdc5b8d0911318fbb5f7c80eebcd4d01bfacc6685ecf8876052511d1"
+inherit pypi python_hatchling
+SRC_URI[sha256sum] = "070e357ccef11a300ccef4294a85de1ab265833c5d9c9538b26cd7ba4085d54a"
 
 RDEPENDS:${PN} = " \
 	python3-requests \
@@ -18,7 +18,7 @@ RDEPENDS:${PN} = " \
 	python3-botocore \
 	python3-pymongo \
 	python3-redis \
-	python3-bson \
+	python3-orjson \
 	python3-itsdangerous \
 	python3-pyyaml \
 	python3-ujson \
