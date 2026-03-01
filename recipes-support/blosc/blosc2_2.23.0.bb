@@ -32,4 +32,7 @@ do_install:append:class-target () {
 		-e 's|liblz4.so|lz4|g' \
 		-e 's|libz.so|z|g' \
 		${D}${libdir}/cmake/Blosc2/Blosc2Targets.cmake
+
+	sed -i 's|^prefix=.*$|prefix=${prefix}|' \
+		${D}${libdir}/pkgconfig/blosc2.pc
 }
