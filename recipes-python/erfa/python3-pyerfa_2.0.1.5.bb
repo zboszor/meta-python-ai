@@ -16,3 +16,5 @@ SRC_URI[sha256sum] = "17d6b24fe4846c65d5e7d8c362dcb08199dc63b30a236aedd73875cc83
 export PYERFA_USE_SYSTEM_LIBERFA = "1"
 
 RDEPENDS:${PN} = "python3-numpy erfa"
+
+BBCLASSEXTEND = "native"
