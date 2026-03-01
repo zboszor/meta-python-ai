@@ -11,8 +11,7 @@ SRC_URI = " \
 	file://setup.py \
 "
 
-SRCREV = "2e2df94f95616f546946dcb4f71c95fe85ff9fd5"
-
+SRCREV = "1b0334bcc3a3686d473ebb498ba9b47c7dc02b42"
 
 do_configure:prepend () {
 	rm -f ${S}/setup.py
