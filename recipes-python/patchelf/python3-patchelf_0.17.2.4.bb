@@ -6,17 +6,16 @@ LIC_FILES_CHKSUM = " \
     file://COPYING;md5=d32239bcb673463ab874e80d47fae504 \
 "
 
-DEPENDS = "python3-scikit-build-native"
+DEPENDS = "python3-scikit-build-core-native python3-ninja-native"
 
 PYPI_PACKAGE = "patchelf"
 PYPI_ARCHIVE_NAME_PREFIX = "pypi-"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "a6eb0dd452ce4127d0d5e1eb26515e39186fa609364274bc1b0b77539cfa7031"
+SRC_URI[sha256sum] = "970ee5cd8af33e5ea2099510b2f9013fa1b8d5cd763bf3fd3961281c18101a09"
 
 SRC_URI += " \
     file://CMakeLists.txt \
-    file://patchelf.patch \
 "
 
 addtask do_patchbuild after do_patch before do_configure
