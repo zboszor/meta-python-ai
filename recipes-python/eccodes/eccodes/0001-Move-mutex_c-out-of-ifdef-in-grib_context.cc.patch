@@ -1,0 +1,49 @@
+From 1573a41163831909645d4c04d6ba2594adea1b7c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 2 Mar 2026 11:30:14 +0100
+Subject: [PATCH] Move mutex_c out of ifdef in grib_context.cc
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This fixes the build errors:
+
+.../src/eccodes/grib_context.cc:217:57: error: 'mutex_c' was not declared in this scope; did you mean 'mutex'?
+  217 |     eccodes::sync::LockGuard<eccodes::sync::Mutex> lock(mutex_c);
+      |                                                         ^~~~~~~
+      |                                                         mutex
+.../src/eccodes/grib_context.cc: In function 'int grib_context_get_data_quality_checks(const grib_context*)':
+.../src/eccodes/grib_context.cc:222:57: error: 'mutex_c' was not declared in this scope; did you mean 'mutex'?
+  222 |     eccodes::sync::LockGuard<eccodes::sync::Mutex> lock(mutex_c);
+      |                                                         ^~~~~~~
+      |                                                         mutex
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ src/eccodes/grib_context.cc | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/eccodes/grib_context.cc b/src/eccodes/grib_context.cc
+index 3e9aba96b..a453ec3bb 100644
+--- a/src/eccodes/grib_context.cc
++++ b/src/eccodes/grib_context.cc
+@@ -39,13 +39,12 @@ grib_string_list grib_file_not_found;
+ #endif
+ 
+ static eccodes::sync::Mutex mutex;
++static eccodes::sync::Mutex mutex_c;
+ 
+ #if MANAGE_MEM
+ 
+ #else
+ 
+-static eccodes::sync::Mutex mutex_c;
+-
+ static void default_long_lasting_free(const grib_context* c, void* p)
+ {
+     free(p);
+-- 
+2.53.0
+

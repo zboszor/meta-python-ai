@@ -5,12 +5,12 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=49a885bb73a876a14aa665d7343a63ee"
 
 SRC_URI += " \
 	git://github.com/ecmwf/eccodes.git;protocol=https;branch=master \
-	file://0001-Disable-warnings-for-grib_types.f90-grib_f90.f90.patch \
 	file://0001-Add-fallow-argument-mismatch-fortran-flag-unconditio.patch \
 	file://0001-Use-the-proper-Jasper-define-for-the-major-version.patch \
+	file://0001-Move-mutex_c-out-of-ifdef-in-grib_context.cc.patch \
 "
 
-SRCREV = "aa85928d05036a1bce3cab330bc75681dc26c234"
+SRCREV = "c10e8be0c3e27dd2be36a909b06d5d3be6889708"
 
 DEPENDS = "ecbuild-native libgfortran netcdf-c libaec libpng jasper openjpeg"
 
