@@ -1,6 +1,6 @@
 SUMMARY = "Tensors and Dynamic neural networks in Python with strong GPU acceleration"
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=d07280c7432af485bb23b7b316c5f3e5"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=b114fbe63fdb5f7a91332a4aefb61ee5"
 
 DEPENDS = " \
 	coreutils-native git-native shaderc-native \
@@ -29,7 +29,7 @@ inherit cmake python_setuptools_build_meta python3native
 # ERROR: python3-pytorch do_fetch: Fetcher failure: Submodule refers to the parent repository. This will cause deadlock situation in current version of Bitbake.Consider using git fetcher instead.
 
 SRC_URI = " \
-	git://github.com/pytorch/pytorch.git;protocol=https;name=pytorch;branch=release/2.9 \
+	git://github.com/pytorch/pytorch.git;protocol=https;name=pytorch;branch=release/2.10 \
 	gitsm://github.com/facebookincubator/fbjni.git;protocol=https;name=fbjni;nobranch=1;destsuffix=${S}/android/libs/fbjni \
 	gitsm://github.com/Maratyszcza/FP16.git;protocol=https;name=fp16;nobranch=1;destsuffix=${S}/third_party/FP16 \
 	gitsm://github.com/Maratyszcza/FXdiv.git;protocol=https;name=fxdiv;nobranch=1;destsuffix=${S}/third_party/FXdiv \
@@ -65,6 +65,7 @@ SRC_URI = " \
 	gitsm://github.com/google/googletest.git;protocol=https;name=kineto_dynolog_gtest;nobranch=1;destsuffix=${S}/third_party/kineto/libkineto/third_party/dynolog/third_party/googletest \
 	gitsm://github.com/nlohmann/json.git;protocol=https;name=kineto_dynolog_json;nobranch=1;destsuffix=${S}/third_party/kineto/libkineto/third_party/dynolog/third_party/json \
 	gitsm://github.com/dtrugman/pfs.git;protocol=https;name=kineto_dynolog_pfs;nobranch=1;destsuffix=${S}/third_party/kineto/libkineto/third_party/dynolog/third_party/pfs \
+	gitsm://github.com/jupp0r/prometheus-cpp.git;protocol=https;name=kineto_dynolog_pcpp;nobranch=1;destsuffix=${S}/third_party/kineto/libkineto/third_party/dynolog/third_party/prometheus-cpp \
 	gitsm://github.com/fmtlib/fmt.git;protocol=https;name=kineto_fmt;nobranch=1;destsuffix=${S}/third_party/kineto/libkineto/third_party/fmt \
 	gitsm://github.com/google/googletest.git;protocol=https;name=kineto_gtest;nobranch=1;destsuffix=${S}/third_party/kineto/libkineto/third_party/googletest \
 	gitsm://github.com/ARM-software/kleidiai.git;protocol=https;name=kleidiai;nobranch=1;destsuffix=${S}/third_party/kleidiai \
@@ -89,7 +90,6 @@ SRC_URI = " \
 	file://0001-Pass-through-EXTRA_OECMAKE.patch \
 	file://pytorch-fix-vulkan-get_shader-return-type.patch \
 	file://fix-non-void-funcs-with-switch.patch \
-	file://0001-Don-t-specify-maximum-setuptools-version.patch \
 	file://0001-Delete-some-values-from-macros.h.in.patch \
 	file://0001-Fix-Wincompatible-pointer-types-issues.patch;patchdir=third_party/XNNPACK \
 "
@@ -97,47 +97,48 @@ SRC_URI = " \
 #PR = "r1"
 
 SRCREV_FORMAT = "pytorch"
-SRCREV_pytorch = "d38164a545b4a4e4e0cf73ce67173f70574890b6"
+SRCREV_pytorch = "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
 
 # These are the git submodule commit IDs
 SRCREV_fbjni = "7e1e1fe3858c63c251c637ae41a20de425dde96f"
 SRCREV_fp16 = "4dfe081cf6bcd15db339cf2680b9281b8451eeb3"
 SRCREV_fxdiv = "b408327ac2a15ec3e43352421954f5b1967701d1"
 SRCREV_nnpack = "c07e3a0400713d546e0dea2d5466dd22ea389c73"
-SRCREV_nvtx = "2942f167cc30c5e3a44a2aecd5b0d9c07ff61a07"
+SRCREV_nvtx = "3ebbc93ded7285963bff932c678fa367eb393ba6"
 SRCREV_vulkanmemalloc = "1d8f600fd424278486eade7ed3e877c99f0846b1"
 SRCREV_xnnpack = "51a0103656eff6fc9bfd39a4597923c4b542c883"
 SRCREV_aiter = "01aae101b9e5e94d6c16a9514c9fb8df99c93150"
 SRCREV_benchmark = "299e5928955cc62af9968370293b916f5130916f"
 SRCREV_composable_kernel = "7fe50dc3da2069d6645d9deb8c017a876472a977"
 SRCREV_cpphttplib = "89c932f313c6437c38f2982869beacc89c2f2246"
-SRCREV_cpuinfo = "5e3d2445e6a84d9599bee2bf78edbb4d80865e1d"
-SRCREV_cudnnfe = "243c7ff63be1ce6dd5bf9047668b5d4de83f55f6"
-SRCREV_cutlass = "e51efbfe18fe4f4cbb66ab814c55bf4aa0185491"
-SRCREV_fbgemm = "4b39c551efe15e6bbade20565b0ceb2d8ce3352d"
+SRCREV_cpuinfo = "f858c30bcb16f8effd5ff46996f0514539e17abc"
+SRCREV_cudnnfe = "0258951d4d512f4714eb1574496f4d57669b1b93"
+SRCREV_cutlass = "f88806b1e31dfa579842638740216dd41fc6c588"
+SRCREV_fbgemm = "a4a112c26ac01c78a86317cf54c69481478d95d2"
 SRCREV_flash_attention = "979702c87a8713a8e0a5e9fee122b90d2ef13be5"
 SRCREV_flatbuffers = "a2cd1ea3b6d3fee220106b5fed3f7ce8da9eb757"
-SRCREV_fmt = "40626af88bd7df9a5fb80be7b25ac85b122d6c21"
+SRCREV_fmt = "407c905e45ad75fc29bf0f9bb7c5c2fd3475976f"
 SRCREV_gemmlowp = "3fb5c176c17c765a3492cd2f0321b0dab712f350"
 SRCREV_gloo = "54cbae0d3a67fa890b4c3d9ee162b7860315e341"
 SRCREV_gtest = "52eb8108c5bdec04579160ae17225d66034bd723"
 SRCREV_ideep = "719d8e6cd7f7a0e01b155657526d693acf97c2b3"
 SRCREV_ideep_onednn = "8d263e693366ef8db40acc569cc7d8edf644556d"
 SRCREV_ittapi = "dec1d23ca65ab069d225dfe40dea14f455170959"
-SRCREV_kineto = "5e7501833f1021ce6f618572d3baf657b6319658"
-SRCREV_kineto_dynolog = "7d04a0053a845370ae06ce317a22a48e9edcc74e"
+SRCREV_kineto = "31f85df8fbd89c188f14ef10f1ec65379786b943"
+SRCREV_kineto_dynolog = "d2ffe0a4e3acace628db49974246b66fc3e85fb1"
 SRCREV_kineto_dynolog_dcgm = "ffde4e54bc7249a6039a5e6b45b395141e1217f9"
 SRCREV_kineto_dynolog_cpr = "871ed52d350214a034f6ef8a3b8f51c5ce1bd400"
 SRCREV_kineto_dynolog_fmt = "cd4af11efc9c622896a3e4cb599fa28668ca3d05"
 SRCREV_kineto_dynolog_gflags = "e171aa2d15ed9eb17054558e0b3a6a413bb01067"
 SRCREV_kineto_dynolog_gflags_doc = "8411df715cf522606e3b1aca386ddfc0b63d34b4"
 SRCREV_kineto_dynolog_glog = "b33e3bad4c46c8a6345525fd822af355e5ef9446"
-SRCREV_kineto_dynolog_gtest = "58d77fa8070e8cec2dc1ed015d66b454c8d78850"
+SRCREV_kineto_dynolog_gtest = "52eb8108c5bdec04579160ae17225d66034bd723"
 SRCREV_kineto_dynolog_json = "4f8fba14066156b73f1189a2b8bd568bde5284c5"
 SRCREV_kineto_dynolog_pfs = "f68a2fa8ea36c783bdd760371411fcb495aa3150"
-SRCREV_kineto_fmt = "0041a40c1350ba702d475b9c4ad62da77caea164"
-SRCREV_kineto_gtest = "7aca84427f224eeed3144123d5230d5871e93347"
-SRCREV_kleidiai = "cca02c2f69dd18e1f12647c1c0bdc8cf90e680c7"
+SRCREV_kineto_dynolog_pcpp = "b1234816facfdda29845c46696a02998a4af115a"
+SRCREV_kineto_fmt = "40626af88bd7df9a5fb80be7b25ac85b122d6c21"
+SRCREV_kineto_gtest = "52eb8108c5bdec04579160ae17225d66034bd723"
+SRCREV_kleidiai = "d7770c89632329a9914ef1a90289917597639cbe"
 SRCREV_mimalloc = "fbd8b99c2b828428947d70fdc046bb55609be93e"
 SRCREV_nccl = "3ea7eedf3b9b94f1d9f99f4e55536dfcbd23c1ca"
 SRCREV_nlohmann = "55f93686c01528224f448c19128836e7df245f72"
@@ -152,7 +153,7 @@ SRCREV_pthreadpool = "4fe0e1e183925bf8cfa6aae24237e724a96479b8"
 SRCREV_pybind11 = "f5fbe867d2d26e4a0a9177a51f6e568868ad3dc8"
 SRCREV_peachpy = "f45429b087dd7d5bc78bb40dc7cf06425c252d67"
 SRCREV_sleef = "5a1d179df9cf652951b59010a2d2075372d67f68"
-SRCREV_tensorpipe = "af0118d13e52f5a08841464a768e01a0bf3e3075"
+SRCREV_tensorpipe = "2b4cd91092d335a697416b2a3cb398283246849d"
 
 B = "${S}/build"
 
