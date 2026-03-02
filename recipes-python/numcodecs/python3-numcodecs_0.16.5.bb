@@ -10,7 +10,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "numcodecs"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "53d705865faaf0a7927c973af3777532001c8fbb653de119c1e844608614d799"
+SRC_URI[sha256sum] = "0d0fb60852f84c0bd9543cc4d2ab9eefd37fc8efcc410acd4777e62a1d300318"
 
 do_install:prepend () {
 	sed -i 's:${RECIPE_SYSROOT_NATIVE}::g' ${S}/numcodecs/vlen.c
@@ -23,6 +23,7 @@ RDEPENDS:${PN} = " \
 	python3-msgpack \
 	python3-zfpy \
 	python3-crc32c \
+	python3-google-crc32c \
 "
 
 CFLAGS:append = " -std=gnu17"
