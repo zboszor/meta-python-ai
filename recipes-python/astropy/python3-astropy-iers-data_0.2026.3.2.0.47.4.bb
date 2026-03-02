@@ -7,4 +7,4 @@ DEPENDS = "python3-hatch-vcs-native"
 PYPI_PACKAGE = "astropy_iers_data"
 
 inherit pypi python_hatchling
-SRC_URI[sha256sum] = "487dc974b9a5114ac75ff4fd96244e8fa7d07e1504092f7c2b8138c2b9c842e9"
+SRC_URI[sha256sum] = "1e1410c010bd086718382f792e6ec7e9e4dde47f72a788eaef4d4b5a1f4663bd"
