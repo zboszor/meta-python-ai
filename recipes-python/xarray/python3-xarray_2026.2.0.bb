@@ -7,7 +7,7 @@ DEPENDS = "python3-setuptools-scm-native python3-numpy-native python3-numpy"
 PYPI_PACKAGE = "xarray"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "3c2b5ad7389825bd624ada5ff26b01ac54b1aae72e2fe0d724d81d40a2bf5785"
+SRC_URI[sha256sum] = "978b6acb018770554f8fd964af4eb02f9bcc165d4085dbb7326190d92aa74bcf"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
@@ -23,6 +23,7 @@ RDEPENDS:${PN} = " \
 	python3-fsspec \
 	python3-cftime \
 	python3-pooch \
+	python3-dask \
 "
 
 # These are only available if meta-clang-revival is available
