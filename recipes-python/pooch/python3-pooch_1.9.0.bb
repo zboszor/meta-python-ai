@@ -7,7 +7,7 @@ DEPENDS = "python3-setuptools-scm-native"
 PYPI_PACKAGE = "pooch"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "76561f0de68a01da4df6af38e9955c4c9d1a5c90da73f7e40276a5728ec83d10"
+SRC_URI[sha256sum] = "de46729579b9857ffd3e741987a2f6d5e0e03219892c167c6578c0091fb511ed"
 
 RDEPENDS:${PN} = " \
 	python3-platformdirs \
