@@ -10,7 +10,7 @@ PYPI_PACKAGE = "jaraco_functools"
 
 inherit pypi python_setuptools_build_meta
 
-SRC_URI[sha256sum] = "cfd13ad0dd2c47a3600b439ef72d8615d482cedcff1632930d6f28924d92f294"
+SRC_URI[sha256sum] = "da21933b0417b89515562656547a77b4931f98176eb173644c0d35032a33d6bb"
 
 RDEPENDS:${PN} = " \
 	python3-more-itertools \
