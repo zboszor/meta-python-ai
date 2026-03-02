@@ -13,6 +13,8 @@ inherit cmake python3native
 
 require arrow.inc
 
+SRC_URI += "file://0001-Do-not-expose-internal-compiler-flags.patch"
+
 B = "${WORKDIR}/build"
 OECMAKE_SOURCEPATH = "${S}/cpp"
 

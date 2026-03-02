@@ -1,7 +1,8 @@
 require arrow.inc
 
-S = "${UNPACKDIR}/${BB_GIT_DEFAULT_DESTSUFFIX}/python"
-LIC_FILES_CHKSUM = "file://../LICENSE.txt;md5=457249e5c7a629554dd41d2ecbc53725"
+S .= "/python"
+LIC_FILES_CHKSUM = "file://../LICENSE.txt;md5=0badcc877b5f854c7ecea97159bf6d73"
+SRC_URI += "file://0001-Do-not-expose-internal-compiler-flags.patch;patchdir=.."
 
 DEPENDS = " \
     apache-arrow \

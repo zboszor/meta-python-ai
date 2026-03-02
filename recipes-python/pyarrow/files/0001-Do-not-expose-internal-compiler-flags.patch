@@ -1,0 +1,31 @@
+From 452485301de1d0d6b9c7d9db906b483000f2568d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Mon, 2 Mar 2026 09:08:47 +0100
+Subject: [PATCH] Do not expose internal compiler flags
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ cpp/src/arrow/util/config_internal.h.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cpp/src/arrow/util/config_internal.h.cmake b/cpp/src/arrow/util/config_internal.h.cmake
+index 5d96e6fc68..208e1c4731 100644
+--- a/cpp/src/arrow/util/config_internal.h.cmake
++++ b/cpp/src/arrow/util/config_internal.h.cmake
+@@ -18,7 +18,7 @@
+ // These variables are not exposed as they can make compilation caching
+ // and increment builds less efficient.
+ 
+-#define ARROW_CXX_COMPILER_FLAGS "@REDACTED_CXX_FLAGS@"
++#define ARROW_CXX_COMPILER_FLAGS ""
+ 
+ #define ARROW_GIT_ID "@ARROW_GIT_ID@"
+ #define ARROW_GIT_DESCRIPTION "@ARROW_GIT_DESCRIPTION@"
+-- 
+2.53.0
+
