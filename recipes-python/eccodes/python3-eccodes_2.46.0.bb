@@ -13,7 +13,7 @@ SRC_URI = " \
 	file://0001-No-rpath.patch \
 "
 
-SRCREV = "c1d86a14e1a49aad694f31f183c101285ecc237b"
+SRCREV = "452a41ede355926a17dd484a1735f788bc955953"
 
 SETUPTOOLS_BUILD_ARGS = "--binary-wheel"
 
