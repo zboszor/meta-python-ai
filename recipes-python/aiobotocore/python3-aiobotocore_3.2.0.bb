@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=55150c668a8c5a6b580ae9a69ae2d8cd"
 PYPI_PACKAGE = "aiobotocore"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "ea9be739bfd7ece8864f072ec99bb9ed5c7e78ebb2b0b15f29781fbe02daedbc"
+SRC_URI[sha256sum] = "93e67b507d913bc168212f30a0e01e1835e07e665f00749fcac037e01999d72a"
 
 RDEPENDS:${PN} = " \
 	python3-aiohttp \
