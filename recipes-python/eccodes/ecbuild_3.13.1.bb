@@ -3,7 +3,7 @@ DESCRIPTION = "A CMake-based build system, consisting of a collection of CMake m
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=8a7dd6768ae68db43ba399dad354a06c"
 
-SRCREV = "60e7d659ec10a4316e0ec27be28254092dcd7921"
+SRCREV = "a300704ace53a09e164bbe747967be862263ec82"
 
 SRC_URI = "git://github.com/ecmwf/ecbuild.git;protocol=https;branch=master"
 
