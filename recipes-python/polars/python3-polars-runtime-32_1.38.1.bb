@@ -6,7 +6,7 @@ PYPI_PACKAGE = "polars_runtime_32"
 
 inherit pypi python_maturin cargo-update-recipe-crates python3native
 
-SRC_URI[sha256sum] = "68779d4a691da20a5eb767d74165a8f80a2bdfbde4b54acf59af43f7fa028d8f"
+SRC_URI[sha256sum] = "04f20ed1f5c58771f34296a27029dc755a9e4b1390caeaef8f317e06fdfce2ec"
 SRC_URI += "file://0001-polars-runtime-32-Don-t-use-nightly-build.patch"
 
 require ${BPN}-crates.inc
