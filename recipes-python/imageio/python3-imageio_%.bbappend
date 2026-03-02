@@ -5,5 +5,6 @@ RDEPENDS:${PN} += " \
 	python3-pillow-heif \
 	python3-psutil \
 	python3-rawpy \
+	python3-fsspec \
 	python3-tifffile \
 "
