@@ -1,24 +1,24 @@
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
 Upstream-Status: Inappropriate [Yocto specific]
 
-diff -durpN scikit_build-0.18.1.orig/skbuild/cmaker.py scikit_build-0.18.1/skbuild/cmaker.py
---- scikit_build-0.18.1.orig/skbuild/cmaker.py	2024-10-10 18:35:56.527316626 +0200
-+++ scikit_build-0.18.1/skbuild/cmaker.py	2024-10-11 08:55:30.960282579 +0200
+diff -durpN scikit_build-0.19.0.old/skbuild/cmaker.py scikit_build-0.19.0/skbuild/cmaker.py
+--- scikit_build-0.19.0.old/skbuild/cmaker.py	2026-03-23 15:59:30.746570044 +0100
++++ scikit_build-0.19.0/skbuild/cmaker.py	2026-03-23 15:57:45.576838158 +0100
 @@ -247,7 +247,7 @@ class CMaker:
              with contextlib.suppress(ImportError):
-                 import ninja  # pylint: disable=import-outside-toplevel
+                 import ninja  # noqa: PLC0415
  
 -                ninja_executable_path = os.path.join(ninja.BIN_DIR, "ninja")
 +                ninja_executable_path = "ninja"
  
          if not os.path.exists(CMAKE_BUILD_DIR()):
              os.makedirs(CMAKE_BUILD_DIR())
-diff -durpN scikit_build-0.18.1.orig/skbuild/platform_specifics/unix.py scikit_build-0.18.1/skbuild/platform_specifics/unix.py
---- scikit_build-0.18.1.orig/skbuild/platform_specifics/unix.py	2024-10-10 18:35:56.527316626 +0200
-+++ scikit_build-0.18.1/skbuild/platform_specifics/unix.py	2024-10-11 08:56:14.884698349 +0200
+diff -durpN scikit_build-0.19.0.old/skbuild/platform_specifics/unix.py scikit_build-0.19.0/skbuild/platform_specifics/unix.py
+--- scikit_build-0.19.0.old/skbuild/platform_specifics/unix.py	2026-03-23 15:59:30.746785207 +0100
++++ scikit_build-0.19.0/skbuild/platform_specifics/unix.py	2026-03-23 15:57:45.586838145 +0100
 @@ -17,7 +17,7 @@ class UnixPlatform(abstract.CMakePlatfor
          try:
-             import ninja  # pylint: disable=import-outside-toplevel
+             import ninja  # noqa: PLC0415
  
 -            ninja_executable_path = os.path.join(ninja.BIN_DIR, "ninja")
 +            ninja_executable_path = "ninja"
