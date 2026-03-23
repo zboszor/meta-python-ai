@@ -7,7 +7,7 @@ DEPENDS = "python3-cython-native python3-versioneer-native python3-setuptools-sc
 PYPI_PACKAGE = "dask"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "23d59e624b80ee05b7cc8df858682cca58262c4c3b197ccf61da0f6543c8f7c3"
+SRC_URI[sha256sum] = "f7d96c8274e8a900d217c1ff6ea8d1bbf0b4c2c21e74a409644498d925eb8f85"
 
 # dask and distributed must be the same version
 RDEPENDS:${PN} = " \
