@@ -8,7 +8,7 @@ DEPENDS = "python3-numpy-native python3-scipy-native"
 PYPI_PACKAGE = "scikit_learn"
 SRC_URI[sha256sum] = "9bccbb3b40e3de10351f8f5068e105d0f4083b1a65fa07b6634fbc401a6287fd"
 
-SRC_URI += "file://accept-newer-scipy.patch"
+SRC_URI += "file://accept-newer-deps.patch"
 
 inherit pypi python_mesonpy pkgconfig python3native cython
 
