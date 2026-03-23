@@ -1,0 +1,199 @@
+From 2f45b2bdbdc901da89a0dcbdeb1b9e8630a9d4a5 Mon Sep 17 00:00:00 2001
+From: Jeff Held <jh.software.developer@gmail.com>
+Date: Wed, 11 Feb 2026 22:17:11 +0100
+Subject: [PATCH] Update setup.py to use setuptools
+
+`distutils` was deprecated in Python 3.11 and removed in 3.12. While
+importing from `distutils` still "worked", it was using the internal
+package from `setuptools`, which has a different API for some commands,
+notably `distutils.spawn.spawn`, which does not include a kwarg for
+`dry_run` (which causes an exception to occur). Therefore, this commit
+refactored `distutils` imports to `setuptools`. Most imports had
+one-to-one equivalents, with the exception of `clean`; here I chose to
+replicate the behavior partially by removing the `build` directory, but
+it doesn't fully replicate it as I didn't attempt to fully recreate the
+logic from the original implementation.
+
+References for migrating to setuptools:
+- https://setuptools.pypa.io/en/latest/deprecated/distutils-legacy.html
+- https://peps.python.org/pep-0632/#migration-advice
+
+Upstream-Status: Backport [https://github.com/numba/llvmlite/commit/e6a4cf1bd9b1ac213124ef125cae44896ed9885c]
+---
+ setup.py | 91 ++++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 49 insertions(+), 42 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 66381a79..67c16324 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1,10 +1,16 @@
+-try:
+-    from setuptools import setup, Extension
+-    # Required for compatibility with pip (issue #177)
+-    from setuptools.command.install import install
+-except ImportError:
+-    from distutils.core import setup, Extension
+-    from distutils.command.install import install
++from setuptools import setup, Command, Extension
++from setuptools.command.build import build
++from setuptools.command.build_ext import build_ext
++from setuptools.command.install import install
++from shutil import rmtree
++from subprocess import run
++import logging
++import os
++import sys
++
++import versioneer
++
++logger = logging.getLogger(__name__)
+ 
+ 
+ try:
+@@ -12,18 +18,6 @@ try:
+ except ImportError:
+     bdist_wheel = None
+ 
+-from distutils.command.build import build
+-from distutils.command.build_ext import build_ext
+-from distutils.command.clean import clean
+-from distutils import log
+-from distutils.dir_util import remove_tree
+-from distutils.spawn import spawn
+-import os
+-import sys
+-
+-import versioneer
+-
+-
+ min_python_version = (3, 10)
+ 
+ 
+@@ -58,17 +52,17 @@ build = cmdclass.get('build', build)
+ build_ext = cmdclass.get('build_ext', build_ext)
+ 
+ 
+-def build_library_files(dry_run):
++def build_library_files():
+     cmd = [sys.executable, os.path.join(here_dir, 'ffi', 'build.py')]
+     # Turn on -fPIC for building on Linux, BSD, OS X, and GNU platforms
+     plt = sys.platform
+     if 'linux' in plt or 'bsd' in plt or 'darwin' in plt or 'gnu' in plt:
+         os.environ['CXXFLAGS'] = os.environ.get('CXXFLAGS', '') + ' -fPIC'
+-    spawn(cmd, dry_run=dry_run)
+ 
++    run(cmd, check=True)
+ 
+-class LlvmliteBuild(build):
+ 
++class LlvmliteBuild(build):
+     def finalize_options(self):
+         build.finalize_options(self)
+         # The build isn't platform-independent
+@@ -88,7 +82,7 @@ class LlvmliteBuildExt(build_ext):
+ 
+     def run(self):
+         build_ext.run(self)
+-        build_library_files(self.dry_run)
++        build_library_files()
+         # HACK: this makes sure the library file (which is large) is only
+         # included in binary builds, not source builds.
+         from llvmlite.utils import get_library_files
+@@ -115,38 +109,59 @@ class LlvmliteInstall(install):
+         self.install_lib = self.install_platlib
+ 
+ 
+-class LlvmliteClean(clean):
++class LlvmliteClean(Command):
+     """Custom clean command to tidy up the project root."""
++    # Required to implement but there don't appear to be any relevant flags
++    # for this command, so do nothing
++    def initialize_options(self) -> None:
++        pass
++
++    # Required to implement but there don't appear to be any relevant flags
++    # for this command, so do nothing
++    def finalize_options(self) -> None:
++        pass
++
+     def run(self):
+-        clean.run(self)
++        build_dir = os.path.join(here_dir, 'build')
++        if os.path.exists(build_dir):
++            self._rm_tree(build_dir)
+         path = os.path.join(here_dir, 'llvmlite.egg-info')
+         if os.path.isdir(path):
+-            remove_tree(path, dry_run=self.dry_run)
+-        if not self.dry_run:
+-            self._rm_walk()
++            self._rm_tree(path)
++        self._rm_walk()
+ 
+     def _rm_walk(self):
+-        for path, dirs, files in os.walk(here_dir):
++        for path, _, files in os.walk(here_dir):
+             if any(p.startswith('.') for p in path.split(os.path.sep)):
+                 # Skip hidden directories like the git folder right away
+                 continue
+             if path.endswith('__pycache__'):
+-                remove_tree(path, dry_run=self.dry_run)
++                self._rm_tree(path)
+             else:
+                 for fname in files:
+                     if (fname.endswith('.pyc') or fname.endswith('.so')
+                             or fname.endswith('.o')):
+                         fpath = os.path.join(path, fname)
+                         os.remove(fpath)
+-                        log.info("removing '%s'", fpath)
++                        logger.info("removing '%s'", fpath)
++
++    def _rm_tree(self, path):
++        logger.info("removing '%s' (and everything underneath it)", path)
++        rmtree(path)
+ 
+ 
+-if bdist_wheel:
++cmdclass.update({'build': LlvmliteBuild,
++                 'build_ext': LlvmliteBuildExt,
++                 'install': LlvmliteInstall,
++                 'clean': LlvmliteClean,
++                 })
++
++if bdist_wheel is not None:
+     class LLvmliteBDistWheel(bdist_wheel):
+         def run(self):
+             # Ensure the binding file exist when running wheel build
+             from llvmlite.utils import get_library_files
+-            build_library_files(self.dry_run)
++            build_library_files()
+             self.distribution.package_data.update({
+                 "llvmlite.binding": get_library_files(),
+             })
+@@ -158,14 +173,6 @@ if bdist_wheel:
+             # The build isn't platform-independent
+             self.root_is_pure = False
+ 
+-
+-cmdclass.update({'build': LlvmliteBuild,
+-                 'build_ext': LlvmliteBuildExt,
+-                 'install': LlvmliteInstall,
+-                 'clean': LlvmliteClean,
+-                 })
+-
+-if bdist_wheel:
+     cmdclass.update({'bdist_wheel': LLvmliteBDistWheel})
+ 
+ # A stub C-extension to make bdist_wheel build an arch dependent build
+@@ -193,7 +200,7 @@ setup(name='llvmlite',
+           "Operating System :: OS Independent",
+           "Programming Language :: Python",
+           "Programming Language :: Python :: 3",
+-           "Programming Language :: Python :: 3.10",
++          "Programming Language :: Python :: 3.10",
+           "Programming Language :: Python :: 3.11",
+           "Programming Language :: Python :: 3.12",
+           "Programming Language :: Python :: 3.13",
+-- 
+2.53.0
+

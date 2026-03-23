@@ -11,6 +11,7 @@ PYPI_PACKAGE = "llvmlite"
 inherit pypi cmake setuptools3
 
 SRC_URI[sha256sum] = "227c9fd6d09dce2783c18b754b7cd9d9b3b3515210c46acc2d3c5badd9870ceb"
+SRC_URI += "file://0001-Update-setup.py-to-use-setuptools.patch"
 
 CXXFLAGS += "-I${STAGING_INCDIR}/${PYTHON_DIR}"
 
