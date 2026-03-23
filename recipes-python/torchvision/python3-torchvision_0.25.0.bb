@@ -14,6 +14,7 @@ SRC_URI = " \
 	file://0001-Use-pkg-config-to-detect-libpng.patch \
 	file://0002-Pass-presence-and-version-of-ffmpeg-via-envvar.patch \
 	file://0001-Fix-with-ffmpeg-8.patch \
+	file://0001-Fix-setup.py-breaks-with-setuptools-82-9386.patch \
 "
 
 #PR = "r0"
