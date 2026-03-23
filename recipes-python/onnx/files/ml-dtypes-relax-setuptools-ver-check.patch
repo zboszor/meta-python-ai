@@ -1,0 +1,15 @@
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+
+diff -durpN ml_dtypes-0.5.4.old/pyproject.toml ml_dtypes-0.5.4/pyproject.toml
+--- ml_dtypes-0.5.4.old/pyproject.toml	2025-11-17 23:18:59.000000000 +0100
++++ ml_dtypes-0.5.4/pyproject.toml	2026-03-12 05:49:48.811421440 +0100
+@@ -52,7 +52,7 @@ requires = [
+     # We build against the most recent supported NumPy 2.0 release;
+     # see https://github.com/numpy/numpy/issues/27265
+     "numpy~=2.0",
+-    "setuptools~=80.9.0",
++    "setuptools>=80.9.0",
+ ]
+ build-backend = "setuptools.build_meta"
+ 

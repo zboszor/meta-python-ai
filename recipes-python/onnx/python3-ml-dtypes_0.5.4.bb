@@ -11,5 +11,6 @@ PYPI_PACKAGE = "ml_dtypes"
 inherit pypi python_setuptools_build_meta
 
 SRC_URI[sha256sum] = "8ab06a50fb9bf9666dd0fe5dfb4676fa2b0ac0f31ecff72a6c3af8e22c063453"
+SRC_URI += "file://ml-dtypes-relax-setuptools-ver-check.patch"
 
 RDEPENDS:${PN} = "python3-numpy"
