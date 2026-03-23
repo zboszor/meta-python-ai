@@ -1,0 +1,59 @@
+From e46bc95fef62f308e458b55a82bc1131bf4b1268 Mon Sep 17 00:00:00 2001
+From: "dependabot[bot]" <49699333+dependabot[bot]@users.noreply.github.com>
+Date: Thu, 12 Mar 2026 04:05:23 +0000
+Subject: [PATCH] Update setuptools requirement from <=81.0.0 to <=82.0.1
+
+Updates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.
+- [Release notes](https://github.com/pypa/setuptools/releases)
+- [Changelog](https://github.com/pypa/setuptools/blob/main/NEWS.rst)
+- [Commits](https://github.com/pypa/setuptools/compare/v70.0.0...v82.0.1)
+
+---
+updated-dependencies:
+- dependency-name: setuptools
+  dependency-version: 82.0.1
+  dependency-type: direct:development
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Upstream-Status: Submitted [https://github.com/ultralytics/ultralytics/pull/23874]
+---
+ PKG-INFO       | 2 +-
+ pyproject.toml | 4 ++--
+ 2 files changed, 3 insertion(+), 3 deletion(-)
+
+diff --git a/PKG-INFO b/PKG-INFO
+index 77ad805..d0f4fe1 100644
+--- a/PKG-INFO
++++ b/PKG-INFO
+@@ -65,7 +65,7 @@ Requires-Dist: tensorflow<=2.19.0,>=2.0.0; extra == "export"
+ Requires-Dist: tensorflowjs>=2.0.0; extra == "export"
+ Requires-Dist: tensorstore>=0.1.63; (platform_machine == "aarch64" and python_version >= "3.9") and extra == "export"
+ Requires-Dist: h5py!=3.11.0; platform_machine == "aarch64" and extra == "export"
+-Requires-Dist: setuptools<=81.0.0; extra == "export"
++Requires-Dist: setuptools<=82.0.1; extra == "export"
+ Requires-Dist: packaging>=26.0; (platform_machine == "aarch64" and platform_system == "Linux" and python_version >= "3.9") and extra == "export"
+ Provides-Extra: solutions
+ Requires-Dist: shapely>=2.0.0; extra == "solutions"
+diff --git a/pyproject.toml b/pyproject.toml
+index 0900f3e..010065d 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@
+ # For comprehensive documentation and usage instructions, visit: https://docs.ultralytics.com
+ 
+ [build-system]
+-requires = ["setuptools>=70.0.0,<=81.0.0", "wheel"]
++requires = ["setuptools>=70.0.0,<=82.0.1", "wheel"]
+ build-backend = "setuptools.build_meta"
+ 
+ # Project settings -----------------------------------------------------------------------------------------------------
+@@ -99,7 +99,7 @@ export = [
+     "tensorflowjs>=2.0.0", # TF.js export, automatically installs tensorflow
+     "tensorstore>=0.1.63; platform_machine == 'aarch64' and python_version >= '3.9'", # for TF Raspberry Pi exports
+     "h5py!=3.11.0; platform_machine == 'aarch64'", # fix h5py build issues due to missing aarch64 wheels in 3.11 release
+-    "setuptools<=81.0.0",  # pin due to >=82.0.0 breaking tensorflow.js package
++    "setuptools<=82.0.1",  # pin due to >=82.0.0 breaking tensorflow.js package
+     "packaging>=26.0; platform_machine == 'aarch64' and platform_system == 'Linux' and python_version >= '3.9'", # IMX export bug
+ ]
+ solutions = [
