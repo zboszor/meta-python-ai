@@ -1,18 +1,18 @@
 Upstream-Status: Inappropriate [Yocto specific]
 Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
 
-diff -durpN imagecodecs-2025.11.11.old/setup.py imagecodecs-2025.11.11/setup.py
---- imagecodecs-2025.11.11.old/setup.py	2025-11-10 00:09:01.000000000 +0100
-+++ imagecodecs-2025.11.11/setup.py	2025-11-17 13:53:33.283004114 +0100
-@@ -279,16 +279,18 @@ def customize_build_default(EXTENSIONS,
+diff -durpN imagecodecs-2026.3.6.old/setup.py imagecodecs-2026.3.6/setup.py
+--- imagecodecs-2026.3.6.old/setup.py	2026-03-04 00:23:22.000000000 +0100
++++ imagecodecs-2026.3.6/setup.py	2026-03-24 06:19:20.513553601 +0100
+@@ -294,16 +294,18 @@ def customize_build_default(
      Works on Ubuntu 24.04
  
      """
 +    INCLIB = os.environ.get('INCLIB', '.')
 +
-     del OPTIONS['shared_utility_qualified_name']
+     del options['shared_utility_qualified_name']
  
-     EXTENSIONS['jpeg2k']['include_dirs'].extend(
+     extensions['jpeg2k']['include_dirs'].extend(
          (
 -            '/usr/include/openjpeg-2.3',
 -            '/usr/include/openjpeg-2.4',
@@ -22,12 +22,12 @@ diff -durpN imagecodecs-2025.11.11.old/setup.py imagecodecs-2025.11.11/setup.py
 +            os.path.join(INCLIB, 'include', 'openjpeg-2.5'),
          )
      )
--    EXTENSIONS['jpegxr']['include_dirs'].append('/usr/include/jxrlib')
-+    # EXTENSIONS['jpegxr']['include_dirs'].append('/usr/include/jxrlib')
+-    extensions['jpegxr']['include_dirs'].append('/usr/include/jxrlib')
++    # extensions['jpegxr']['include_dirs'].append('/usr/include/jxrlib')
  
-     if not os.environ.get('IMAGECODECS_JPEG8_LEGACY', False):
+     if not os.environ.get('IMAGECODECS_JPEG8_LEGACY', ''):
          # use libjpeg-turbo 3 by default
-@@ -298,17 +300,25 @@ def customize_build_default(EXTENSIONS,
+@@ -313,17 +315,25 @@ def customize_build_default(
      keep = {
          'shared',
          'imcd',
