@@ -1,0 +1,13 @@
+Upstream-Status: Inappropriate [oe specific]
+
+--- basic_colormath-1.1.1/pyproject.toml~	1970-01-01 01:00:00.000000000 +0100
++++ basic_colormath-1.1.1/pyproject.toml	2026-03-24 05:46:29.462332071 +0100
+@@ -11,7 +11,7 @@
+ dependencies = []
+ 
+ [build-system]
+-requires = ["uv_build>=0.9.4,<0.10.0"]
++requires = ["uv_build>=0.9.4"]
+ build-backend = "uv_build"
+ 
+ 
