@@ -1,13 +1,13 @@
 SUMMARY = "The simplest, highest-throughput Python interface to Amazon S3, Google Cloud Storage, Azure Storage, & other S3-compliant APIs, powered by Rust."
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://PKG-INFO;md5=c85d55b67beebcbfa9d5568273758bce"
+LIC_FILES_CHKSUM = "file://PKG-INFO;md5=a24a7547ac2f0703e4d0d57ba5336440"
 
 DEPENDS = "python3-hatch-vcs-native"
 
 PYPI_PACKAGE = "obstore"
 
 inherit pypi cargo-update-recipe-crates python_maturin
-SRC_URI[sha256sum] = "a467bc4e97169e2ba749981b4fd0936015428d9b8f3fb83a5528536b1b6f377f"
+SRC_URI[sha256sum] = "7ef94323127a971c9dea2484109d6c706eb2b2594a2df13c2dd0a6d21a9a69ae"
 
 require ${BPN}-crates.inc
 
@@ -16,9 +16,5 @@ require ${BPN}-crates.inc
 # git+https://github.com/alex/pyo3-file
 # git+https://github.com/apache/arrow-rs-object-store
 do_compile[network] = "1"
-
-RDEPENDS:${PN} = " \
-	python3-typing-extensions \
-"
 
 INSANE_SKIP:${PN} = "already-stripped"
