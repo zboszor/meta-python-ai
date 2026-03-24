@@ -1,6 +1,6 @@
 SUMMARY = "Official Python bindings for Selenium WebDriver"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=c8025cb41ce20b17403c3ef06526014b"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=9428a237359dedb42894da808a0be270"
 DEPENDS = "python3-setuptools-rust-native"
 
 #PR = "r1"
@@ -10,7 +10,7 @@ PYPI_PACKAGE = "selenium"
 S = "${WORKDIR}/${PYPI_PACKAGE}-${PV}"
 
 inherit pypi cargo-update-recipe-crates python_setuptools3_rust
-SRC_URI[sha256sum] = "c117af6727859d50f622d6d0785b945c5db3e28a45ec12ad85cee2e7cc84fc4c"
+SRC_URI[sha256sum] = "003e971f805231ad63e671783a2b91a299355d10cefb9de964c36ff3819115aa"
 
 SRC_URI += "file://disable-abort-panic.patch"
 
