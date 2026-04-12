@@ -1,0 +1,78 @@
+From 057d8b388e4f1eff771ba4d28ef94afbb0126a2e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 14 May 2025 10:25:12 +0200
+Subject: [PATCH] Use oneDNN using its new CMake name
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+MKLDNN is the old name but oneDNN uses "dnnl" now.
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [Yocto specific]
+---
+ aten/src/ATen/CMakeLists.txt | 6 +++---
+ cmake/Dependencies.cmake     | 4 ++--
+ cmake/public/mkldnn.cmake    | 6 +++---
+ 3 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/aten/src/ATen/CMakeLists.txt b/aten/src/ATen/CMakeLists.txt
+index 085af373ec2..49c414c8f53 100644
+--- a/aten/src/ATen/CMakeLists.txt
++++ b/aten/src/ATen/CMakeLists.txt
+@@ -468,9 +468,9 @@ if(AT_NNPACK_ENABLED)
+   list(APPEND ATen_CPU_DEPENDENCY_LIBS nnpack) # cpuinfo is added below
+ endif()
+ 
+-if(MKLDNN_FOUND)
+-  list(APPEND ATen_CPU_DEPENDENCY_LIBS ${MKLDNN_LIBRARIES})
+-endif(MKLDNN_FOUND)
++if(dnnl_FOUND)
++  list(APPEND ATen_CPU_DEPENDENCY_LIBS DNNL::dnnl)
++endif(dnnl_FOUND)
+ 
+ if(USE_MKLDNN_ACL)
+     list(APPEND ATen_CPU_INCLUDE ${ACL_INCLUDE_DIRS})
+diff --git a/cmake/Dependencies.cmake b/cmake/Dependencies.cmake
+index 5227204b041..b5c53688ec6 100644
+--- a/cmake/Dependencies.cmake
++++ b/cmake/Dependencies.cmake
+@@ -1503,9 +1503,9 @@ if(NOT INTERN_BUILD_MOBILE)
+   endif()
+   if(USE_MKLDNN)
+     include(${CMAKE_CURRENT_LIST_DIR}/public/mkldnn.cmake)
+-    if(MKLDNN_FOUND)
++    if(dnnl_FOUND)
+       set(AT_MKLDNN_ENABLED 1)
+-      include_directories(AFTER SYSTEM ${MKLDNN_INCLUDE_DIR})
++      include_directories(AFTER SYSTEM ${dnnl_INCLUDE_DIR})
+     else()
+       message(WARNING "MKLDNN could not be found.")
+       caffe2_update_option(USE_MKLDNN OFF)
+diff --git a/cmake/public/mkldnn.cmake b/cmake/public/mkldnn.cmake
+index 87935625f9b..0fc9375400c 100644
+--- a/cmake/public/mkldnn.cmake
++++ b/cmake/public/mkldnn.cmake
+@@ -4,7 +4,7 @@ if(CPU_AARCH64)
+   include(${CMAKE_CURRENT_LIST_DIR}/ComputeLibrary.cmake)
+ endif()
+ 
+-find_package(MKLDNN QUIET)
++find_package(dnnl)
+ 
+ if(NOT TARGET caffe2::mkldnn)
+   add_library(caffe2::mkldnn INTERFACE IMPORTED)
+@@ -12,7 +12,7 @@ endif()
+ 
+ set_property(
+   TARGET caffe2::mkldnn PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+-  ${MKLDNN_INCLUDE_DIR})
++  ${dnnl_INCLUDE_DIR})
+ set_property(
+   TARGET caffe2::mkldnn PROPERTY INTERFACE_LINK_LIBRARIES
+-  ${MKLDNN_LIBRARIES})
++  DNNL::dnnl)
+-- 
+2.49.0
+
