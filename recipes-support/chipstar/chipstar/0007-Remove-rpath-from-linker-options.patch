@@ -1,0 +1,42 @@
+From 42e48402815622a8388fa5ffce68218eabe8fd16 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 27 Nov 2024 14:48:20 +0100
+Subject: [PATCH 7/7] Remove rpath from linker options
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [cross compiler specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ CMakeLists.txt | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index aeb25580..6ef2ea8e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -550,19 +550,15 @@ list(APPEND HIP_OFFLOAD_LINK_OPTIONS_BUILD_
+   "-L${CMAKE_BINARY_DIR}" "-lCHIP" "-no-hip-rt -locml_host_math_funcs")
+ 
+ if(OpenCL_LIBRARY)
+-  target_link_options(CHIP PUBLIC -Wl,-rpath,${OpenCL_DIR})
+   target_link_directories(CHIP PUBLIC ${OpenCL_DIR})
+ endif()
+ 
+ if(LevelZero_LIBRARY)
+   include_directories(CHIP PUBLIC ${LevelZeroInclude_DIR})
+-  target_link_options(CHIP PUBLIC -Wl,-rpath,${LevelZeroLib_DIR})
+   target_link_directories(CHIP PUBLIC ${LevelZeroLib_DIR})
+ endif()
+ 
+ if(CHIP_SET_RPATH)
+-  list(APPEND HIP_OFFLOAD_LINK_OPTIONS_INSTALL_ "-Wl,-rpath,${LIB_INSTALL_DIR}")
+-  list(APPEND HIP_OFFLOAD_LINK_OPTIONS_BUILD_ "-Wl,-rpath,${CMAKE_BINARY_DIR}")
+   set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+ endif()
+ 
+-- 
+2.47.0
+
