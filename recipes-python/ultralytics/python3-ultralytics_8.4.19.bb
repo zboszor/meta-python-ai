@@ -9,6 +9,10 @@ inherit pypi python_setuptools_build_meta
 SRC_URI[sha256sum] = "e4bb5abf58e54fcb2c36fe37a6b12ab96b73de766692f24e53b69f1fa8987eb3"
 SRC_URI += "file://23874.patch"
 
+do_install:append () {
+	rm -rf ${D}${PYTHON_SITEPACKAGES_DIR}/tests
+}
+
 RDEPENDS:${PN} = " \
 	bash \
 	python3-numpy \
