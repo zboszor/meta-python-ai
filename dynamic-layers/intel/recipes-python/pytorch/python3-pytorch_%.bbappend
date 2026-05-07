@@ -1,8 +1,8 @@
-DEPENDS:append:class-target:x86-64 = " intel-oneapi-mkl intel-oneapi-dpcpp-cpp onednn"
-RDEPENDS:${PN}:append:class-target:x86-64 = " intel-oneapi-mkl intel-oneapi-dpcpp-cpp-runtime onednn"
+DEPENDS:append:class-target:x86-64 = " intel-oneapi-toolkit onednn"
+RDEPENDS:${PN}:append:class-target:x86-64 = " intel-oneapi-toolkit onednn"
 
 EXTRA_OECMAKE_ARCH_FLAGS:class-target:x86-64 = "\
--DMKL_ROOT=${RECIPE_SYSROOT} \
+-DMKL_ROOT=${RECIPE_SYSROOT}/opt/intel/oneapi/2026.0 \
 -DBLAS=MKL \
 -DBLAS_MKLDNN=ON \
 -DUSE_MKLDNN=ON \
