@@ -8,7 +8,7 @@ inherit cmake
 
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=b8d9cca03152fd18210dd81400881e2d"
 
-SRC_URI = "git://gitlab.dkrz.de/k202009/libaec.git;protocol=https;branch=master"
+SRC_URI = "git://gitlab.dkrz.de/dkrz-sw/libaec.git;protocol=https;branch=main"
 
 SRCREV = "58677dbbf080bac17bbb8717d32e63feb4e20115"
 
