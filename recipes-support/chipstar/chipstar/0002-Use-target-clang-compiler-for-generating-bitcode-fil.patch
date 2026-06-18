@@ -1,0 +1,49 @@
+From bf8832d0b004b2c6a6ddaa074dd72a6c023ebeca Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Tue, 26 Nov 2024 16:00:00 +0100
+Subject: [PATCH 2/3] Use target clang compiler for generating bitcode files
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Also fix other COMMAND statements in the same macro
+
+Upstream-Status: Inappropriate [cross compiler specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ cmake/OCL.cmake | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/cmake/OCL.cmake b/cmake/OCL.cmake
+index 2eaf44e..c6005d2 100644
+--- a/cmake/OCL.cmake
++++ b/cmake/OCL.cmake
+@@ -99,7 +99,7 @@ macro(opencl_bc_lib)
+     if (fext STREQUAL ".cl")
+       set(output "${CMAKE_CURRENT_BINARY_DIR}/${fname_we}${BC_EXT}")
+       add_custom_command(OUTPUT "${output}"
+-        COMMAND ${CLANG_ROOT_PATH_BIN}/clang ${inc_options} ${CLANG_OCL_FLAGS}
++        COMMAND ${CMAKE_C_COMPILER_PATH} ${inc_options} ${CLANG_OCL_FLAGS}
+           -emit-llvm -Xclang -mlink-builtin-bitcode -Xclang "${irif_lib_output}"
+           -c "${file}" -o "${output}"
+         DEPENDS "${file}" "${irif_lib_output}" "${CLANG}"
+@@ -130,12 +130,12 @@ macro(opencl_bc_lib)
+ 
+   add_custom_command(OUTPUT ${OUTPUT_BC_LIB}
+     # Link regular library dependencies
+-    COMMAND ${CLANG_ROOT_PATH_BIN}/llvm-link
++    COMMAND llvm-link
+       -o "${OUT_NAME}.link0${LIB_SUFFIX}" "@${OUT_NAME}_response"
+     # Extra link step with internalize
+-    COMMAND ${CLANG_ROOT_PATH_BIN}/llvm-link -internalize -only-needed "${name}.link0${LIB_SUFFIX}"
++    COMMAND llvm-link -internalize -only-needed "${name}.link0${LIB_SUFFIX}"
+       -o "${OUT_NAME}${LIB_SUFFIX}" ${internal_link_libs}
+-    COMMAND ${CLANG_ROOT_PATH_BIN}/opt -passes=strip
++    COMMAND opt -passes=strip
+       -o "${OUT_NAME}${STRIP_SUFFIX}" "${OUT_NAME}${LIB_SUFFIX}"
+     COMMAND "${PREPARE_BUILTINS}"
+       -o ${OUTPUT_BC_LIB} "${OUT_NAME}${STRIP_SUFFIX}"
+-- 
+2.47.0
+

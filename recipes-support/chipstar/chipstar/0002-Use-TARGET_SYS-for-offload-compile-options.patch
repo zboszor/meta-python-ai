@@ -1,0 +1,31 @@
+From 21456b0816af8e80ee03f4ea5e73111195431948 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 27 Nov 2024 11:19:54 +0100
+Subject: [PATCH 2/7] Use TARGET_SYS for offload compile options
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [cross compiler specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c9cd19b2..59a7822b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -520,7 +520,7 @@ endif()
+ # For use by hipcc
+ execute_process(COMMAND ${LLVM_CONFIG_BIN} --host-target
+   OUTPUT_STRIP_TRAILING_WHITESPACE OUTPUT_VARIABLE HOST_ARCH)
+-set(HOST_ARCH "--target=${HOST_ARCH}")
++set(HOST_ARCH "--target=${TARGET_SYS}")
+ 
+ set(HIP_OFFLOAD_COMPILE_OPTIONS_INSTALL_
+   ${HIP_ENABLE_SPIRV}
+-- 
+2.47.0
+
