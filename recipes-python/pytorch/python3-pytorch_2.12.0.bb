@@ -29,7 +29,7 @@ inherit cmake python_setuptools_build_meta python3native
 # ERROR: python3-pytorch do_fetch: Fetcher failure: Submodule refers to the parent repository. This will cause deadlock situation in current version of Bitbake.Consider using git fetcher instead.
 
 SRC_URI = " \
-	git://github.com/pytorch/pytorch.git;protocol=https;name=pytorch;branch=release/2.10 \
+	git://github.com/pytorch/pytorch.git;protocol=https;name=pytorch;branch=release/2.12 \
 	gitsm://github.com/facebookincubator/fbjni.git;protocol=https;name=fbjni;nobranch=1;destsuffix=${S}/android/libs/fbjni \
 	gitsm://github.com/Maratyszcza/FP16.git;protocol=https;name=fp16;nobranch=1;destsuffix=${S}/third_party/FP16 \
 	gitsm://github.com/Maratyszcza/FXdiv.git;protocol=https;name=fxdiv;nobranch=1;destsuffix=${S}/third_party/FXdiv \
@@ -71,9 +71,9 @@ SRC_URI = " \
 	gitsm://github.com/ARM-software/kleidiai.git;protocol=https;name=kleidiai;nobranch=1;destsuffix=${S}/third_party/kleidiai \
 	gitsm://github.com/microsoft/mimalloc.git;protocol=https;name=mimalloc;nobranch=1;destsuffix=${S}/third_party/mimalloc \
 	gitsm://github.com/NVIDIA/nccl.git;protocol=https;name=nccl;nobranch=1;destsuffix=${S}/third_party/nccl/nccl \
+	gitsm://github.com/meta-pytorch/MSLK.git;protocol=https;name=mslk;nobranch=1;destsuffix=${S}/third_party/mslk \
 	gitsm://github.com/nlohmann/json.git;protocol=https;name=nlohmann;nobranch=1;destsuffix=${S}/third_party/nlohmann \
 	gitsm://github.com/onnx/onnx.git;protocol=https;name=onnx;nobranch=1;destsuffix=${S}/third_party/onnx \
-	gitsm://github.com/open-telemetry/opentelemetry-cpp.git;protocol=https;name=otmcpp;nobranch=1;destsuffix=${S}/third_party/opentelemetry-cpp \
 	gitsm://github.com/mreineck/pocketfft.git;protocol=https;name=pocketfft;nobranch=1;destsuffix=${S}/third_party/pocketfft \
 	gitsm://github.com/protocolbuffers/protobuf.git;protocol=https;name=protobuf;nobranch=1;destsuffix=${S}/third_party/protobuf \
 	gitsm://github.com/google/benchmark.git;protocol=https;name=protobuf_benchmark;nobranch=1;destsuffix=${S}/third_party/protobuf/third_party/benchmark \
@@ -85,19 +85,19 @@ SRC_URI = " \
 	gitsm://github.com/shibatch/sleef.git;protocol=https;name=sleef;nobranch=1;destsuffix=${S}/third_party/sleef \
 	gitsm://github.com/pytorch/tensorpipe.git;protocol=https;name=tensorpipe;nobranch=1;destsuffix=${S}/third_party/tensorpipe \
 	file://0001-Use-oneDNN-using-its-new-CMake-name.patch \
-	file://0001-opentelemetry-cpp-tools-vcpkg-Use-oneDNN-using-its-n.patch;patchdir=third_party/opentelemetry-cpp/tools/vcpkg \
 	file://0005-Use-IsGoogleLoggingInitialized-from-the-Google-publi.patch \
 	file://0001-Pass-through-EXTRA_OECMAKE.patch \
 	file://pytorch-fix-vulkan-get_shader-return-type.patch \
 	file://fix-non-void-funcs-with-switch.patch \
 	file://0001-Delete-some-values-from-macros.h.in.patch \
 	file://0001-Fix-Wincompatible-pointer-types-issues.patch;patchdir=third_party/XNNPACK \
+	file://0001-Relax-setuptools-version.patch \
 "
 
 #PR = "r1"
 
 SRCREV_FORMAT = "pytorch"
-SRCREV_pytorch = "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+SRCREV_pytorch = "0d62256a2b23365f8e1604297eb23a6545102aa8"
 
 # These are the git submodule commit IDs
 SRCREV_fbjni = "7e1e1fe3858c63c251c637ae41a20de425dde96f"
@@ -107,24 +107,24 @@ SRCREV_nnpack = "c07e3a0400713d546e0dea2d5466dd22ea389c73"
 SRCREV_nvtx = "3ebbc93ded7285963bff932c678fa367eb393ba6"
 SRCREV_vulkanmemalloc = "1d8f600fd424278486eade7ed3e877c99f0846b1"
 SRCREV_xnnpack = "51a0103656eff6fc9bfd39a4597923c4b542c883"
-SRCREV_aiter = "01aae101b9e5e94d6c16a9514c9fb8df99c93150"
+SRCREV_aiter = "9a469a608b2c10b7157df573a38d31e5bf4038b4"
 SRCREV_benchmark = "299e5928955cc62af9968370293b916f5130916f"
-SRCREV_composable_kernel = "7fe50dc3da2069d6645d9deb8c017a876472a977"
-SRCREV_cpphttplib = "89c932f313c6437c38f2982869beacc89c2f2246"
+SRCREV_composable_kernel = "f1746955fdaf80a3414de814bf32437686dac347"
+SRCREV_cpphttplib = "4d7c9a788de136071ccf0dd4e96239151e2adadb"
 SRCREV_cpuinfo = "f858c30bcb16f8effd5ff46996f0514539e17abc"
-SRCREV_cudnnfe = "0258951d4d512f4714eb1574496f4d57669b1b93"
-SRCREV_cutlass = "f88806b1e31dfa579842638740216dd41fc6c588"
-SRCREV_fbgemm = "a4a112c26ac01c78a86317cf54c69481478d95d2"
-SRCREV_flash_attention = "979702c87a8713a8e0a5e9fee122b90d2ef13be5"
+SRCREV_cudnnfe = "a91f0e04dcea10515f0f776fc5a89535e316a9c8"
+SRCREV_cutlass = "da5e086dab31d63815acafdac9a9c5893b1c69e2"
+SRCREV_fbgemm = "c246916f9e3804eacc3c95058e51cce02ae00fff"
+SRCREV_flash_attention = "fec3a6a18460c1b40f097208d4c16fe8964a679d"
 SRCREV_flatbuffers = "a2cd1ea3b6d3fee220106b5fed3f7ce8da9eb757"
 SRCREV_fmt = "407c905e45ad75fc29bf0f9bb7c5c2fd3475976f"
 SRCREV_gemmlowp = "3fb5c176c17c765a3492cd2f0321b0dab712f350"
-SRCREV_gloo = "54cbae0d3a67fa890b4c3d9ee162b7860315e341"
+SRCREV_gloo = "3135b0b41b67dde590eef0938a0bf3d6238df5f7"
 SRCREV_gtest = "52eb8108c5bdec04579160ae17225d66034bd723"
-SRCREV_ideep = "719d8e6cd7f7a0e01b155657526d693acf97c2b3"
-SRCREV_ideep_onednn = "8d263e693366ef8db40acc569cc7d8edf644556d"
-SRCREV_ittapi = "dec1d23ca65ab069d225dfe40dea14f455170959"
-SRCREV_kineto = "31f85df8fbd89c188f14ef10f1ec65379786b943"
+SRCREV_ideep = "e539e0f9774e2018f0d56fe865da66581f692e3d"
+SRCREV_ideep_onednn = "03c022d3ffdcee958cfacbe720048e725fdf644c"
+SRCREV_ittapi = "0c57540822deb5dae43bef6c1cc9b3be4772a033"
+SRCREV_kineto = "b2103f78d13fde4937af010c0ef8e24313568bc5"
 SRCREV_kineto_dynolog = "d2ffe0a4e3acace628db49974246b66fc3e85fb1"
 SRCREV_kineto_dynolog_dcgm = "ffde4e54bc7249a6039a5e6b45b395141e1217f9"
 SRCREV_kineto_dynolog_cpr = "871ed52d350214a034f6ef8a3b8f51c5ce1bd400"
@@ -139,11 +139,11 @@ SRCREV_kineto_dynolog_pcpp = "b1234816facfdda29845c46696a02998a4af115a"
 SRCREV_kineto_fmt = "40626af88bd7df9a5fb80be7b25ac85b122d6c21"
 SRCREV_kineto_gtest = "52eb8108c5bdec04579160ae17225d66034bd723"
 SRCREV_kleidiai = "d7770c89632329a9914ef1a90289917597639cbe"
-SRCREV_mimalloc = "fbd8b99c2b828428947d70fdc046bb55609be93e"
-SRCREV_nccl = "3ea7eedf3b9b94f1d9f99f4e55536dfcbd23c1ca"
+SRCREV_mimalloc = "048d969a1c5ee2fb89c226298f41ea38445546ef"
+SRCREV_nccl = "b91894bd5b190c874d98a017f93f5daa515b65d0"
+SRCREV_mslk = "3d332d1c0c0ac7765852c97b3979c9ef913e037f"
 SRCREV_nlohmann = "55f93686c01528224f448c19128836e7df245f72"
 SRCREV_onnx = "e709452ef2bbc1d113faf678c24e6d3467696e83"
-SRCREV_otmcpp = "a799f4aed9c94b765dcdaabaeab7d5e7e2310878"
 SRCREV_pocketfft = "0fa0ef591e38c2758e3184c6c23e497b9f732ffa"
 SRCREV_protobuf = "d1eca4e4b421cd2997495c4b4e65cea6be4e9b8a"
 SRCREV_protobuf_benchmark = "5b7683f49e1e9223cf9927b24f6fd3d6bd82e3f8"

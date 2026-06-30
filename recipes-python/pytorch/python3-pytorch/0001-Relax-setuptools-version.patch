@@ -1,0 +1,57 @@
+From 14f506561b6b53d4f881c46223b6fcf446b5d90b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Tue, 30 Jun 2026 12:01:09 +0200
+Subject: [PATCH] Relax setuptools version
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ pyproject.toml         | 2 +-
+ requirements-build.txt | 2 +-
+ setup.py               | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index 73867a300270..cba7340d8cf0 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -4,7 +4,7 @@
+ requires = [
+     # 70.1.0: min version for integrated bdist_wheel command from wheel package
+     # 77.0.0: min version for SPDX expression support for project.license
+-    "setuptools>=70.1.0,<82",
++    "setuptools>=70.1.0",
+     "cmake>=3.27",
+     "ninja",
+     "numpy",
+diff --git a/requirements-build.txt b/requirements-build.txt
+index 863bc9f921d8..96c8bdad430e 100644
+--- a/requirements-build.txt
++++ b/requirements-build.txt
+@@ -1,5 +1,5 @@
+ # Build System requirements
+-setuptools>=70.1.0,<82
++setuptools>=70.1.0
+ cmake>=3.27
+ ninja
+ numpy
+diff --git a/setup.py b/setup.py
+index 41f5ac099dbf..c4d7b05b9394 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1679,7 +1679,7 @@ def main() -> None:
+     install_requires = [
+         "filelock",
+         "typing-extensions>=4.10.0",
+-        "setuptools<82",
++        "setuptools",
+         "sympy>=1.13.3",
+         "networkx>=2.5.1",
+         "jinja2",
+-- 
+2.54.0
+

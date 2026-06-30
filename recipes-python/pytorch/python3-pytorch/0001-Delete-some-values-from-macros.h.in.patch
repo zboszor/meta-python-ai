@@ -26,9 +26,9 @@ index 2497effd863..95d8d5b8dac 100644
    {"TORCH_VERSION", "${TORCH_VERSION}"}, \
 -  {"CXX_COMPILER", "${CMAKE_CXX_COMPILER}"}, \
 -  {"CXX_FLAGS", "${CMAKE_CXX_FLAGS}"}, \
+   {"CUDA_FLAGS", "${CMAKE_CUDA_FLAGS}"}, \
    {"BUILD_TYPE", "${CMAKE_BUILD_TYPE}"}, \
    {"BLAS_INFO", "${BLAS_INFO}"}, \
-   {"LAPACK_INFO", "${LAPACK_INFO}"}, \
 -- 
 2.47.0
 
