@@ -77,6 +77,10 @@ do_install:append () {
 		${D}${libdir}/pkgconfig/arrow.pc
 }
 
+do_install:append:class-native () {
+	rm -rf ${D}${datadir}/gdb
+}
+
 FILES:${PN}-dbg += "${datadir}/gdb ${datadir}/arrow/gdb"
 
 BBCLASSEXTEND = "native nativesdk"
