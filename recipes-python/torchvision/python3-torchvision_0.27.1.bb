@@ -10,15 +10,12 @@ DEPENDS = " \
 inherit cmake pkgconfig python3native setuptools3_legacy
 
 SRC_URI = " \
-	git://github.com/pytorch/vision.git;protocol=https;branch=release/0.25 \
+	git://github.com/pytorch/vision.git;protocol=https;branch=release/0.27 \
 	file://0001-Use-pkg-config-to-detect-libpng.patch \
-	file://0002-Pass-presence-and-version-of-ffmpeg-via-envvar.patch \
-	file://0001-Fix-with-ffmpeg-8.patch \
-	file://0001-Fix-setup.py-breaks-with-setuptools-82-9386.patch \
 "
 
 #PR = "r0"
-SRCREV = "8ac84ee75afb1c327902156b5336f56ad63b7e2f"
+SRCREV = "df56172e4d5a8d0cd51384273bc6c5747f5ab931"
 
 B = "${S}/build"
 
@@ -26,9 +23,6 @@ export CMAKE_TOOLCHAIN_FILE = "${WORKDIR}/toolchain.cmake"
 export TORCHVISION_INCLUDE = "${STAGING_INCDIR}"
 export TORCHVISION_USE_PNG = "1"
 export TORCHVISION_USE_JPEG = "1"
-export TORCHVISION_USE_FFMPEG = "1"
-export FFMPEG_ROOT = "${STAGING_LIBDIR}/.."
-export FFMPEG_VERSION = "6.0"
 
 CXXFLAGS += " \
 	-I${STAGING_INCDIR}/torch/csrc/api/include \
@@ -54,8 +48,10 @@ do_install () {
 }
 
 RDEPENDS:${PN} += " \
-	python3-numpy python3-pillow python3-pytorch \
-	ffmpeg \
+	python3-numpy \
+	python3-pillow \
+	python3-pytorch \
+	python3-av \
 "
 
 SKIP_FILEDEPS:${PN} = '1'
