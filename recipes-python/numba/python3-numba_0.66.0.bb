@@ -11,7 +11,7 @@ PYPI_PACKAGE = "numba"
 
 inherit pypi cmake setuptools3
 
-SRC_URI[sha256sum] = "95e7300af648baa3308127b1955b52ce6d11889d16e8cfe637b4f85d2fca52b1"
+SRC_URI[sha256sum] = "b900e63a0e26c05ea9a6d5a3a5a0a177cb64c5011887bf43edb8c3ed2c38d363"
 
 export NUMBA_DISABLE_TBB = "1"
 
