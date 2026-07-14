@@ -1,6 +1,3 @@
-PV = "3.11.3"
-SRCREV = "74d04752d9eaefff6a9ff62466c4d20b155e5bca"
-
 EXTRA_OECMAKE:append = " \
 	-DDNNL_EXPERIMENTAL_UKERNEL=ON \
 "
