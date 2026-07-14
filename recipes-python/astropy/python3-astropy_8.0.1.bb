@@ -1,6 +1,6 @@
 SUMMARY = "Astronomy and astrophysics core library"
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://LICENSE.rst;md5=561b0c9556fcb758e33a5a0ac941556f"
+LIC_FILES_CHKSUM = "file://LICENSE.rst;md5=4707aec2d305f2ae2828702aaa517964"
 
 DEPENDS = " \
 	python3-extension-helpers-native \
@@ -11,7 +11,7 @@ DEPENDS = " \
 PYPI_PACKAGE = "astropy"
 
 inherit pypi python_setuptools_build_meta cython
-SRC_URI[sha256sum] = "ae48bc26b1feaeb603cd94bd1fa1aa39137a115fe931b7f13787ab420e8c3070"
+SRC_URI[sha256sum] = "45ca31d5b91fa294cd590a4791a32db94de7f9c8a343155f4d5877baa82351da"
 
 RDEPENDS:${PN} = " \
 	python3-numpy \
