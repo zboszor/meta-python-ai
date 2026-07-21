@@ -1,5 +1,5 @@
 SUMMARY = "An AST unparser for Python"
-LICENSE = "BSD-3-Clause & Python-2.0"
+LICENSE = "BSD-3-Clause AND Python-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=7a7c771110c28a37480b73d07ad6d2a1"
 
 PYPI_PACKAGE = "astunparse"
