@@ -1,5 +1,5 @@
 SUMMARY = "Read GCS, ABS and local paths with the same interface, clone of tensorflow.io.gfile"
-LICENSE = "PD"
+LICENSE = "LicenseRef-PD"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=906b3f5f542bca77cd5dd18ede693457"
 
 PYPI_PACKAGE = "blobfile"

@@ -1,5 +1,5 @@
 SUMMARY = "compiling Python code using LLVM"
-LICENSE = "BSD-2-Clause & BSD-3-Clause & MIT"
+LICENSE = "BSD-2-Clause AND BSD-3-Clause AND MIT"
 LIC_FILES_CHKSUM = " \
 	file://LICENSE;md5=d9bed34136e8491d5d792c7efc17f10c \
 	file://LICENSES.third-party;md5=b5c6e034c796a55e98027b6bd95e1a56 \

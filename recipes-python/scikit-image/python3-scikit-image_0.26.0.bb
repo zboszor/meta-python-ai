@@ -1,5 +1,5 @@
 SUMMARY = "Image processing in Python"
-LICENSE = "BSD-2-Clause & BSD-3-Clause & MIT"
+LICENSE = "BSD-2-Clause AND BSD-3-Clause AND MIT"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=5b1729326cc368efafba32389bb032e5"
 
 DEPENDS = "python3-numpy-native python3-pythran-native python3-lazy-loader-native"

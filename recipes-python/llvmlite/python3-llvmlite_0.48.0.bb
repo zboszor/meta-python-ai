@@ -1,5 +1,5 @@
 SUMMARY = "lightweight wrapper around basic LLVM functionality"
-LICENSE = "BSD-2-Clause & Apache-2.0-with-LLVM-exception"
+LICENSE = "BSD-2-Clause AND Apache-2.0 WITH LLVM-exception"
 LIC_FILES_CHKSUM = " \
 	file://LICENSE;md5=57c7cdf8c8d2dcbc7528fe68e52b3a17 \
 	file://LICENSE.thirdparty;md5=6942af3a9e3217451aceefd9432a6398"

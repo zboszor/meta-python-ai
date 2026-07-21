@@ -1,5 +1,5 @@
 SUMMARY = "cython_bbox is widely used in object detection tasks"
-LICENSE = "MIT & UCB & BSD-3-Clause "
+LICENSE = "BSD-3-Clause AND MIT AND LicenseRef-UCB"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=a3510fe5e9cf1dc156b7ba1812974594"
 
 DEPENDS = "python3-cython-native python3-numpy-native"

@@ -1,6 +1,6 @@
 SUMMARY = "SciPy: Scientific Library for Python"
 HOMEPAGE = "https://www.scipy.org"
-LICENSE = "BSD-3-Clause & BSD-2-Clause & MIT & BSL-1.0 & Qhull & BSD-3-Clause-LBNL & Apache-2.0-with-LLVM-exception"
+LICENSE = "BSD-2-Clause AND BSD-3-Clause AND BSD-3-Clause-LBNL AND BSL-1.0 AND MIT AND Qhull AND Apache-2.0 WITH LLVM-exception"
 LIC_FILES_CHKSUM = " \
 	file://LICENSE.txt;md5=6506a2e1578b1a1161d9bda0b896c647 \
 	file://LICENSES_bundled.txt;md5=7bb7625ea6d801cd9de63572db6f0aa2 \
