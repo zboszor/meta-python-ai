@@ -6,3 +6,10 @@ PYPI_PACKAGE = "blobfile"
 
 inherit pypi python_setuptools_build_meta
 SRC_URI[sha256sum] = "78514a9265b9aa7d4607042dc77c5e6461ab27036450ad8e1f6ef9a7f29bf958"
+
+RDEPENDS:${PN} = " \
+	python3-pycryptodomex \
+	python3-urllib3 \
+    python3-lxml \
+    python3-filelock \
+"
