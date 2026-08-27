@@ -1,0 +1,34 @@
+From 8e2f9062d1b5e4c78d6cd9574659d5f6d71ff289 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
+ <zboszor@gmail.com>
+Date: Wed, 27 Nov 2024 14:26:32 +0100
+Subject: [PATCH 6/7] Hide source and build directory
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream-Status: Inappropriate [cross compiler specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+---
+ chipStarConfig.hh.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/chipStarConfig.hh.in b/chipStarConfig.hh.in
+index a836cd8e..326d1b9b 100644
+--- a/chipStarConfig.hh.in
++++ b/chipStarConfig.hh.in
+@@ -32,9 +32,9 @@
+ // not implemented yet
+ #undef OCML_BASIC_ROUNDED_OPERATIONS
+ 
+-#cmakedefine CHIP_SOURCE_DIR "@CHIP_SOURCE_DIR@"
++#cmakedefine CHIP_SOURCE_DIR "@EXT_SOURCE_DIR@"
+ 
+-#cmakedefine CHIP_BUILD_DIR "@CHIP_BUILD_DIR@"
++#cmakedefine CHIP_BUILD_DIR "@EXT_BUILD_DIR@"
+ 
+ #cmakedefine CHIP_INSTALL_DIR "@CHIP_INSTALL_DIR@"
+ 
+-- 
+2.47.0
+
