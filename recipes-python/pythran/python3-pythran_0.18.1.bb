@@ -13,6 +13,7 @@ SRC_URI += "file://updates-deps.patch"
 RDEPENDS:${PN} = " \
 	python3-beniget \
 	python3-gast \
+	python3-numpy \
 	python3-ply \
 "
 

@@ -15,3 +15,7 @@ export CONTOURPY_CXX11 = "1"
 
 PACKAGECONFIG ??= ""
 PACKAGECONFIG[bokeh] = ",,,python3-bokeh python3-selenium"
+
+RDEPENDS:${PN} = "\
+    python3-numpy \
+"
