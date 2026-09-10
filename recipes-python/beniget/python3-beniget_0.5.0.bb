@@ -8,3 +8,7 @@ inherit pypi setuptools3
 SRC_URI[sha256sum] = "e7af11fa8ec7de3d3eb3d98b1e722d15d44017d8b35d8aa11d54f6719b312f22"
 
 BBCLASSEXTEND = "native"
+
+RDEPENDS:${PN} = "\
+    python3-gast \
+"
