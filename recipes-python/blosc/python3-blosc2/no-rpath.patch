@@ -1,0 +1,22 @@
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+
+diff -durpN blosc2-4.14.0.orig/CMakeLists.txt blosc2-4.14.0/CMakeLists.txt
+--- blosc2-4.14.0.orig/CMakeLists.txt	2022-11-09 13:37:21.000000000 +0100
++++ blosc2-4.14.0/CMakeLists.txt	2025-05-05 09:36:38.823950090 +0200
+@@ -266,15 +266,6 @@
+     ")
+ endif()
+ 
+-# TODO
+-# CHECK THIS
+-if(UNIX)
+-  set_target_properties(blosc2_ext PROPERTIES
+-    BUILD_WITH_INSTALL_RPATH TRUE
+-    INSTALL_RPATH "$<IF:$<PLATFORM_ID:Darwin>,@loader_path/lib,\$ORIGIN/lib>"
+-  )
+-endif()
+-
+ if(WIN32)
+   if(TARGET blosc2_shared)
+     add_custom_command(TARGET blosc2_ext POST_BUILD
