@@ -1,0 +1,24 @@
+Upstream-Status: Inappropriate [Yocto specific]
+Signed-off-by: Zoltán Böszörményi <zboszor@gmail.com>
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0bc65c9..ad15078 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -67,9 +67,14 @@ function(miniexpr_setup_target target_name)
+   endif()
+   if(MINIEXPR_ENABLE_TCC_JIT)
+     target_compile_definitions(${target_name} PRIVATE ME_USE_LIBTCC_FALLBACK=1)
+-    if(DEFINED MINIEXPR_TINYCC_STAGED_SHARED_PATH)
++    if(NOT MINIEXPR_TINYCC_SHARED_PATH)
++      if (DEFINED MINIEXPR_TINYCC_STAGED_SHARED_PATH)
++        set(MINIEXPR_TINYCC_SHARED_PATH ${MINIEXPR_TINYCC_STAGED_SHARED_PATH})
++      endif()
++    endif()
++    if(DEFINED MINIEXPR_TINYCC_SHARED_PATH)
+       target_compile_definitions(${target_name}
+-        PRIVATE ME_DSL_JIT_LIBTCC_DEFAULT_PATH="${MINIEXPR_TINYCC_STAGED_SHARED_PATH}")
++        PRIVATE ME_DSL_JIT_LIBTCC_DEFAULT_PATH="${MINIEXPR_TINYCC_SHARED_PATH}")
+     endif()
+   else()
+     target_compile_definitions(${target_name} PRIVATE ME_USE_LIBTCC_FALLBACK=0)
