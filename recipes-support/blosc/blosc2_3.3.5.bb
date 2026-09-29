@@ -2,7 +2,7 @@ DESCRIPTION = "A fast, compressed, persistent binary data store library for C"
 HOMEPAGE = "https://github.com/Blosc/c-blosc2"
 LICENSE = "BSD-3-Clause"
 
-DEPENDS = "lz4 zlib zstd"
+DEPENDS = "lz4 zlib zstd zfp"
 
 inherit cmake
 
@@ -12,7 +12,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=06e852077699178e4248d905b3846a4b"
 
 SRC_URI = "git://github.com/Blosc/c-blosc2.git;protocol=https;branch=main"
 
-SRCREV = "133bd503d7f968e45bc4af39f24b71ee22b7dd1b"
+SRCREV = "ef9267838d70fe7ab9b8863f12cfe36d7ca6228f"
 
 #OECMAKE_GENERATOR = "Unix Makefiles"
 
@@ -20,8 +20,7 @@ EXTRA_OECMAKE = " \
 	-DBUILD_STATIC:BOOL=OFF \
 	-DPREFER_EXTERNAL_LZ4:BOOL=ON \
 	-DTEST_INCLUDE_BENCH_SUITE:BOOL=OFF \
-	-DPREFER_EXTERNAL_ZLIB:BOOL=ON \
-	-DPREFER_EXTERNAL_ZSTD:BOOL=ON \
+	-DBLOSC_DEPENDENCY_MODE=EXTERNAL \
 "
 
 do_install:append:class-target () {
