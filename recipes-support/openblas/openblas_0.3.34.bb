@@ -16,9 +16,9 @@ DEPENDS = "make libgfortran patchelf-native"
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=5adf4792c949a00013ce25d476a2abc0"
 
-SRC_URI = "git://github.com/xianyi/OpenBLAS.git;protocol=https;branch=develop"
+SRC_URI = "git://github.com/OpenMathLib/OpenBLAS.git;protocol=https;branch=develop"
 
-SRCREV = "76f1be470c9b9f80dc6e27407e13b975df436489"
+SRCREV = "e0166008be8e466242aa76b2ff75ce3f0fbf574a"
 
 # Used for TARGET=... , documented in TargetList.txt
 BLAS_X86_ARCH ?= "ATOM"
