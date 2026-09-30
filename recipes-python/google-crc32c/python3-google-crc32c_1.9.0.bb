@@ -7,4 +7,4 @@ DEPENDS = "google-crc32c"
 PYPI_PACKAGE = "google_crc32c"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "a428e25fb7691024de47fecfbff7ff957214da51eddded0da0ae0e0f03a2cf79"
+SRC_URI[sha256sum] = "7b8c84c3d159ab6817fe3f74e6e6cef099c3f95dcec3abc0d8afb1404642efbe"
