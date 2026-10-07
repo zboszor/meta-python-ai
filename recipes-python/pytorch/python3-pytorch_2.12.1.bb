@@ -311,6 +311,4 @@ INSANE_SKIP:${PN} = "dev-so already-stripped"
 INSANE_SKIP:${PN}-dbg = "buildpaths"
 SKIP_FILEDEPS:${PN} = '1'
 
-PARALLEL_MAKE = "-j ${@(int)(oe.utils.cpu_count()/3) + 1}"
-
 BBCLASSEXTEND = "native"
