@@ -1,4 +1,4 @@
-From 697d77ad82e373ffdceaff600dc14a35f3d4a53e Mon Sep 17 00:00:00 2001
+From 1bbcdab37d2835b6eaded6f51d1cd75857f0f62c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Zolt=C3=A1n=20B=C3=B6sz=C3=B6rm=C3=A9nyi?=
  <zboszor@gmail.com>
 Date: Mon, 2 Feb 2026 12:28:24 +0100
@@ -14,18 +14,15 @@ Upstream-Status: Inappropriate [oe specific]
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/py-polars/runtime/polars-runtime-64/Cargo.toml b/py-polars/runtime/polars-runtime-64/Cargo.toml
-index edc5c13..186007e 100644
+index 2ded224..66f00ed 100644
 --- a/py-polars/runtime/polars-runtime-64/Cargo.toml
 +++ b/py-polars/runtime/polars-runtime-64/Cargo.toml
-@@ -105,7 +105,7 @@ full = [
+@@ -112,7 +112,7 @@ full = [
+   "fast_alloc",
  ]
  
- default_alloc = ["polars-python/default_alloc"]
 -default = ["full", "nightly"]
 +default = ["full"]
  
  [lints]
  workspace = true
--- 
-2.52.0
-

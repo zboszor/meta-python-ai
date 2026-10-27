@@ -1,12 +1,12 @@
 SUMMARY = "Blazingly fast DataFrame library (64-bit runtime)"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=fc1b8a73cb6b324d8260f0771a4a0e71"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=e6669f501d05823808d9d97d0498d9be"
 
 PYPI_PACKAGE = "polars_runtime_64"
 
-inherit pypi python_maturin cargo-update-recipe-crates python3native
+inherit pypi python_maturin cargo-update-recipe-crates python3native pkgconfig
 
-SRC_URI[sha256sum] = "ac53eefbad39614806ee9c7ff93564983e1821fb8331dc4b2a7c53bdc0804056"
+SRC_URI[sha256sum] = "9d0aa1ba0ed4521203c1c2aa44c279809427305577583d57715f06c708011122"
 SRC_URI += "file://0001-polars-runtime-64-Don-t-use-nightly-build.patch"
 
 require ${BPN}-crates.inc
