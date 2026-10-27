@@ -2,7 +2,7 @@ SUMMARY = "A python wrapper of the C library 'Google CRC32C'"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
-DEPENDS = "google-crc32c"
+DEPENDS = "google-crc32c python3-wheel-native"
 
 PYPI_PACKAGE = "google_crc32c"
 

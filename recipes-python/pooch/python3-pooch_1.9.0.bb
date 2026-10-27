@@ -2,7 +2,7 @@ SUMMARY = "A friend to fetch your data files"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=34edf66cdaea1acc8b8a430af829c7dc"
 
-DEPENDS = "python3-setuptools-scm-native"
+DEPENDS = "python3-setuptools-scm-native python3-wheel-native"
 
 PYPI_PACKAGE = "pooch"
 
