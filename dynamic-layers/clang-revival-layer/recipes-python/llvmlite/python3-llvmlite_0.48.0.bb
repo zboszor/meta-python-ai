@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = " \
 	file://LICENSE;md5=57c7cdf8c8d2dcbc7528fe68e52b3a17 \
 	file://LICENSE.thirdparty;md5=6942af3a9e3217451aceefd9432a6398"
 
-DEPENDS = "clang-native clang"
+DEPENDS = "clang22-native clang22"
 
 PYPI_PACKAGE = "llvmlite"
 
