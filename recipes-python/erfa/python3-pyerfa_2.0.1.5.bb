@@ -6,6 +6,7 @@ DEPENDS = " \
 	python3-packaging-native python3-numpy-native \
 	python3-jinja2-native python3-setuptools-scm-native \
 	erfa \
+	python3-wheel-native \
 "
 
 PYPI_PACKAGE = "pyerfa"

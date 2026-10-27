@@ -2,7 +2,7 @@ SUMMARY = "ASDF schemas for transforms"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=13d35dac857f9450d8f94c8562b220a8"
 
-DEPENDS = "python3-setuptools-scm-native"
+DEPENDS = "python3-setuptools-scm-native python3-wheel-native"
 
 PYPI_PACKAGE = "asdf_transform_schemas"
 

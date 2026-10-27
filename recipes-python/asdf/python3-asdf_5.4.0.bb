@@ -2,7 +2,7 @@ SUMMARY = "Python implementation of the ASDF Standard"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d0e78b52e34ee5a6e043c7b3142cba9b"
 
-DEPENDS = "python3-setuptools-scm-native"
+DEPENDS = "python3-setuptools-scm-native python3-wheel-native"
 
 PYPI_PACKAGE = "asdf"
 

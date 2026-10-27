@@ -2,7 +2,7 @@ SUMMARY = "Fast N-dimensional aggregation functions with Numba"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e1b255cc6b17d5f69eb0ee8d1f50ffb2"
 
-DEPENDS = "python3-setuptools-scm-native python3-numpy-native"
+DEPENDS = "python3-setuptools-scm-native python3-numpy-native python3-wheel-native"
 
 PYPI_PACKAGE = "numbagg"
 

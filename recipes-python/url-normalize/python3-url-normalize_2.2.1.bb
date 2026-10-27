@@ -2,7 +2,7 @@ SUMMARY = "URL normalization for Python"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=0355248f9f4025eb234b21ac43b9ad7a"
 
-DEPENDS = "python3-setuptools-scm-native"
+DEPENDS = "python3-setuptools-scm-native python3-wheel-native"
 
 PYPI_PACKAGE = "url_normalize"
 

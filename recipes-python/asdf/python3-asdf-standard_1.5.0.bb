@@ -2,7 +2,7 @@ SUMMARY = "The ASDF Standard schemas"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=3aac1c0e2f8dd442a922172c100bc5a4"
 
-DEPENDS = "python3-setuptools-scm-native"
+DEPENDS = "python3-setuptools-scm-native python3-wheel-native"
 
 PYPI_PACKAGE = "asdf_standard"
 
