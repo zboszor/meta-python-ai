@@ -7,7 +7,8 @@ DEPENDS = "python3-versioneer-native python3-setuptools-scm-native"
 PYPI_PACKAGE = "distributed"
 
 inherit pypi python_setuptools_build_meta cython
-SRC_URI[sha256sum] = "4a8fc6102fededfbaae45288501276da2297a054d74eb6589f01b087c7f95c26"
+
+SRC_URI[sha256sum] = "6f55008ecacf96ba945309fc12e680544764995e27bd63cc5e109afb97d7044d"
 
 # dask and distributed must be the same version
 RDEPENDS:${PN} = " \
@@ -23,6 +24,5 @@ RDEPENDS:${PN} = " \
 	python3-tblib \
 	python3-toolz \
 	python3-tornado \
-	python3-urllib3 \
 	python3-zict \
 "
