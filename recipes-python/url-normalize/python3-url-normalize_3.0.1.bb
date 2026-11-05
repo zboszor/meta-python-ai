@@ -7,7 +7,7 @@ DEPENDS = "python3-setuptools-scm-native python3-wheel-native"
 PYPI_PACKAGE = "url_normalize"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "74a540a3b6eba1d95bdc610c24f2c0141639f3ba903501e61a52a8730247ff37"
+SRC_URI[sha256sum] = "1655cd214159d9d47dc37aa6ce993c2149da44fa35cac6bafd90036a4eda3ac3"
 
 RDEPENDS:${PN} = " \
 	python3-idna \
