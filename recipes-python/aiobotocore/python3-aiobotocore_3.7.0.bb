@@ -1,11 +1,11 @@
 SUMMARY = "Async client for aws services using botocore and aiohttp"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=55150c668a8c5a6b580ae9a69ae2d8cd"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=76a50c3a435c21e0f6c546b5a39fbdc2"
 
 PYPI_PACKAGE = "aiobotocore"
 
 inherit pypi python_setuptools_build_meta
-SRC_URI[sha256sum] = "93e67b507d913bc168212f30a0e01e1835e07e665f00749fcac037e01999d72a"
+SRC_URI[sha256sum] = "c64d871ed5491a6571948dd48eabd185b46c6c23b64e3afd0c059fc7593ada30"
 
 RDEPENDS:${PN} = " \
 	python3-aiohttp \
