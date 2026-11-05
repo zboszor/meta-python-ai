@@ -8,4 +8,4 @@ require ${BPN}-crates.inc
 
 inherit pypi cargo-update-recipe-crates python3native rust python_maturin
 
-SRC_URI[sha256sum] = "f2839f9c2c7e2dffc1bc5929a510e14ce0a946be9365fd1219e7ef342dae14f4"
+SRC_URI[sha256sum] = "7b24c3492c5f4f84a37946ad9cf504910cf6a782d6a4e0689b6673c5894b4a1c"
