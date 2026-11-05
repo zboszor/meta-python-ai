@@ -6,6 +6,6 @@ DEPENDS = "python3-cython-native ffmpeg"
 
 inherit pypi python_setuptools_build_meta pkgconfig
 
-SRC_URI[sha256sum] = "47bfc286e1bc9de7ab4681fc2b575cd2460a66919d31ffe1bd5aa54fae531a28"
+SRC_URI[sha256sum] = "f04d31a42570cb8ec8216569b94491e91848cdac2ac8e7591c6141fda6cc86ee"
 
 RDEPENDS:${PN} = "ffmpeg"
