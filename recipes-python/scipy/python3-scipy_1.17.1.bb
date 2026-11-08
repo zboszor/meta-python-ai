@@ -37,7 +37,7 @@ PACKAGECONFIG ?= "openblas pythran"
 PACKAGECONFIG[openblas] = "-Dblas=openblas -Dlapack=openblas,,openblas,openblas"
 PACKAGECONFIG[lapack] = "-Dblas=lapack -Dlapack=lapack,,lapack,lapack"
 PACKAGECONFIG[f77] = "-Duse-g77-abi=true,,,"
-PACKAGECONFIG[pythran] = "-Duse-pythran=true,-Duse-pythran=false,python3-pythran-native python3-pythran,python3-pythran"
+PACKAGECONFIG[pythran] = "-Duse-pythran=true,-Duse-pythran=false,python3-pythran-native python3-pythran"
 
 CLEANBROKEN = "1"
 
