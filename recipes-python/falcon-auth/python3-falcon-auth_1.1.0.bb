@@ -4,6 +4,7 @@ LIC_FILES_CHKSUM = "file://PKG-INFO;beginline=8;endline=8;md5=8227180126797a0148
 DEPENDS = "python3-wheel-native python3-pip-native python3-pytest-runner-native python3-pyjwt python3-falcon"
 
 PYPI_PACKAGE = "falcon-auth"
+PYPI_PACKAGE_SDIST = "falcon-auth"
 
 inherit pypi setuptools3_legacy
 
